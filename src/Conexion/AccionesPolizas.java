@@ -3,10 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Datos;
+package Conexion;
 
 import Conexion.ConexionBase;
+import Datos.ListaPolizas;
+import Datos.Polizas;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.Statement;
@@ -57,6 +60,24 @@ public class AccionesPolizas {
     }
     
     public static int agregaMasivaPolizas(ListaPolizas lispol){
-        return 1;
+        Connection con = ConexionBase.conectar();
+        int resultado = 4;
+        try {
+        for (int i = 0; i<lispol.getZise();i++){
+            Polizas pol = lispol.getPoliza(i);
+            PreparedStatement pstm = con.prepareStatement("INSERT INTO polizas VALUES ("+0+",'"+pol.getNumpoliza()+"',"
+                    + " "+pol.getIdcompanias()+",'"+pol.getNombreCompania()+"',"+pol.getIdseccion()+",'"+pol.getNombreseccion()+"',"
+                    + " "+pol.getNumero()+", '"+pol.getEndoso()+"' ");
+            resultado = pstm.executeUpdate();
+            if (resultado != 1){
+                break;
+                }
+            }
+        return resultado;
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            return resultado;
+        }
     }
 }

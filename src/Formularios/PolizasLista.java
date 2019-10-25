@@ -6,7 +6,7 @@
 package Formularios;
 
 import Conexion.AccionesUsuarios;
-import Datos.AccionesPolizas;
+import Conexion.AccionesPolizas;
 import Datos.ListaPolizas;
 import Datos.ListaUsuarios;
 import Datos.Polizas;
