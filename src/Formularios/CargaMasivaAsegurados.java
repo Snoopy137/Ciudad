@@ -7,6 +7,7 @@ package Formularios;
 
 import Conexion.AccionesAsegurados;
 import Datos.Asegurados;
+import Datos.ListaAsegurados;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import javax.swing.JFileChooser;
@@ -42,6 +43,9 @@ public class CargaMasivaAsegurados extends javax.swing.JFrame {
     private void initComponents() {
 
         jButton1 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jProgressBar1 = new javax.swing.JProgressBar();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -52,32 +56,54 @@ public class CargaMasivaAsegurados extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setText("jLabel1");
+
+        jProgressBar1.setStringPainted(true);
+
+        jLabel2.setText("jLabel2");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(153, 153, 153)
-                .addComponent(jButton1)
-                .addContainerGap(241, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jProgressBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 175, Short.MAX_VALUE)
+                        .addComponent(jLabel2)
+                        .addGap(155, 155, 155)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButton1)
+                            .addComponent(jLabel1))))
+                .addGap(77, 77, 77))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(81, 81, 81)
-                .addComponent(jButton1)
-                .addContainerGap(109, Short.MAX_VALUE))
+                .addGap(91, 91, 91)
+                .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 113, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton1)
+                    .addComponent(jLabel2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel1)
+                .addGap(21, 21, 21))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        conteo("0");
         UIManager.put("FileChooser.cancelButtonText","Cancelar");
         JFileChooser jf = new JFileChooser();
         int decision = jf.showDialog(this, "Seleccionar");
         if(decision == jf.APPROVE_OPTION){
             String ruta = jf.getSelectedFile().getAbsolutePath();
+            ListaAsegurados listaseg = new ListaAsegurados();
             try{
                 File archivo = new File(ruta);
                 DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
@@ -86,21 +112,22 @@ public class CargaMasivaAsegurados extends javax.swing.JFrame {
                 document.getDocumentElement().normalize();
                 System.out.println("Elemento raiz:" + document.getDocumentElement().getNodeName());
                 NodeList listaRegistro = document.getElementsByTagName("ROW");
-                Date fechabaja = null;
+                Date fechanac = null;
                 SimpleDateFormat date = new SimpleDateFormat("dd/MM/yyyy");
-                int cuit=0;
-                for (int i = 0;i<3;i++){
-                     Node nodo = listaRegistro.item(i);
+                long cuit=0;
+                for (int i = 0;i<listaRegistro.getLength();i++){
+                    Date fechabaja = null;
+                    Node nodo = listaRegistro.item(i);
                     if (nodo.getNodeType() == Node.ELEMENT_NODE){
                         Element element = (Element) nodo;
-                        Date fechanac = new SimpleDateFormat("yyyyMMdd").parse(element.getAttribute("AD"));
+                        if (!element.getAttribute("AD").equals("")){
+                            fechanac = new SimpleDateFormat("yyyyMMdd").parse(element.getAttribute("AD"));
+                        }
                         Date fechaalta = new SimpleDateFormat("yyyyMMdd").parse(element.getAttribute("Y"));
                         if(!element.getAttribute("U").equals("")){
-                            cuit = Integer.parseInt(element.getAttribute("U"));
+                            cuit = Long.parseLong(element.getAttribute("U"));
                         }
-                        if(!element.getAttribute("Z").equals("")){
-                        fechabaja = new SimpleDateFormat("yyyyMMdd").parse(element.getAttribute("Z"));
-                        }
+                        
                         Asegurados A = new Asegurados ();
                         A.setNumasegurado(Integer.parseInt(element.getAttribute("A")));
                         A.setNombreasegurado(element.getAttribute("B"));
@@ -111,28 +138,60 @@ public class CargaMasivaAsegurados extends javax.swing.JFrame {
                         A.setLocalidad(element.getAttribute("J"));
                         A.setCodigopostal(element.getAttribute("I"));
                         A.setDNItipo(element.getAttribute("C"));
-                        A.setDNInumero(Integer.parseInt(element.getAttribute("D")));
+                        if (!element.getAttribute("D").equals("")){
+                          A.setDNInumero(Integer.parseInt(element.getAttribute("D")));  
+                        }
                         A.setTele1(element.getAttribute("K"));
                         A.setTele2(element.getAttribute("L"));
                         A.setTele3("");
-                        A.setFechanac(new java.sql.Date(fechanac.getTime()));
+                        if (fechanac != null){
+                           A.setFechanac(new java.sql.Date(fechanac.getTime())); 
+                        }
                         A.setCuil(cuit);
                         A.setActividad("");
                         A.setMail(element.getAttribute("AA"));
                         A.setAlta(new java.sql.Date(fechaalta.getTime()));
+                        if(!element.getAttribute("Z").equals("")){
+                        fechabaja = new SimpleDateFormat("yyyyMMdd").parse(element.getAttribute("Z"));
                         A.setBaja(new java.sql.Date(fechabaja.getTime()));
+                        }
                         A.setUsu(null);
                         A.setModificado(new java.sql.Date(new Date().getTime()));
-                        AccionesAsegurados.insertaAsegurado(A);
+                        if (fechabaja == null){
+                            A.setEstado("A");
+                        }
+                        else {
+                            A.setEstado("I");
+                        }
+                        listaseg.agregaAsegurado(A);
                     }
                 }
+                AccionesAsegurados.CargaMasiva(listaseg);
             }
             catch(Exception e){
                 e.printStackTrace();
             }
         }
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    public static void setProggres(int prog){
+        jProgressBar1.setValue(prog);
+        if(jProgressBar1.getValue()!= 100 && jProgressBar1.getValue()!=0){
+            jButton1.setEnabled(false);
+        }
+        else {
+            jButton1.setEnabled(true);
+        }
+    }
+    
+    public static void setLabel(String avance){
+        jLabel1.setText(avance);
+    }
+    
+    public static void conteo (String tiempo){
+        jLabel2.setText(tiempo);
+    }
     /**
      * @param args the command line arguments
      */
@@ -142,7 +201,7 @@ public class CargaMasivaAsegurados extends javax.swing.JFrame {
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
-        try {
+        /*try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
@@ -157,7 +216,7 @@ public class CargaMasivaAsegurados extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(CargaMasivaAsegurados.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(CargaMasivaAsegurados.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
+        }*/
         //</editor-fold>
 
         /* Create and display the form */
@@ -169,6 +228,9 @@ public class CargaMasivaAsegurados extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private static javax.swing.JButton jButton1;
+    private static javax.swing.JLabel jLabel1;
+    private static javax.swing.JLabel jLabel2;
+    private static javax.swing.JProgressBar jProgressBar1;
     // End of variables declaration//GEN-END:variables
 }

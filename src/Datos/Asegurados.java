@@ -26,7 +26,7 @@ public class Asegurados {
     private String tele2;
     private String tele3;
     private Date fechanac;
-    private int cuil;
+    private long cuil;
     private String actividad;
     private String mail;
     private String estado;
@@ -171,11 +171,11 @@ public class Asegurados {
         this.fechanac = fechanac;
     }
 
-    public int getCuil() {
+    public long getCuil() {
         return cuil;
     }
 
-    public void setCuil(int cuil) {
+    public void setCuil(long cuil) {
         this.cuil = cuil;
     }
 
