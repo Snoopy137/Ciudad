@@ -162,7 +162,7 @@ public class AdministrarUsuarios extends javax.swing.JFrame {
     public static void BuscaUsuario (int id, String nombre){
         DefaultTableModel usuarios = new DefaultTableModel();
         tabusuario.setModel(usuarios);
-        tabusuario.getTableHeader().setReorderingAllowed(false) ;
+        tabusuario.getTableHeader().setReorderingAllowed(false);
         try{
             ListaUsuarios list;
             tabusuario.removeAll();

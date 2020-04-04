@@ -14,10 +14,10 @@ import java.sql.DriverManager;
  */
 public class ConexionBase {
     static Connection con = null;
-    static String usuario = "sql10289579";
-        static String password = "ZXTTkkSudQ";
-    static String url = "jdbc:mysql://sql10.freesqldatabase.com:3306/";
-    static String basee = "sql10289579";
+    static String usuario = "alandec";
+    static String password = "2wsx3edc";
+    static String url = "jdbc:mysql://db4free.net:3306/";
+    static String basee = "ciudad";
     
     public static Connection conectar(){
         if (con==null){
@@ -42,5 +42,10 @@ public class ConexionBase {
             }
         }
         return con;
+    }
+    
+    public static void main  (String []args){
+        conectar();
+        desconectar();
     }
 }

@@ -112,10 +112,14 @@ public class CargaMasivaAsegurados extends javax.swing.JFrame {
                 document.getDocumentElement().normalize();
                 System.out.println("Elemento raiz:" + document.getDocumentElement().getNodeName());
                 NodeList listaRegistro = document.getElementsByTagName("ROW");
+                double porcentaje1 = 1.0 / listaRegistro.getLength() * 100;
+                double porcentaje = 0.0;
                 Date fechanac = null;
                 SimpleDateFormat date = new SimpleDateFormat("dd/MM/yyyy");
                 long cuit=0;
+                //AccionesAsegurados.crono.start();
                 for (int i = 0;i<listaRegistro.getLength();i++){
+                    porcentaje = porcentaje + porcentaje1;
                     Date fechabaja = null;
                     Node nodo = listaRegistro.item(i);
                     if (nodo.getNodeType() == Node.ELEMENT_NODE){
@@ -164,9 +168,11 @@ public class CargaMasivaAsegurados extends javax.swing.JFrame {
                             A.setEstado("I");
                         }
                         listaseg.agregaAsegurado(A);
+                        //AccionesAsegurados.modificaAsegurado(A,(int)porcentaje,String.valueOf(i));
                     }
                 }
                 AccionesAsegurados.CargaMasiva(listaseg);
+                //AccionesAsegurados.crono.stop();
             }
             catch(Exception e){
                 e.printStackTrace();
@@ -201,9 +207,9 @@ public class CargaMasivaAsegurados extends javax.swing.JFrame {
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
-        /*try {
+        try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("GTK+".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
@@ -216,7 +222,7 @@ public class CargaMasivaAsegurados extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(CargaMasivaAsegurados.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(CargaMasivaAsegurados.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }*/
+        }
         //</editor-fold>
 
         /* Create and display the form */

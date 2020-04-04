@@ -107,7 +107,7 @@ public class AccionesUsuarios {
                 
                 try{
                     Statement stmt = con.createStatement();
-			ResultSet r = stmt.executeQuery("SELECT * FROM Users "+ filtro +"ORDER BY Nombre");
+			ResultSet r = stmt.executeQuery("SELECT * FROM asegurados "+ filtro +"ORDER BY Nombre");
 			ResultSetMetaData rm = r.getMetaData();
                         
                         while (r.next()){

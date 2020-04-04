@@ -82,7 +82,7 @@ public class AccionesAsegurados {
                                     + " Localidad='" + A.getLocalidad() + "',CodPostal='" + A.getCodigopostal() + "',DNITipo='" + A.getDNItipo() + "',DNINro=" + A.getDNInumero() + ","
                                     + " Tele1='" + A.getTele1() + "',Tele2='" + A.getTele2() + "',Tele3='" + A.getTele3() + "',FecNac='" + A.getFechanac() + "',CUIL=" + A.getCuil() + ","
                                     + " Actividad='" + A.getActividad() + "',Mail='" + A.getMail() + "',Estado='" + A.getEstado() + "',Cobrador=" + A.getCobrador() + ",Observ=" + A.getObservaciones() + ","
-                                    + " ALTA='" + A.getAlta() + "',BAJA=" + date + ",Usuario='Sistema',Fecha='" + A.getModificado() + "' WHERE Numaseg = "+A.getNumasegurado());
+                                    + " ALTA='" + A.getAlta() + "',BAJA=" + date + ",Usuario=999,Fecha='" + A.getModificado() + "' WHERE Numaseg = "+A.getNumasegurado());
                             int resultado = pst.executeUpdate();
 
                         } 
@@ -92,7 +92,7 @@ public class AccionesAsegurados {
                                     + " '" + A.getLocalidad() + "','" + A.getCodigopostal() + "','" + A.getDNItipo() + "'," + A.getDNInumero() + ","
                                     + " '" + A.getTele1() + "','" + A.getTele2() + "','" + A.getTele3() + "','" + A.getFechanac() + "'," + A.getCuil() + ","
                                     + " '" + A.getActividad() + "','" + A.getMail() + "','" + A.getEstado() + "'," + A.getCobrador() + "," + A.getObservaciones() + ","
-                                    + " '" + A.getAlta() + "'," + date + ",'Sistema','" + A.getModificado() + "' ) ");
+                                    + " '" + A.getAlta() + "'," + date + ",999,'" + A.getModificado() + "' ) ");
                             int resultado = pst.executeUpdate();
                         }
                     } 
@@ -114,7 +114,7 @@ public class AccionesAsegurados {
                                     + " Localidad='" + A.getLocalidad() + "',CodPostal='" + A.getCodigopostal() + "',DNITipo='" + A.getDNItipo() + "',DNINro=" + A.getDNInumero() + ","
                                     + " Tele1='" + A.getTele1() + "',Tele2='" + A.getTele2() + "',Tele3='" + A.getTele3() + "',FecNac='" + A.getFechanac() + "',CUIL=" + A.getCuil() + ","
                                     + " Actividad='" + A.getActividad() + "',Mail='" + A.getMail() + "',Estado='" + A.getEstado() + "',Cobrador=" + A.getCobrador() + ",Observ=" + A.getObservaciones() + ","
-                                    + " ALTA='" + A.getAlta() + "',BAJA=" + date + ",Usuario='Sistema',Fecha='" + A.getModificado() + "' WHERE Numaseg = "+A.getNumasegurado());
+                                    + " ALTA='" + A.getAlta() + "',BAJA=" + date + ",Usuario=999,Fecha='" + A.getModificado() + "' WHERE Numaseg = "+A.getNumasegurado());
                                 int resultado = pst.executeUpdate();
                             } 
                             else {
@@ -123,7 +123,7 @@ public class AccionesAsegurados {
                                     + " '" + A.getLocalidad() + "','" + A.getCodigopostal() + "','" + A.getDNItipo() + "'," + A.getDNInumero() + ","
                                     + " '" + A.getTele1() + "','" + A.getTele2() + "','" + A.getTele3() + "','" + A.getFechanac() + "'," + A.getCuil() + ","
                                     + " '" + A.getActividad() + "','" + A.getMail() + "','" + A.getEstado() + "'," + A.getCobrador() + "," + A.getObservaciones() + ","
-                                    + " '" + A.getAlta() + "'," + date + ",'Sistema','" + A.getModificado() + "' ) ");
+                                    + " '" + A.getAlta() + "'," + date + ",999,'" + A.getModificado() + "' ) ");
                                 int resultado = pst.executeUpdate();
                             }
                         }
@@ -144,7 +144,7 @@ public class AccionesAsegurados {
         t.start();
     }
 
-    static Timer crono = new Timer (1000,new ActionListener() {
+    public static Timer crono = new Timer (1000,new ActionListener() {
         int segundos = 0;
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -152,4 +152,35 @@ public class AccionesAsegurados {
            CargaMasivaAsegurados.conteo(String.valueOf(segundos));
         }
     });
+    
+    public static void modificaAsegurado(Asegurados  A, int porcentaje, String label){
+        class Modifica implements Runnable {
+
+            @Override
+            public void run() {
+                Connection con = ConexionBase.conectar();
+                Object date = "NULL";
+                if (A.getBaja() != null) {
+                    date = "'" + A.getBaja() + "'";
+                }
+                try {
+                    PreparedStatement pst = con.prepareStatement("UPDATE asegurados SET Numaseg = " + A.getNumasegurado() + ","
+                            + " Nombre = '" + A.getNombreasegurado() + "',Domicilio= '" + A.getDomicilioasegurado() + "', DomicilioCobro='" + A.getDomiciliocobroasegurado() + "',"
+                            + " Localidad='" + A.getLocalidad() + "',CodPostal='" + A.getCodigopostal() + "',DNITipo='" + A.getDNItipo() + "',DNINro=" + A.getDNInumero() + ","
+                            + " Tele1='" + A.getTele1() + "',Tele2='" + A.getTele2() + "',Tele3='" + A.getTele3() + "',FecNac='" + A.getFechanac() + "',CUIL=" + A.getCuil() + ","
+                            + " Actividad='" + A.getActividad() + "',Mail='" + A.getMail() + "',Estado='" + A.getEstado() + "',Cobrador=" + A.getCobrador() + ",Observ=" + A.getObservaciones() + ","
+                            + " ALTA='" + A.getAlta() + "',BAJA=" + date + ",Usuario=999,Fecha='" + A.getModificado() + "' WHERE Numaseg = " + A.getNumasegurado());
+                    int resultado = pst.executeUpdate();
+                    CargaMasivaAsegurados.setProggres(porcentaje);
+                    CargaMasivaAsegurados.setLabel(label);
+                    ConexionBase.desconectar();
+                } 
+                catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        Thread t = new Thread(new Modifica());
+        t.start();
+    }
 }
