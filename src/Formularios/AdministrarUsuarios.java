@@ -182,7 +182,7 @@ public class AdministrarUsuarios extends javax.swing.JFrame {
             for (int i=0; i<list.getSize();i++){
                 usuarios.addRow(O);
                 Usuarios u = list.getUsuario(i);
-                String contrasenia = u.getContrasenia();
+                String contrasenia = u.getContrasenia().toString();
                 String campo = "*";
                 for(int x = 0;x<contrasenia.length();x++){
                     campo = campo + "*";

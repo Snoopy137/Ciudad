@@ -53,14 +53,17 @@ public class ABMUsuarios extends javax.swing.JFrame {
         cmbprivilegios = new javax.swing.JComboBox<>();
         pwdcontrasenia = new javax.swing.JPasswordField();
         jButton1 = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
+        txtapellido = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        txtcorreo = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(java.awt.Color.white);
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(254, 254, 254));
 
-        jLabel1.setText("Nombre y Apellido");
+        jLabel1.setText("Nombre");
 
         txtnombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -69,12 +72,6 @@ public class ABMUsuarios extends javax.swing.JFrame {
         });
 
         jLabel2.setText("Nombre de usuario");
-
-        txtusuario.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtusuarioActionPerformed(evt);
-            }
-        });
 
         jLabel3.setText("Contraseña");
 
@@ -96,30 +93,35 @@ public class ABMUsuarios extends javax.swing.JFrame {
             }
         });
 
+        jLabel5.setText("Apellido");
+
+        jLabel6.setText("Correo");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(24, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel4))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtusuario)
-                            .addComponent(txtnombre)
-                            .addComponent(cmbprivilegios, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(pwdcontrasenia, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel6)
+                    .addComponent(jLabel2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(txtcorreo)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jButton1)
-                        .addGap(84, 84, 84)
-                        .addComponent(btnguardar)))
+                        .addGap(65, 65, 65)
+                        .addComponent(btnguardar))
+                    .addComponent(txtnombre)
+                    .addComponent(txtusuario)
+                    .addComponent(txtapellido)
+                    .addComponent(cmbprivilegios, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(pwdcontrasenia))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -131,24 +133,41 @@ public class ABMUsuarios extends javax.swing.JFrame {
                     .addComponent(txtnombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(txtusuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel5)
+                    .addComponent(txtapellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(txtcorreo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtusuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(pwdcontrasenia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(6, 6, 6)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(cmbprivilegios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGap(9, 9, 9)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnguardar)
                     .addComponent(jButton1))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -157,13 +176,9 @@ public class ABMUsuarios extends javax.swing.JFrame {
         txtusuario.requestFocus();
     }//GEN-LAST:event_txtnombreActionPerformed
 
-    private void txtusuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtusuarioActionPerformed
-        pwdcontrasenia.requestFocus();
-    }//GEN-LAST:event_txtusuarioActionPerformed
-
     private void btnguardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnguardarActionPerformed
         if (modifica == true){
-            Usuarios mod = new Usuarios (us.getIdusuario(),txtnombre.getText(),txtusuario.getText(),pwdcontrasenia.getText(),cmbprivilegios.getSelectedItem().toString());
+            Usuarios mod = new Usuarios (us.getIdusuario(),txtnombre.getText(),txtapellido.getText(),txtusuario.getText(),new String(pwdcontrasenia.getPassword()),cmbprivilegios.getSelectedItem().toString(),txtcorreo.getText());
             int si = AccionesUsuarios.modifica(mod);
             if (si == 1){
                 AdministrarUsuarios.BuscaUsuario(0,"");
@@ -175,19 +190,27 @@ public class ABMUsuarios extends javax.swing.JFrame {
             }
         }
         else{
-            if (txtnombre.getText().equals("")){
-            javax.swing.JOptionPane.showMessageDialog(this, "Debe ingresar nombre y apellido","Datos Incompletos",javax.swing.JOptionPane.INFORMATION_MESSAGE);
+            if (txtnombre.getText().trim().equals("")){
+            javax.swing.JOptionPane.showMessageDialog(this, "Debe ingresar un nombre","Datos Incompletos",javax.swing.JOptionPane.INFORMATION_MESSAGE);
             txtnombre.requestFocus();
         }
-        else if(txtusuario.getText().equals("")){
+        else if(txtapellido.getText().trim().equals("")){
+            javax.swing.JOptionPane.showMessageDialog(this, "Debe ingresar un apellido","Datos Incompletos",javax.swing.JOptionPane.INFORMATION_MESSAGE);
+            txtapellido.requestFocus();
+        }
+        else if(txtcorreo.getText().trim().equals("")){
+            javax.swing.JOptionPane.showMessageDialog(this, "Debe ingresar un correo","Datos Incompletos",javax.swing.JOptionPane.INFORMATION_MESSAGE);
+            txtcorreo.requestFocus();
+        }
+        else if(txtusuario.getText().trim().equals("")){
             javax.swing.JOptionPane.showMessageDialog(this, "Debe ingresar un nombre de usuario","Datos Incompletos",javax.swing.JOptionPane.INFORMATION_MESSAGE);
             txtusuario.requestFocus();
         }
-        else if(pwdcontrasenia.getText().equals("")){
+        else if(pwdcontrasenia.getPassword().toString().trim().equals("")){
             javax.swing.JOptionPane.showMessageDialog(this, "Debe ingresar una contraseña","Datos Incompletos",javax.swing.JOptionPane.INFORMATION_MESSAGE);
             pwdcontrasenia.requestFocus();
         }
-        else if (pwdcontrasenia.getText().length()<5){
+        else if (pwdcontrasenia.getPassword().length<5){
             javax.swing.JOptionPane.showMessageDialog(this, "La contraseña debe tener al menos 5 caracteres","Datos Incompletos",javax.swing.JOptionPane.INFORMATION_MESSAGE);
             pwdcontrasenia.requestFocus();
             pwdcontrasenia.selectAll();
@@ -197,11 +220,18 @@ public class ABMUsuarios extends javax.swing.JFrame {
             cmbprivilegios.requestFocus();
         }
         else {
-            Usuarios u = new Usuarios (0,txtnombre.getText(),txtusuario.getText(),pwdcontrasenia.getText(),cmbprivilegios.getSelectedItem().toString());
+                System.out.println(pwdcontrasenia.getPassword());
+            Usuarios u = new Usuarios (0,txtnombre.getText().toUpperCase(),txtapellido.getText().toUpperCase(),txtusuario.getText(),new String (pwdcontrasenia.getPassword()),cmbprivilegios.getSelectedItem().toString(),txtcorreo.getText());
             int registro = AccionesUsuarios.inserta(u);
             if (registro ==1){
                 javax.swing.JOptionPane.showMessageDialog(this, "Registro guardado","Datos",javax.swing.JOptionPane.INFORMATION_MESSAGE);
                 AdministrarUsuarios.BuscaUsuario(0,"");
+                txtapellido.setText("");
+                txtcorreo.setText("");
+                txtnombre.setText("");
+                txtusuario.setText("");
+                pwdcontrasenia.setText("");
+                cmbprivilegios.setSelectedIndex(0);
             }
             else{
                 javax.swing.JOptionPane.showMessageDialog(this, "Error en la carga","Datos",javax.swing.JOptionPane.INFORMATION_MESSAGE);
@@ -221,8 +251,10 @@ public class ABMUsuarios extends javax.swing.JFrame {
     
     public void llenarcampos(Usuarios u){
         txtnombre.setText(u.getNombre());
+        txtapellido.setText(u.getApellido());
+        txtcorreo.setText(u.getCorreo());
         txtusuario.setText(u.getUsuario());
-        pwdcontrasenia.setText(u.getContrasenia());
+        pwdcontrasenia.setText(u.getContrasenia().toString());
         cmbprivilegios.setSelectedItem(u.getPriviliegios());
     }
     public static void main(String args[]) {
@@ -266,8 +298,12 @@ public class ABMUsuarios extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPasswordField pwdcontrasenia;
+    private javax.swing.JTextField txtapellido;
+    private javax.swing.JTextField txtcorreo;
     private javax.swing.JTextField txtnombre;
     private javax.swing.JTextField txtusuario;
     // End of variables declaration//GEN-END:variables

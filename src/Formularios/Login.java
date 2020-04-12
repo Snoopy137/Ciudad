@@ -155,13 +155,14 @@ public class Login extends javax.swing.JFrame {
     private void ingreso (){
         Usuarios u = new Usuarios();
         u.setUsuario(txtusuario.getText());
-        u.setContrasenia(txtcontrasenia.getText());
+        u.setContrasenia(new String (txtcontrasenia.getPassword()));
+        System.out.println(u.getContrasenia());
         Usuarios valido = AccionesUsuarios.validacion(u);
         if (txtusuario.getText().equals("")){
             javax.swing.JOptionPane.showMessageDialog(this, "Debe completar un nombre","Datos incompletos",javax.swing.JOptionPane.WARNING_MESSAGE);
             txtusuario.requestFocus();
         }
-        else if(txtcontrasenia.getText().equals("")){
+        else if(txtcontrasenia.getPassword().equals("")){
             javax.swing.JOptionPane.showMessageDialog(this, "Debe completar una contraseña","Datos incompletos",javax.swing.JOptionPane.WARNING_MESSAGE);
             txtcontrasenia.requestFocus();
         }
@@ -202,7 +203,7 @@ public class Login extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }

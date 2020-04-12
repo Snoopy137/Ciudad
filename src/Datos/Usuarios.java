@@ -12,16 +12,20 @@ package Datos;
 public class Usuarios {
     private int idusuario;
     private String nombre;
+    private String apellido;
     private String usuario;
     private String contrasenia;
     private String priviliegios;
+    private String correo;
     
-    public Usuarios (int idusuario, String nombre, String usuario, String contrasenia, String privilegios){
+    public Usuarios (int idusuario, String nombre,String apellido, String usuario, String contrasenia, String privilegios, String correo){
         this.idusuario = idusuario;
         this.nombre = nombre;
+        this.apellido = apellido;
         this.usuario = usuario;
         this.contrasenia = contrasenia;
         this.priviliegios = privilegios;
+        this.correo = correo;
     }
     
     public Usuarios(){}
@@ -64,6 +68,22 @@ public class Usuarios {
 
     public void setPriviliegios(String priviliegios) {
         this.priviliegios = priviliegios;
+    }
+    
+    public String getApellido() {
+        return apellido;
+    }
+
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
+    }
+
+    public String getCorreo() {
+        return correo;
+    }
+
+    public void setCorreo(String correo) {
+        this.correo = correo;
     }
     
     

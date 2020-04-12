@@ -22,14 +22,16 @@ public class AccionesUsuarios {
     public static int inserta(Usuarios u){
         int status = 0;
         String nombre = u.getNombre();
+        String apellido = u.getApellido();
         String usuario = u.getUsuario();
         String contrasenia = u.getContrasenia();
         String privilejios = u.getPriviliegios();
+        String correo = u.getCorreo();
         
         try{
             Connection con = ConexionBase.conectar();
-            PreparedStatement existe = con.prepareStatement("SELECT * FROM Users WHERE Usuario = '"+usuario+"' ");
-            PreparedStatement psmt = con.prepareStatement("INSERT INTO Users VALUES ('"+0+"','"+nombre+"','"+usuario+"','"+contrasenia+"'"
+            PreparedStatement existe = con.prepareStatement("SELECT * FROM usuarios WHERE Usuario = '"+usuario+"' ");
+            PreparedStatement psmt = con.prepareStatement("INSERT INTO usuarios VALUES ('"+0+"','"+nombre+"','"+apellido+"','"+correo+"','"+usuario+"','"+contrasenia+"'"
                     + ",'"+privilejios+"' )");
             ResultSet siex = existe.executeQuery();
             if (siex.next()){
@@ -54,16 +56,19 @@ public class AccionesUsuarios {
         
         try{
             Connection con = ConexionBase.conectar();
-            PreparedStatement valida = con.prepareStatement("SELECT * FROM Users WHERE Usuario = '"+usuario+"'"
-                    + " AND Contrasenia = '"+contrasenia+"' ");
+            PreparedStatement valida = con.prepareStatement("SELECT * FROM usuarios WHERE Usuario = '"+usuario+"'"
+                   );
             ResultSet rs = valida.executeQuery();
             if (rs.next()){ 
                 us = new Usuarios();
                 us.setPriviliegios(rs.getString("privilegios"));
-                us.setContrasenia(rs.getString("Contrasenia"));
-                us.setIdusuario(rs.getInt("ID"));
+                us.setContrasenia(new String (rs.getString("Contrasenia").toCharArray()));
+                us.setIdusuario(rs.getInt("idusuarios"));
                 us.setNombre(rs.getString("Nombre"));
                 us.setUsuario(rs.getString("Usuario"));
+                System.out.println(rs.getString("Contrasenia").toCharArray());
+                System.out.println(us.getContrasenia());
+                System.out.println(new String (rs.getString("Contrasenia").toCharArray()));
             }
             ConexionBase.desconectar();
         }
@@ -84,8 +89,8 @@ public class AccionesUsuarios {
         
         try{
             Connection con = ConexionBase.conectar();
-            PreparedStatement pst = con.prepareStatement("UPDATE Users SET Nombre = '"+nombre+"', Usuario ='"+usuario+"'"
-                    + ",Contrasenia = '"+contrasenia+"', Privilegios = '"+privilejios+"' WHERE ID = "+id+" ");
+            PreparedStatement pst = con.prepareStatement("UPDATE usuarios SET Nombre = '"+nombre+"', Usuario ='"+usuario+"'"
+                    + ",Contrasenia = '"+contrasenia+"', Privilegios = '"+privilejios+"' WHERE idusuarios = "+id+" ");
             status = pst.executeUpdate();
             ConexionBase.desconectar();
             
@@ -107,13 +112,14 @@ public class AccionesUsuarios {
                 
                 try{
                     Statement stmt = con.createStatement();
-			ResultSet r = stmt.executeQuery("SELECT * FROM asegurados "+ filtro +"ORDER BY Nombre");
+			ResultSet r = stmt.executeQuery("SELECT * FROM usuarios "+ filtro +"ORDER BY Nombre");
 			ResultSetMetaData rm = r.getMetaData();
                         
                         while (r.next()){
                             Usuarios u = new Usuarios();
-                            u.setIdusuario(r.getInt("ID"));
+                            u.setIdusuario(r.getInt("idusuarios"));
                             u.setNombre(r.getString("Nombre"));
+                            u.setApellido(r.getString("Apellido"));
                             u.setUsuario(r.getString("Usuario"));
                             u.setContrasenia(r.getString("Contrasenia"));
                             u.setPriviliegios(r.getString("Privilegios"));
@@ -134,11 +140,13 @@ public class AccionesUsuarios {
         Connection con = ConexionBase.conectar();
         Usuarios u = new Usuarios();
         try{
-            PreparedStatement pst = con.prepareStatement("SELECT * FROM Users WHERE ID = "+usu);
+            PreparedStatement pst = con.prepareStatement("SELECT * FROM usuarios WHERE idusuarios = "+usu);
             ResultSet rs = pst.executeQuery();
             if (rs.next()){
-                u.setIdusuario(rs.getInt("ID"));
+                u.setIdusuario(rs.getInt("idusuarios"));
                 u.setNombre(rs.getString("Nombre"));
+                u.setApellido(rs.getString("Apellido"));
+                u.setCorreo(rs.getString("Mail"));
                 u.setUsuario(rs.getString("Usuario"));
                 u.setContrasenia(rs.getString("Contrasenia"));
                 u.setPriviliegios(rs.getString("Privilegios"));
@@ -157,11 +165,11 @@ public class AccionesUsuarios {
         Connection con = ConexionBase.conectar();
         int resultado = 0;
         try{
-            PreparedStatement siex = con.prepareStatement("SELECT * FROM Users WHERE ID ="+id+" AND Contrasenia = '"+contraseniavieja+"' ");
+            PreparedStatement siex = con.prepareStatement("SELECT * FROM usuarios WHERE ID ="+id+" AND Contrasenia = '"+contraseniavieja+"' ");
             ResultSet rs = siex.executeQuery();
             if (rs.next()){
-            System.out.println("UPDATE Users SET Contrasenia ='"+contrasenia+"' WHERE ID = "+id);    
-            PreparedStatement pst = con.prepareStatement("UPDATE Users SET Contrasenia ='"+contrasenia+"' WHERE ID = "+id);
+            System.out.println("UPDATE usuarios SET Contrasenia ='"+contrasenia+"' WHERE ID = "+id);    
+            PreparedStatement pst = con.prepareStatement("UPDATE usuarios SET Contrasenia ='"+contrasenia+"' WHERE ID = "+id);
             resultado = 1;
             }
             else {
