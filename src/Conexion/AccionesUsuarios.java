@@ -66,9 +66,6 @@ public class AccionesUsuarios {
                 us.setIdusuario(rs.getInt("idusuarios"));
                 us.setNombre(rs.getString("Nombre"));
                 us.setUsuario(rs.getString("Usuario"));
-                System.out.println(rs.getString("Contrasenia").toCharArray());
-                System.out.println(us.getContrasenia());
-                System.out.println(new String (rs.getString("Contrasenia").toCharArray()));
             }
             ConexionBase.desconectar();
         }

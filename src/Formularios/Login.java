@@ -156,7 +156,6 @@ public class Login extends javax.swing.JFrame {
         Usuarios u = new Usuarios();
         u.setUsuario(txtusuario.getText());
         u.setContrasenia(new String (txtcontrasenia.getPassword()));
-        System.out.println(u.getContrasenia());
         Usuarios valido = AccionesUsuarios.validacion(u);
         if (txtusuario.getText().equals("")){
             javax.swing.JOptionPane.showMessageDialog(this, "Debe completar un nombre","Datos incompletos",javax.swing.JOptionPane.WARNING_MESSAGE);
@@ -167,7 +166,7 @@ public class Login extends javax.swing.JFrame {
             txtcontrasenia.requestFocus();
         }
         else if (valido != null){
-            JOptionPane pane = new JOptionPane("Bienvenido al sistem "+valido.getNombre(),0, 9);
+            JOptionPane pane = new JOptionPane("bienvenido al sistema "+valido.getNombre());
             JDialog bienvenido = pane.createDialog("Bienvenido");
             bienvenido.setVisible(true);
             new Timer(10000, new ActionListener() {
