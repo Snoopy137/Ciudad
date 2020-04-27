@@ -42,7 +42,6 @@ public class AccionesAsegurados {
                         + " '" + A.getActividad() + "','" + A.getMail() + "','" + A.getEstado() + "'," + A.getCobrador() + ",'" + A.getObservaciones() + "',"
                         + " '" + A.getAlta() + "','" + A.getBaja() + "'," + A.getUsu() + ",'" + A.getModificado() + "' ) ");
                 resultado = pst.executeUpdate();
-                System.out.println(A.getNumasegurado());
                 ConexionBase.desconectar();
                 return resultado;
 
