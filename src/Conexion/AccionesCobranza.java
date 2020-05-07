@@ -53,12 +53,11 @@ public class AccionesCobranza {
                 double porcentaje1 = 1.0 / listcob.getSize() * 100;
                 double porcentaje = 0.0;
                 Connection con = ConexionBase.conectar();
-                for (int i = 0; i < listcob.getSize(); i++) {
+                for (int i = 0; i < 50; i++) {
                     try {
                         Object date = "NULL";
                         porcentaje = porcentaje + porcentaje1;
                         Cobranza cob = listcob.getCobranza(i);
-                        System.out.println(cob.getFecha());
                         PreparedStatement pst = con.prepareStatement("INSERT INTO COBRANZA VALUES ("+0+","+cob.getCompania()+","+cob.getSeccion()+","+cob.getPoliza()+","
                                 + ""+cob.getCertificado()+","+cob.getIngreso()+","+cob.getConsecutivo()+",'"+cob.getFecha()+"','"+cob.getFechaCobro()+"',"
                                         + " "+cob.getMoneda()+","+cob.getMonto()+","+cob.getOrigen()+","+cob.getUsuario()+","+cob.getIntpoliza()+","
@@ -87,4 +86,46 @@ public class AccionesCobranza {
            CargaMasivaCobranza.conteo(String.valueOf(segundos));
         }
     });
+    
+    public static void pruebacargamasiva1(ListaCobranzas listcob) {
+        crono.start();
+        class carga implements Runnable {
+
+            @Override
+            public void run() {
+                try {
+                    double porcentaje1 = 1.0 / listcob.getSize() * 100;
+                    double porcentaje = 0.0;
+                    Connection con = ConexionBase.conectar();
+                    String insert = "INSERT INTO COBRANZA (idCOBRANZA,COMPANIA,SECCION,POLIZA,"
+                            + "CERTIFICADO,INGRESO,CONSECUTIVO,FECHA,FECHACOBRO,"
+                            + "MONEDA,MONTO,ORIGEN,USUARIO,INTPOLIZA,"
+                            + "COBRADOR,COBRADOOFI,FECHAOFI,RENDIDO,USUARIOOFI) VALUES";
+                    for (int i = 0; i < 50; i++) {
+                        Object date = "NULL";
+                        porcentaje = porcentaje + porcentaje1;
+                        Cobranza cob = listcob.getCobranza(i);
+                        insert = insert + "(" + 0 + "," + cob.getCompania() + "," + cob.getSeccion() + "," + cob.getPoliza() + ","
+                                + "" + cob.getCertificado() + "," + cob.getIngreso() + "," + cob.getConsecutivo() + ",'" + cob.getFecha() + "','" + cob.getFechaCobro() + "',"
+                                + " " + cob.getMoneda() + "," + cob.getMonto() + "," + cob.getOrigen() + "," + cob.getUsuario() + "," + cob.getIntpoliza() + ","
+                                + " " + cob.getCobrador() + "," + cob.getCobradoofi() + "," + cob.getFechaofi() + "," + cob.getRendido() + "," + cob.getUsuarioofi() + ")";
+                        if (i!=49){
+                            insert = insert+",";
+                        }
+                        CargaMasivaCobranza.setProggres((int) porcentaje);
+                        CargaMasivaCobranza.setLabel(String.valueOf(i));
+                    }
+                    insert = insert+";";
+                    PreparedStatement pst = con.prepareStatement(insert);
+                    int resultado = pst.executeUpdate();
+                    crono.stop();
+                } 
+                catch (SQLException ex) {
+                    Logger.getLogger(AccionesCobranza.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+        Thread t = new Thread(new carga());
+        t.start();
+    }
 }

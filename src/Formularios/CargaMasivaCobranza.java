@@ -59,6 +59,7 @@ public class CargaMasivaCobranza extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jProgressBar1 = new javax.swing.JProgressBar();
         jLabel2 = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -75,6 +76,13 @@ public class CargaMasivaCobranza extends javax.swing.JFrame {
 
         jLabel2.setText("jLabel2");
 
+        jButton2.setText("prueba2");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -84,12 +92,16 @@ public class CargaMasivaCobranza extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jProgressBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 168, Short.MAX_VALUE)
-                        .addComponent(jLabel2)
-                        .addGap(27, 27, 27)
-                        .addComponent(jLabel1)
-                        .addGap(79, 79, 79)
-                        .addComponent(jButton1)))
+                        .addGap(0, 170, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addGap(27, 27, 27)
+                                .addComponent(jLabel1)
+                                .addGap(61, 61, 61)
+                                .addComponent(jButton2))
+                            .addComponent(jButton1))
+                        .addGap(8, 8, 8)))
                 .addGap(31, 31, 31))
         );
         layout.setVerticalGroup(
@@ -97,13 +109,18 @@ public class CargaMasivaCobranza extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(91, 91, 91)
                 .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 81, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
+                .addComponent(jButton1)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel2)
-                        .addComponent(jLabel1)))
-                .addGap(44, 44, 44))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(17, 17, 17)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel1)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton2)))
+                .addGap(43, 43, 43))
         );
 
         pack();
@@ -183,6 +200,79 @@ public class CargaMasivaCobranza extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        conteo("0");
+        UIManager.put("FileChooser.cancelButtonText","Cancelar");
+        JFileChooser jf = new JFileChooser();
+        int decision = jf.showDialog(this, "Seleccionar");
+        if(decision == jf.APPROVE_OPTION){
+            String ruta = jf.getSelectedFile().getAbsolutePath();
+            ListaCobranzas listacob = new ListaCobranzas();
+            try{
+                File archivo = new File(ruta);
+                DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+                DocumentBuilder documentBuilder = dbf.newDocumentBuilder();
+                Document document = documentBuilder.parse(archivo);
+                document.getDocumentElement().normalize();
+                System.out.println("Elemento raiz:" + document.getDocumentElement().getNodeName());
+                NodeList listaRegistro = document.getElementsByTagName("ROW");
+                double porcentaje1 = 1.0 / listaRegistro.getLength() * 100;
+                double porcentaje = 0.0;
+                SimpleDateFormat date = new SimpleDateFormat("dd/MM/yyyy");
+                long cuit=0;
+                //AccionesAsegurados.crono.start();
+                for (int i = 0;i<listaRegistro.getLength();i++){
+                    porcentaje = porcentaje + porcentaje1;
+                    Node nodo = listaRegistro.item(i);
+                    if (nodo.getNodeType() == Node.ELEMENT_NODE){
+                        Element element = (Element) nodo;
+                        Date fecha = new SimpleDateFormat("yyyyMMdd").parse(element.getAttribute("F"));
+                        Date fechacobro = new SimpleDateFormat("yyyyMMdd").parse(element.getAttribute("G"));
+                        int seccion = 4;
+                        int certificado = 0;
+                        int moneda = 01;
+                        double monto = 0;
+                        int consecutivo = 0;
+                        if (!element.getAttribute("A").equals("")){
+                            seccion = Integer.parseInt(element.getAttribute("A"));
+                        }
+                        if (!element.getAttribute("E").equals("")){
+                            consecutivo = Integer.parseInt(element.getAttribute("E"));
+                        }
+                        if (!element.getAttribute("I").equals("")){
+                            monto = Double.parseDouble(element.getAttribute("I"));
+                        }
+                        if (!element.getAttribute("C").equals("")){
+                            certificado = Integer.parseInt(element.getAttribute("C"));
+                        }
+                        if (!element.getAttribute("H").equals("")){
+                            moneda = Integer.parseInt(element.getAttribute("H"));
+                        }
+                        Cobranza cob = new Cobranza();
+                        cob.setCompania(1);
+                        cob.setSeccion(seccion);
+                        cob.setPoliza(Integer.parseInt(element.getAttribute("B")));
+                        cob.setCertificado(certificado);
+                        cob.setIngreso(Integer.parseInt(element.getAttribute("D")));
+                        cob.setConsecutivo(consecutivo);
+                        cob.setFecha(new java.sql.Date(fecha.getTime()));
+                        cob.setFechaCobro(new java.sql.Date(fechacobro.getTime()));
+                        cob.setMoneda(moneda);
+                        cob.setMonto(monto);
+                        cob.setOrigen(Integer.parseInt(element.getAttribute("J")));
+                        cob.setUsuario(999);
+                        listacob.agregaCobrazna(cob);
+                    }
+                }
+                AccionesCobranza.pruebacargamasiva1(listacob);
+                //AccionesAsegurados.crono.stop();
+            }
+            catch(Exception e){
+                e.printStackTrace();
+            }
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -220,6 +310,7 @@ public class CargaMasivaCobranza extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private static javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private static javax.swing.JLabel jLabel1;
     private static javax.swing.JLabel jLabel2;
     private static javax.swing.JProgressBar jProgressBar1;
