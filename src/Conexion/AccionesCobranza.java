@@ -88,7 +88,6 @@ public class AccionesCobranza {
     });
     
     public static void pruebacargamasiva1(ListaCobranzas listcob) {
-        crono.start();
         class carga implements Runnable {
 
             @Override
@@ -101,7 +100,7 @@ public class AccionesCobranza {
                             + "CERTIFICADO,INGRESO,CONSECUTIVO,FECHA,FECHACOBRO,"
                             + "MONEDA,MONTO,ORIGEN,USUARIO,INTPOLIZA,"
                             + "COBRADOR,COBRADOOFI,FECHAOFI,RENDIDO,USUARIOOFI) VALUES";
-                    for (int i = 0; i < 50; i++) {
+                    for (int i = 0; i < listcob.getSize(); i++) {
                         Object date = "NULL";
                         porcentaje = porcentaje + porcentaje1;
                         Cobranza cob = listcob.getCobranza(i);
@@ -109,7 +108,7 @@ public class AccionesCobranza {
                                 + "" + cob.getCertificado() + "," + cob.getIngreso() + "," + cob.getConsecutivo() + ",'" + cob.getFecha() + "','" + cob.getFechaCobro() + "',"
                                 + " " + cob.getMoneda() + "," + cob.getMonto() + "," + cob.getOrigen() + "," + cob.getUsuario() + "," + cob.getIntpoliza() + ","
                                 + " " + cob.getCobrador() + "," + cob.getCobradoofi() + "," + cob.getFechaofi() + "," + cob.getRendido() + "," + cob.getUsuarioofi() + ")";
-                        if (i!=49){
+                        if (i!=listcob.getSize()-1){
                             insert = insert+",";
                         }
                         CargaMasivaCobranza.setProggres((int) porcentaje);
@@ -118,7 +117,6 @@ public class AccionesCobranza {
                     insert = insert+";";
                     PreparedStatement pst = con.prepareStatement(insert);
                     int resultado = pst.executeUpdate();
-                    crono.stop();
                 } 
                 catch (SQLException ex) {
                     Logger.getLogger(AccionesCobranza.class.getName()).log(Level.SEVERE, null, ex);

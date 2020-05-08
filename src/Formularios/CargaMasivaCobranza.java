@@ -8,12 +8,15 @@ package Formularios;
 import Conexion.AccionesCobranza;
 import Datos.Cobranza;
 import Datos.ListaCobranzas;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
+import javax.swing.Timer;
 import javax.swing.UIManager;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -31,6 +34,14 @@ public class CargaMasivaCobranza extends javax.swing.JFrame {
     /**
      * Creates new form CargaMasivaCobranza
      */
+    public static Timer crono = new Timer (1000,new ActionListener() {
+        int segundos = 0;
+        @Override
+        public void actionPerformed(ActionEvent e) {
+           segundos = segundos +1;
+           CargaMasivaCobranza.conteo(String.valueOf(segundos));
+        }
+    });
     public CargaMasivaCobranza() {
         initComponents();
     }
@@ -209,6 +220,7 @@ public class CargaMasivaCobranza extends javax.swing.JFrame {
             String ruta = jf.getSelectedFile().getAbsolutePath();
             ListaCobranzas listacob = new ListaCobranzas();
             try{
+                crono.start();
                 File archivo = new File(ruta);
                 DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
                 DocumentBuilder documentBuilder = dbf.newDocumentBuilder();
@@ -265,7 +277,7 @@ public class CargaMasivaCobranza extends javax.swing.JFrame {
                     }
                 }
                 AccionesCobranza.pruebacargamasiva1(listacob);
-                //AccionesAsegurados.crono.stop();
+                crono.stop();
             }
             catch(Exception e){
                 e.printStackTrace();
