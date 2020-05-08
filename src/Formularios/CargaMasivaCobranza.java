@@ -34,14 +34,7 @@ public class CargaMasivaCobranza extends javax.swing.JFrame {
     /**
      * Creates new form CargaMasivaCobranza
      */
-    public static Timer crono = new Timer (1000,new ActionListener() {
-        int segundos = 0;
-        @Override
-        public void actionPerformed(ActionEvent e) {
-           segundos = segundos +1;
-           CargaMasivaCobranza.conteo(String.valueOf(segundos));
-        }
-    });
+    
     public CargaMasivaCobranza() {
         initComponents();
     }
@@ -220,7 +213,6 @@ public class CargaMasivaCobranza extends javax.swing.JFrame {
             String ruta = jf.getSelectedFile().getAbsolutePath();
             ListaCobranzas listacob = new ListaCobranzas();
             try{
-                crono.start();
                 File archivo = new File(ruta);
                 DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
                 DocumentBuilder documentBuilder = dbf.newDocumentBuilder();
@@ -277,7 +269,6 @@ public class CargaMasivaCobranza extends javax.swing.JFrame {
                     }
                 }
                 AccionesCobranza.pruebacargamasiva1(listacob);
-                crono.stop();
             }
             catch(Exception e){
                 e.printStackTrace();

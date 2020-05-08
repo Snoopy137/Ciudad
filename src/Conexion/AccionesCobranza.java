@@ -101,6 +101,7 @@ public class AccionesCobranza {
                             + "MONEDA,MONTO,ORIGEN,USUARIO,INTPOLIZA,"
                             + "COBRADOR,COBRADOOFI,FECHAOFI,RENDIDO,USUARIOOFI) VALUES";
                     for (int i = 0; i < listcob.getSize(); i++) {
+                        crono.start();
                         Object date = "NULL";
                         porcentaje = porcentaje + porcentaje1;
                         Cobranza cob = listcob.getCobranza(i);
@@ -117,6 +118,7 @@ public class AccionesCobranza {
                     insert = insert+";";
                     PreparedStatement pst = con.prepareStatement(insert);
                     int resultado = pst.executeUpdate();
+                    crono.stop();
                 } 
                 catch (SQLException ex) {
                     Logger.getLogger(AccionesCobranza.class.getName()).log(Level.SEVERE, null, ex);
