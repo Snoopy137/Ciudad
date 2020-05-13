@@ -14,6 +14,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -91,6 +92,7 @@ public class AccionesCobranza {
     
     public static void pruebacargamasiva1(ListaCobranzas listcob) {
         crono.start();
+        Connection con = ConexionBase.conectar();
         class carga implements Runnable {
 
             @Override
@@ -98,7 +100,6 @@ public class AccionesCobranza {
                 try {
                     double porcentaje1 = 1.0 / listcob.getSize() * 100;
                     double porcentaje = 0.0;
-                    Connection con = ConexionBase.conectar();
                     String insert = "INSERT INTO COBRANZA (idCOBRANZA,COMPANIA,SECCION,POLIZA,"
                             + "CERTIFICADO,INGRESO,CONSECUTIVO,FECHA,FECHACOBRO,"
                             + "MONEDA,MONTO,ORIGEN,USUARIO) VALUES";
@@ -107,9 +108,7 @@ public class AccionesCobranza {
                         Object date = "NULL";
                         porcentaje = porcentaje + porcentaje1;
                         Cobranza cob = listcob.getCobranza(i);
-                        sb.append("(" + 0 + "," + cob.getCompania() + "," + cob.getSeccion() + "," + cob.getPoliza() + ","
-                                + "" + cob.getCertificado() + "," + cob.getIngreso() + "," + cob.getConsecutivo() + ",'" + cob.getFecha() + "','" + cob.getFechaCobro() + "',"
-                                + " " + cob.getMoneda() + "," + cob.getMonto() + "," + cob.getOrigen() + "," + cob.getUsuario() +  ")");
+                        sb.append("(").append(0).append(",").append(cob.getCompania()).append(",").append(cob.getSeccion()).append(",").append(cob.getPoliza()).append(",").append(cob.getCertificado()).append(",").append(cob.getIngreso()).append(",").append(cob.getConsecutivo()).append(",'").append(cob.getFecha()).append("','").append(cob.getFechaCobro()).append("', ").append(cob.getMoneda()).append(",").append(cob.getMonto()).append(",").append(cob.getOrigen()).append(",").append(cob.getUsuario()).append(")");
 //                        insert = insert + "(" + 0 + "," + cob.getCompania() + "," + cob.getSeccion() + "," + cob.getPoliza() + ","
 //                                + "" + cob.getCertificado() + "," + cob.getIngreso() + "," + cob.getConsecutivo() + ",'" + cob.getFecha() + "','" + cob.getFechaCobro() + "',"
 //                                + " " + cob.getMoneda() + "," + cob.getMonto() + "," + cob.getOrigen() + "," + cob.getUsuario() +  ")";
@@ -139,14 +138,15 @@ public class AccionesCobranza {
     }
     
     public static void main(String[] args) {
+        Connection con = ConexionBase.conectar();
         try {
-            try (Connection con = ConexionBase.conectar()) {
-                System.out.println("conectado");
-                PreparedStatement pst = con.prepareStatement("DELETE FROM COBRANZA");
-                System.out.println("consulta creada");
-                pst.execute();
-            }
-        } catch (SQLException ex) {
+            System.out.println("conectado");
+            PreparedStatement pst = con.prepareStatement("DELETE FROM COBRANZA");
+            System.out.println("consulta creada");
+            pst.executeUpdate();
+            ConexionBase.desconectar();
+        } 
+        catch (SQLException ex) {
             Logger.getLogger(AccionesCobranza.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
