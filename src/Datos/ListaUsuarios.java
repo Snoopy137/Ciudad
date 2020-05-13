@@ -5,7 +5,6 @@
  */
 package Datos;
 
-import Datos.Usuarios;
 import java.util.ArrayList;
 
 /**
@@ -18,11 +17,11 @@ public class ListaUsuarios {
     
     public ListaUsuarios (ArrayList<Usuarios>listadousuario){
         super();
-        this.listadousuario = listadousuario;
+        listadousuario = listadousuario;
     }
     public ListaUsuarios (){
         super();
-        this.listadousuario = new ArrayList<Usuarios>();
+        listadousuario = new ArrayList<Usuarios>();
     }
     
     public int getSize(){
