@@ -118,7 +118,7 @@ public class AccionesAsegurados {
     
     public static void modificaAsegurado(Asegurados  A, int porcentaje, String label){
         class Modifica implements Runnable {
-
+            
             @Override
             public void run() {
                 Connection con = ConexionBase.conectar();

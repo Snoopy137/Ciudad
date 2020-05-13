@@ -45,6 +45,9 @@ public class CargaMasivaCobranza extends javax.swing.JFrame {
     
     public static void setLabel (String value){
         jLabel1.setText(value);
+        if(jLabel1.getText().equals("11646")){
+            jLabel4.setText("carga 11646 en "+jLabel2.getText());
+        }
     }
 
     public static void conteo (String segundos){
@@ -64,6 +67,8 @@ public class CargaMasivaCobranza extends javax.swing.JFrame {
         jProgressBar1 = new javax.swing.JProgressBar();
         jLabel2 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -87,6 +92,10 @@ public class CargaMasivaCobranza extends javax.swing.JFrame {
             }
         });
 
+        jLabel3.setText("jLabel3");
+
+        jLabel4.setText("jLabel4");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -107,13 +116,25 @@ public class CargaMasivaCobranza extends javax.swing.JFrame {
                             .addComponent(jButton1))
                         .addGap(8, 8, 8)))
                 .addGap(31, 31, 31))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel3)
+                .addGap(156, 156, 156))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(59, 59, 59)
+                .addComponent(jLabel4)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(91, 91, 91)
+                .addGap(39, 39, 39)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel3)
+                .addGap(18, 18, 18)
                 .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
                 .addComponent(jButton1)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -134,148 +155,201 @@ public class CargaMasivaCobranza extends javax.swing.JFrame {
         conteo("0");
         UIManager.put("FileChooser.cancelButtonText","Cancelar");
         JFileChooser jf = new JFileChooser();
-        int decision = jf.showDialog(this, "Seleccionar");
-        if(decision == jf.APPROVE_OPTION){
+        int decision = jf.showDialog(null, "Seleccionar");
+        if(decision == JFileChooser.APPROVE_OPTION){
+            crono.start();
+            jLabel3.setText("Leyendo Archivo");
             String ruta = jf.getSelectedFile().getAbsolutePath();
-            ListaCobranzas listacob = new ListaCobranzas();
-            try{
-                File archivo = new File(ruta);
-                DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-                DocumentBuilder documentBuilder = dbf.newDocumentBuilder();
-                Document document = documentBuilder.parse(archivo);
-                document.getDocumentElement().normalize();
-                System.out.println("Elemento raiz:" + document.getDocumentElement().getNodeName());
-                NodeList listaRegistro = document.getElementsByTagName("ROW");
-                double porcentaje1 = 1.0 / listaRegistro.getLength() * 100;
-                double porcentaje = 0.0;
-                SimpleDateFormat date = new SimpleDateFormat("dd/MM/yyyy");
-                long cuit=0;
-                //AccionesAsegurados.crono.start();
-                for (int i = 0;i<listaRegistro.getLength();i++){
-                    porcentaje = porcentaje + porcentaje1;
-                    Node nodo = listaRegistro.item(i);
-                    if (nodo.getNodeType() == Node.ELEMENT_NODE){
-                        Element element = (Element) nodo;
-                        Date fecha = new SimpleDateFormat("yyyyMMdd").parse(element.getAttribute("F"));
-                        Date fechacobro = new SimpleDateFormat("yyyyMMdd").parse(element.getAttribute("G"));
-                        int seccion = 4;
-                        int certificado = 0;
-                        int moneda = 01;
-                        double monto = 0;
-                        int consecutivo = 0;
-                        if (!element.getAttribute("A").equals("")){
-                            seccion = Integer.parseInt(element.getAttribute("A"));
+//            ListaCobranzas listacob = new ListaCobranzas();
+            class carga implements Runnable {
+
+                @Override
+                public void run() {
+                    String insert = "INSERT INTO COBRANZA (idCOBRANZA,COMPANIA,SECCION,POLIZA,"
+                            + "CERTIFICADO,INGRESO,CONSECUTIVO,FECHA,FECHACOBRO,"
+                            + "MONEDA,MONTO,ORIGEN,USUARIO,INTPOLIZA,"
+                            + "COBRADOR,COBRADOOFI,FECHAOFI,RENDIDO,USUARIOOFI) VALUES";
+                    try {
+                        File archivo = new File(ruta);
+                        DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+                        DocumentBuilder documentBuilder = dbf.newDocumentBuilder();
+                        Document document = documentBuilder.parse(archivo);
+                        document.getDocumentElement().normalize();
+                        System.out.println("Elemento raiz:" + document.getDocumentElement().getNodeName());
+                        NodeList listaRegistro = document.getElementsByTagName("ROW");
+                        double porcentaje1 = 1.0 / listaRegistro.getLength() * 100;
+                        double porcentaje = 0.0;
+                        SimpleDateFormat date = new SimpleDateFormat("dd/MM/yyyy");
+                        long cuit = 0;
+                        for (int i = 0; i < listaRegistro.getLength(); i++) {
+                            porcentaje = porcentaje + porcentaje1;
+                            Node nodo = listaRegistro.item(i);
+                            if (nodo.getNodeType() == Node.ELEMENT_NODE) {
+                                Element element = (Element) nodo;
+                                Date fecha = new SimpleDateFormat("yyyyMMdd").parse(element.getAttribute("F"));
+                                Date fechacobro = new SimpleDateFormat("yyyyMMdd").parse(element.getAttribute("G"));
+                                int seccion = 4;
+                                int certificado = 0;
+                                int moneda = 01;
+                                double monto = 0;
+                                int consecutivo = 0;
+//                                if (!element.getAttribute("A").equals("")) {
+//                                    seccion = Integer.parseInt(element.getAttribute("A"));
+//                                }
+//                                if (!element.getAttribute("E").equals("")) {
+//                                    consecutivo = Integer.parseInt(element.getAttribute("E"));
+//                                }
+//                                if (!element.getAttribute("I").equals("")) {
+//                                    monto = Double.parseDouble(element.getAttribute("I"));
+//                                }
+//                                if (!element.getAttribute("C").equals("")) {
+//                                    certificado = Integer.parseInt(element.getAttribute("C"));
+//                                }
+//                                if (!element.getAttribute("H").equals("")) {
+//                                    moneda = Integer.parseInt(element.getAttribute("H"));
+//                                }
+//                                Cobranza cob = new Cobranza();
+//                                cob.setCompania(1);
+//                                cob.setSeccion(seccion);
+//                                cob.setPoliza(Integer.parseInt(element.getAttribute("B")));
+//                                cob.setCertificado(certificado);
+//                                cob.setIngreso(Integer.parseInt(element.getAttribute("D")));
+//                                cob.setConsecutivo(consecutivo);
+//                                cob.setFecha(new java.sql.Date(fecha.getTime()));
+//                                cob.setFechaCobro(new java.sql.Date(fechacobro.getTime()));
+//                                cob.setMoneda(moneda);
+//                                cob.setMonto(monto);
+//                                cob.setOrigen(Integer.parseInt(element.getAttribute("J")));
+//                                cob.setUsuario(999);
+//                                listacob.agregaCobrazna(cob);
+                                insert = insert + "(" + 0 + "," + 1 + ","
+                                        + "" + seccion + "," + Integer.parseInt(element.getAttribute("B")) + ","
+                                        + "" + certificado + "," + Integer.parseInt(element.getAttribute("D")) + ","
+                                        + "" + consecutivo + ",'" + new java.sql.Date(fecha.getTime()) + "',"
+                                        + "'" + new java.sql.Date(fechacobro.getTime()) + "',"
+                                        + " " + moneda + "," + monto + ","
+                                        + "" + Integer.parseInt(element.getAttribute("J")) + "," + 999 + ","
+                                        + "" + null + ","
+                                        + " " + null + "," + null + ","
+                                        + "" + null + "," + null + ","
+                                        + "" + null + ")";
+                                if (i != listaRegistro.getLength() - 1) {
+                                    insert = insert + ",";
+                                    CargaMasivaCobranza.setProggres((int) porcentaje);
+                                    CargaMasivaCobranza.setLabel(String.valueOf(i));
+                                }
+                            }
                         }
-                        if (!element.getAttribute("E").equals("")){
-                            consecutivo = Integer.parseInt(element.getAttribute("E"));
-                        }
-                        if (!element.getAttribute("I").equals("")){
-                            monto = Double.parseDouble(element.getAttribute("I"));
-                        }
-                        if (!element.getAttribute("C").equals("")){
-                            certificado = Integer.parseInt(element.getAttribute("C"));
-                        }
-                        if (!element.getAttribute("H").equals("")){
-                            moneda = Integer.parseInt(element.getAttribute("H"));
-                        }
-                        Cobranza cob = new Cobranza();
-                        cob.setCompania(1);
-                        cob.setSeccion(seccion);
-                        cob.setPoliza(Integer.parseInt(element.getAttribute("B")));
-                        cob.setCertificado(certificado);
-                        cob.setIngreso(Integer.parseInt(element.getAttribute("D")));
-                        cob.setConsecutivo(consecutivo);
-                        cob.setFecha(new java.sql.Date(fecha.getTime()));
-                        cob.setFechaCobro(new java.sql.Date(fechacobro.getTime()));
-                        cob.setMoneda(moneda);
-                        cob.setMonto(monto);
-                        cob.setOrigen(Integer.parseInt(element.getAttribute("J")));
-                        cob.setUsuario(999);
-                        listacob.agregaCobrazna(cob);
+                        insert = insert + ";";
+                        crono.stop();
+                        System.out.println(insert);
+                        //AccionesCobranza.cargaMasiva(listacob);
+                        //AccionesAsegurados.crono.stop();
+                    }
+            catch (Exception e) {
+                        e.printStackTrace();
                     }
                 }
-                AccionesCobranza.cargaMasiva(listacob);
-                //AccionesAsegurados.crono.stop();
             }
-            catch(Exception e){
-                e.printStackTrace();
-            }
-        }
-
+            Thread t = new Thread(new carga());
+            t.start();
+        }   
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         conteo("0");
-        UIManager.put("FileChooser.cancelButtonText","Cancelar");
+        UIManager.put("FileChooser.cancelButtonText", "Cancelar");
         JFileChooser jf = new JFileChooser();
         int decision = jf.showDialog(this, "Seleccionar");
-        if(decision == jf.APPROVE_OPTION){
+        if (decision == jf.APPROVE_OPTION) {
+            crono.start();
             String ruta = jf.getSelectedFile().getAbsolutePath();
             ListaCobranzas listacob = new ListaCobranzas();
-            try{
-                File archivo = new File(ruta);
-                DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-                DocumentBuilder documentBuilder = dbf.newDocumentBuilder();
-                Document document = documentBuilder.parse(archivo);
-                document.getDocumentElement().normalize();
-                System.out.println("Elemento raiz:" + document.getDocumentElement().getNodeName());
-                NodeList listaRegistro = document.getElementsByTagName("ROW");
-                double porcentaje1 = 1.0 / listaRegistro.getLength() * 100;
-                double porcentaje = 0.0;
-                SimpleDateFormat date = new SimpleDateFormat("dd/MM/yyyy");
-                long cuit=0;
-                //AccionesAsegurados.crono.start();
-                for (int i = 0;i<listaRegistro.getLength();i++){
-                    porcentaje = porcentaje + porcentaje1;
-                    Node nodo = listaRegistro.item(i);
-                    if (nodo.getNodeType() == Node.ELEMENT_NODE){
-                        Element element = (Element) nodo;
-                        Date fecha = new SimpleDateFormat("yyyyMMdd").parse(element.getAttribute("F"));
-                        Date fechacobro = new SimpleDateFormat("yyyyMMdd").parse(element.getAttribute("G"));
-                        int seccion = 4;
-                        int certificado = 0;
-                        int moneda = 01;
-                        double monto = 0;
-                        int consecutivo = 0;
-                        if (!element.getAttribute("A").equals("")){
-                            seccion = Integer.parseInt(element.getAttribute("A"));
+            class carga implements Runnable{
+
+                @Override
+                public void run() {
+                    try {
+                        File archivo = new File(ruta);
+                        DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+                        DocumentBuilder documentBuilder = dbf.newDocumentBuilder();
+                        Document document = documentBuilder.parse(archivo);
+                        document.getDocumentElement().normalize();
+                        System.out.println("Elemento raiz:" + document.getDocumentElement().getNodeName());
+                        NodeList listaRegistro = document.getElementsByTagName("ROW");
+                        double porcentaje1 = 1.0 / listaRegistro.getLength() * 100;
+                        double porcentaje = 0.0;
+                        SimpleDateFormat date = new SimpleDateFormat("dd/MM/yyyy");
+                        long cuit = 0;
+                        System.out.println(listaRegistro.getLength());
+                        //AccionesAsegurados.crono.start();
+                        for (int i = 0; i < listaRegistro.getLength(); i++) {
+                            porcentaje = porcentaje + porcentaje1;
+                            Node nodo = listaRegistro.item(i);
+                            if (nodo.getNodeType() == Node.ELEMENT_NODE) {
+                                Element element = (Element) nodo;
+                                Date fecha = new SimpleDateFormat("yyyyMMdd").parse(element.getAttribute("F"));
+                                Date fechacobro = new SimpleDateFormat("yyyyMMdd").parse(element.getAttribute("G"));
+                                int seccion = 4;
+                                int certificado = 0;
+                                int moneda = 01;
+                                double monto = 0;
+                                int consecutivo = 0;
+                                if (!element.getAttribute("A").equals("")) {
+                                    seccion = Integer.parseInt(element.getAttribute("A"));
+                                }
+                                if (!element.getAttribute("E").equals("")) {
+                                    consecutivo = Integer.parseInt(element.getAttribute("E"));
+                                }
+                                if (!element.getAttribute("I").equals("")) {
+                                    monto = Double.parseDouble(element.getAttribute("I"));
+                                }
+                                if (!element.getAttribute("C").equals("")) {
+                                    certificado = Integer.parseInt(element.getAttribute("C"));
+                                }
+                                if (!element.getAttribute("H").equals("")) {
+                                    moneda = Integer.parseInt(element.getAttribute("H"));
+                                }
+                                Cobranza cob = new Cobranza();
+                                cob.setCompania(1);
+                                cob.setSeccion(seccion);
+                                cob.setPoliza(Integer.parseInt(element.getAttribute("B")));
+                                cob.setCertificado(certificado);
+                                cob.setIngreso(Integer.parseInt(element.getAttribute("D")));
+                                cob.setConsecutivo(consecutivo);
+                                cob.setFecha(new java.sql.Date(fecha.getTime()));
+                                cob.setFechaCobro(new java.sql.Date(fechacobro.getTime()));
+                                cob.setMoneda(moneda);
+                                cob.setMonto(monto);
+                                cob.setOrigen(Integer.parseInt(element.getAttribute("J")));
+                                cob.setUsuario(999);
+                                listacob.agregaCobrazna(cob);
+                            }
                         }
-                        if (!element.getAttribute("E").equals("")){
-                            consecutivo = Integer.parseInt(element.getAttribute("E"));
-                        }
-                        if (!element.getAttribute("I").equals("")){
-                            monto = Double.parseDouble(element.getAttribute("I"));
-                        }
-                        if (!element.getAttribute("C").equals("")){
-                            certificado = Integer.parseInt(element.getAttribute("C"));
-                        }
-                        if (!element.getAttribute("H").equals("")){
-                            moneda = Integer.parseInt(element.getAttribute("H"));
-                        }
-                        Cobranza cob = new Cobranza();
-                        cob.setCompania(1);
-                        cob.setSeccion(seccion);
-                        cob.setPoliza(Integer.parseInt(element.getAttribute("B")));
-                        cob.setCertificado(certificado);
-                        cob.setIngreso(Integer.parseInt(element.getAttribute("D")));
-                        cob.setConsecutivo(consecutivo);
-                        cob.setFecha(new java.sql.Date(fecha.getTime()));
-                        cob.setFechaCobro(new java.sql.Date(fechacobro.getTime()));
-                        cob.setMoneda(moneda);
-                        cob.setMonto(monto);
-                        cob.setOrigen(Integer.parseInt(element.getAttribute("J")));
-                        cob.setUsuario(999);
-                        listacob.agregaCobrazna(cob);
+                        crono.stop();
+                        String segundos = jLabel2.getText();
+                        jLabel3.setText("leido en " + segundos + " segundos");
+                        Thread.interrupted();
+                        AccionesCobranza.pruebacargamasiva1(listacob);
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
                 }
-                AccionesCobranza.pruebacargamasiva1(listacob);
+                
             }
-            catch(Exception e){
-                e.printStackTrace();
-            }
+            Thread t= new Thread(new carga());
+            t.start();
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    public static Timer crono = new Timer (1000,new ActionListener() {
+        int segundos = 0;
+        @Override
+        public void actionPerformed(ActionEvent e) {
+           segundos = segundos +1;
+           conteo(String.valueOf(segundos));
+        }
+    });
     /**
      * @param args the command line arguments
      */
@@ -316,6 +390,8 @@ public class CargaMasivaCobranza extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private static javax.swing.JLabel jLabel1;
     private static javax.swing.JLabel jLabel2;
+    public static javax.swing.JLabel jLabel3;
+    private static javax.swing.JLabel jLabel4;
     private static javax.swing.JProgressBar jProgressBar1;
     // End of variables declaration//GEN-END:variables
 }
