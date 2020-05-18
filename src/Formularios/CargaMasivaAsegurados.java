@@ -101,7 +101,11 @@ public class CargaMasivaAsegurados extends javax.swing.JFrame {
         UIManager.put("FileChooser.cancelButtonText","Cancelar");
         JFileChooser jf = new JFileChooser();
         int decision = jf.showDialog(this, "Seleccionar");
-        if(decision == jf.APPROVE_OPTION){
+        if(decision == JFileChooser.APPROVE_OPTION){
+            Progreso pro = new Progreso(null, true);
+            pro.proceso("Leyendo Archivo");
+            pro.siguiendo(true);
+            pro.setVisible(true);
             String ruta = jf.getSelectedFile().getAbsolutePath();
             ListaAsegurados listaseg = new ListaAsegurados();
             try{
@@ -117,9 +121,10 @@ public class CargaMasivaAsegurados extends javax.swing.JFrame {
                 Date fechanac = null;
                 SimpleDateFormat date = new SimpleDateFormat("dd/MM/yyyy");
                 long cuit=0;
-                //AccionesAsegurados.crono.start();
+                pro.siguiendo(false);
                 for (int i = 0;i<listaRegistro.getLength();i++){
                     porcentaje = porcentaje + porcentaje1;
+                    pro.progreso((int)porcentaje);
                     Date fechabaja = null;
                     Node nodo = listaRegistro.item(i);
                     if (nodo.getNodeType() == Node.ELEMENT_NODE){
@@ -171,7 +176,7 @@ public class CargaMasivaAsegurados extends javax.swing.JFrame {
                         //AccionesAsegurados.modificaAsegurado(A,(int)porcentaje,String.valueOf(i));
                     }
                 }
-                AccionesAsegurados.CargaMasiva(listaseg);
+                AccionesAsegurados.CargaMasiva(listaseg,pro);
                 //AccionesAsegurados.crono.stop();
             }
             catch(Exception e){
@@ -209,7 +214,7 @@ public class CargaMasivaAsegurados extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("GTK+".equals(info.getName())) {
+                if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }

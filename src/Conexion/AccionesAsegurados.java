@@ -9,6 +9,7 @@ import Datos.Asegurados;
 import Datos.ListaAsegurados;
 import Datos.Usuarios;
 import Formularios.CargaMasivaAsegurados;
+import Formularios.Progreso;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
@@ -55,8 +56,9 @@ public class AccionesAsegurados {
         return resultado;
     }
 
-    public static void CargaMasiva(ListaAsegurados listaseg) {
-        crono.start();
+    public static void CargaMasiva(ListaAsegurados listaseg, Progreso pro) {
+        pro.crono.start();
+        pro.proceso("Procesando datos");
         class Carga implements Runnable {
 
             @Override
@@ -69,6 +71,7 @@ public class AccionesAsegurados {
                     double porcentaje1 = 1.0 / listaseg.getSize() * 100;
                     double porcentaje = 0.0;
                     Connection con = ConexionBase.conectar();
+                    StringBuilder sb = new StringBuilder(insert);
                     for (int i = 0; i < listaseg.getSize(); i++) {
                         Object date = "NULL";
                         porcentaje = porcentaje + porcentaje1;
@@ -76,26 +79,31 @@ public class AccionesAsegurados {
                         if (A.getBaja() != null) {
                             date = "'" + A.getBaja() + "'";
                         }
-                        insert = insert + "(" +A.getNumasegurado() + ","
+                        sb.append("(" +A.getNumasegurado() + ","
                                 + " '" + A.getNombreasegurado().replace("'", "\\'") +"', '" + A.getDomicilioasegurado() + "','" + A.getDomiciliocobroasegurado() + "',"
                                 + " '" + A.getLocalidad() + "','" + A.getCodigopostal() + "','" + A.getDNItipo() + "'," + A.getDNInumero() + ","
                                 + " '" + A.getTele1() + "','" + A.getTele2() + "','" + A.getTele3() + "','" + A.getFechanac() + "'," + A.getCuil() + ","
                                 + " '" + A.getActividad() + "','" + A.getMail() + "','" + A.getEstado() + "'," + A.getCobrador() + ",'" + A.getObservaciones() + "',"
-                                + " '" + A.getAlta() + "'," + date + ", 999 ,'" + A.getModificado() + "' ) ";
+                                + " '" + A.getAlta() + "'," + date + ", 999 ,'" + A.getModificado() + "' ) ") ;
                         if (i!=listaseg.getSize()-1){
-                            insert = insert+", \n";
+                            sb.append(", \n");
                         }
-                        CargaMasivaAsegurados.setProggres((int) porcentaje);
-                        CargaMasivaAsegurados.setLabel(String.valueOf(i));
+                        pro.progreso((int) porcentaje);
+                        pro.cant(String.valueOf(i+1)+" registros procesados de "+listaseg.getSize());
                     }
-                    insert = insert+"ON DUPLICATE key UPDATE Nombre=values(Nombre),Domicilio=values(Domicilio),DomicilioCobro=values(DomicilioCobro),"
+                    sb.append("ON DUPLICATE key UPDATE Nombre=values(Nombre),Domicilio=values(Domicilio),DomicilioCobro=values(DomicilioCobro),"
                             + "Localidad=values(Localidad),CodPostal=values(CodPostal),DNITipo=values(DNITipo),DNINro=values(DNINro),Tele1=values(Tele1),"
                             + "Tele2=values(Tele2),Tele3=values(Tele3),FecNac=values(FecNac),CUIL=values(CUIL),Actividad=values(Actividad),"
                             + "Mail=values(Mail),Estado=values(Estado),Cobrador=values(cobrador),Observ=values(Observ),ALTA=values(ALTA),BAJA=values(BAJA),"
-                            + "Usuario=values(Usuario),Fecha=values(Fecha);";
-                    PreparedStatement pst = con.prepareStatement(insert);
+                            + "Usuario=values(Usuario),Fecha=values(Fecha);");
+                    PreparedStatement pst = con.prepareStatement(sb.toString());
+                    pro.siguiendo(true);
+                    pro.proceso("Conectando Con Base de datos");
                     int resultado = pst.executeUpdate();
-                    crono.stop();
+                    pro.siguiendo(false);
+                    pro.proceso("Proceso Completado");
+                    pro.dispose();
+                    pro.crono.stop();
                 }
                 catch (Exception e) {
                     e.printStackTrace();

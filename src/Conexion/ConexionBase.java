@@ -14,9 +14,9 @@ import java.sql.DriverManager;
  */
 public class ConexionBase {
     static Connection con = null;
-    static String usuario = "alandec";
-    static String password = "2wsx3edc";
-    static String url = "jdbc:mysql://db4free.net:3306/";
+    static String usuario = "root";
+    static String password = "piojero13";
+    static String url = "jdbc:mysql://localhost:3306/";
     static String basee = "ciudad";
     
     public static Connection conectar(){

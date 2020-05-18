@@ -62,6 +62,7 @@ public class CargaMasivaCobranza extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jf = new javax.swing.JFileChooser();
         jButton1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jProgressBar1 = new javax.swing.JProgressBar();
@@ -69,6 +70,8 @@ public class CargaMasivaCobranza extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+
+        jf.setCurrentDirectory(new java.io.File("C:\\Users\\mis_p\\Documents\\NetBeansProjects\\Ciudad\\src\\Ciudad"));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -153,11 +156,12 @@ public class CargaMasivaCobranza extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         conteo("0");
-        UIManager.put("FileChooser.cancelButtonText","Cancelar");
-        JFileChooser jf = new JFileChooser();
-        int decision = jf.showDialog(null, "Seleccionar");
+        UIManager.put("FileChooser.cancelButtonText","Basta");
+        int decision = jf.showDialog(this, "Seleccionar");
         if(decision == JFileChooser.APPROVE_OPTION){
-            crono.start();
+            Progreso pro = new Progreso(null,false);
+            pro.proceso("Procesando Archivo");
+            pro.crono.start();
             jLabel3.setText("Leyendo Archivo");
             String ruta = jf.getSelectedFile().getAbsolutePath();
 //            ListaCobranzas listacob = new ListaCobranzas();
@@ -262,6 +266,10 @@ public class CargaMasivaCobranza extends javax.swing.JFrame {
         JFileChooser jf = new JFileChooser();
         int decision = jf.showDialog(this, "Seleccionar");
         if (decision == jf.APPROVE_OPTION) {
+            Progreso pro = new Progreso(this,false);
+            pro.proceso("Procesando Archivo");
+            pro.setVisible(true);
+            pro.crono.start();
             crono.start();
             String ruta = jf.getSelectedFile().getAbsolutePath();
             ListaCobranzas listacob = new ListaCobranzas();
@@ -281,7 +289,6 @@ public class CargaMasivaCobranza extends javax.swing.JFrame {
                         double porcentaje = 0.0;
                         SimpleDateFormat date = new SimpleDateFormat("dd/MM/yyyy");
                         long cuit = 0;
-                        System.out.println(listaRegistro.getLength());
                         //AccionesAsegurados.crono.start();
                         for (int i = 0; i < listaRegistro.getLength(); i++) {
                             porcentaje = porcentaje + porcentaje1;
@@ -325,12 +332,15 @@ public class CargaMasivaCobranza extends javax.swing.JFrame {
                                 cob.setUsuario(999);
                                 listacob.agregaCobrazna(cob);
                             }
+                            pro.cant(String.valueOf(i+1)+" registros procesados de "+listaRegistro.getLength());
+                            pro.progreso((int)porcentaje);
                         }
-                        crono.stop();
+                        pro.crono.stop();
                         String segundos = jLabel2.getText();
                         jLabel3.setText("leido en " + segundos + " segundos");
                         Thread.interrupted();
-                        AccionesCobranza.pruebacargamasiva1(listacob);
+                        AccionesCobranza.pruebacargamasiva1(listacob,pro);
+                        AccionesCobranza.crono.stop();
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -361,7 +371,7 @@ public class CargaMasivaCobranza extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("Windows Classic".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
@@ -393,5 +403,6 @@ public class CargaMasivaCobranza extends javax.swing.JFrame {
     public static javax.swing.JLabel jLabel3;
     private static javax.swing.JLabel jLabel4;
     private static javax.swing.JProgressBar jProgressBar1;
+    private javax.swing.JFileChooser jf;
     // End of variables declaration//GEN-END:variables
 }

@@ -10,6 +10,7 @@ import Datos.ListaCobranzas;
 import Formularios.CargaMasivaCobranza;
 import static Formularios.CargaMasivaCobranza.conteo;
 import static Formularios.CargaMasivaCobranza.setProggres;
+import Formularios.Progreso;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
@@ -90,9 +91,13 @@ public class AccionesCobranza {
         }
     });
     
-    public static void pruebacargamasiva1(ListaCobranzas listcob) {
-        crono.start();
+    public static void pruebacargamasiva1(ListaCobranzas listcob, Progreso pro) {
+        pro.crono.start();
+        pro.siguiendo(true);
+        pro.barres(false);
+        pro.proceso("Conectando con base de datos");
         Connection con = ConexionBase.conectar();
+        pro.proceso("Conectado");
         class carga implements Runnable {
 
             @Override
@@ -104,28 +109,36 @@ public class AccionesCobranza {
                             + "CERTIFICADO,INGRESO,CONSECUTIVO,FECHA,FECHACOBRO,"
                             + "MONEDA,MONTO,ORIGEN,USUARIO) VALUES";
                     StringBuilder sb = new StringBuilder(insert);
+                    pro.proceso("Procesando datos");
+                    pro.siguiendo(false);
+                    pro.barres(true);
+                    pro.progreso(0);
                     for (int i = 0; i < listcob.getSize(); i++) {
                         Object date = "NULL";
                         porcentaje = porcentaje + porcentaje1;
                         Cobranza cob = listcob.getCobranza(i);
-                        sb.append("(").append(0).append(",").append(cob.getCompania()).append(",").append(cob.getSeccion()).append(",").append(cob.getPoliza()).append(",").append(cob.getCertificado()).append(",").append(cob.getIngreso()).append(",").append(cob.getConsecutivo()).append(",'").append(cob.getFecha()).append("','").append(cob.getFechaCobro()).append("', ").append(cob.getMoneda()).append(",").append(cob.getMonto()).append(",").append(cob.getOrigen()).append(",").append(cob.getUsuario()).append(")");
-//                        insert = insert + "(" + 0 + "," + cob.getCompania() + "," + cob.getSeccion() + "," + cob.getPoliza() + ","
-//                                + "" + cob.getCertificado() + "," + cob.getIngreso() + "," + cob.getConsecutivo() + ",'" + cob.getFecha() + "','" + cob.getFechaCobro() + "',"
-//                                + " " + cob.getMoneda() + "," + cob.getMonto() + "," + cob.getOrigen() + "," + cob.getUsuario() +  ")";
+                        sb.append("(").append(0).append(",").append(cob.getCompania()).append(",").append(cob.getSeccion()).append(",").
+                                append(cob.getPoliza()).append(",").append(cob.getCertificado()).append(",").append(cob.getIngreso()).append(",").
+                                append(cob.getConsecutivo()).append(",'").append(cob.getFecha()).append("','").append(cob.getFechaCobro()).append("', ").
+                                append(cob.getMoneda()).append(",").append(cob.getMonto()).append(",").append(cob.getOrigen()).append(",").append(cob.getUsuario()).append(")");
                         if (i!=listcob.getSize()-1){
                             sb.append(",");
                         }
-                        CargaMasivaCobranza.setProggres((int) porcentaje);
-                        CargaMasivaCobranza.setLabel(String.valueOf(i));
+                        pro.progreso((int) porcentaje);
+                        pro.cant(String.valueOf(i+1)+" registros procesados de "+listcob.getSize());
                     }
                     insert = sb.toString();                    
                     sb.append(";");
-                    System.out.println("complete insert");
                     PreparedStatement pst = con.prepareStatement(insert);
-                    System.out.println("prepare statement");
+                    pro.siguiendo(true);
+                    pro.barres(false);
+                    pro.proceso("Escribiendo datos en base");
                     int resultado = pst.executeUpdate();
-                    System.out.println("mande consulta a base");
+                    pro.siguiendo(false);
+                    pro.barres(true);
+                    pro.proceso("Proceso completado");
                     crono.stop();
+                    pro.crono.stop();
                     con.close();
                 } 
                 catch (SQLException ex) {
