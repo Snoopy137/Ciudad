@@ -154,7 +154,7 @@ public class AccionesCobranza {
         Connection con = ConexionBase.conectar();
         try {
             System.out.println("conectado");
-            PreparedStatement pst = con.prepareStatement("DELETE FROM COBRANZA");
+            PreparedStatement pst = con.prepareStatement("ALTER TABLE COBRANZA AUTO_INCREMENT = 1");
             System.out.println("consulta creada");
             pst.executeUpdate();
             ConexionBase.desconectar();

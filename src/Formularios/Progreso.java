@@ -96,7 +96,7 @@ public class Progreso extends javax.swing.JDialog {
         jLabel5 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
 
         JPB_barra.setStringPainted(true);
