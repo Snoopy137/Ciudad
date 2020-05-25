@@ -6,6 +6,7 @@
 package Formularios;
 
 import Conexion.AccionesCobranza;
+import Conexion.CargaMasivaCobranza1;
 import Datos.Cobranza;
 import Datos.ListaCobranzas;
 import java.awt.event.ActionEvent;
@@ -136,8 +137,8 @@ public class CargaMasivaCobranza extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3)
                 .addGap(18, 18, 18)
-                .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton1)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -273,7 +274,7 @@ public class CargaMasivaCobranza extends javax.swing.JFrame {
             crono.start();
             String ruta = jf.getSelectedFile().getAbsolutePath();
             ListaCobranzas listacob = new ListaCobranzas();
-            class carga implements Runnable{
+            class carga extends Thread{
 
                 @Override
                 public void run() {
@@ -339,7 +340,11 @@ public class CargaMasivaCobranza extends javax.swing.JFrame {
                         String segundos = jLabel2.getText();
                         jLabel3.setText("leido en " + segundos + " segundos");
                         Thread.interrupted();
-                        AccionesCobranza.pruebacargamasiva1(listacob,pro);
+                        //AccionesCobranza.pruebacargamasiva1(listacob,pro);
+                        CargaMasivaCobranza1 car = new CargaMasivaCobranza1(pro, listacob);
+                        pro.setT(car);
+                        car.start();
+                        car.setPausa(true);
                         AccionesCobranza.crono.stop();
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -348,6 +353,7 @@ public class CargaMasivaCobranza extends javax.swing.JFrame {
                 
             }
             Thread t= new Thread(new carga());
+            pro.setT1(t);
             t.start();
         }
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -371,7 +377,7 @@ public class CargaMasivaCobranza extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Windows Classic".equals(info.getName())) {
+                if ("Windows".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
