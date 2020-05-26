@@ -5,7 +5,7 @@
  */
 package Datos;
 
-import java.sql.Date;
+import java.util.Date;
 
 /**
  *
@@ -13,44 +13,58 @@ import java.sql.Date;
  */
 public class Polizas {
     private int idpolizas;
-    private int numpoliza;
-    private int idcompanias;
-    private String nombreCompania;
-    private int idseccion;
-    private String nombreseccion;
-    private int numero;
-    private String endoso;
-    private Date vigenciadesde;
-    private Date vigenciahasta;
-    private Date fechapago;
-    private Date diapago;
-
+    private int compania;
+    private int seccion;
+    private int poliza;
+    private int certificado;
+    private int renueva;
+    private int renovadapor;
+    private int intpoliza;
+    private int productor;
+    private int tipooper;
+    private Date fechamis;
+    private Date desde;
+    private Date hasta;
+    private int estado;
+    private Date fechaestado;
+    private int asegurado;
+    private int moneda;
+    private int cobrador;
+    private double prima;
+    private double premio;
+    private int usuario;
+    private int usuarioofi;
+    private int formapago;
+    
     public Polizas() {
     }
 
-    public Polizas(int idpolizas, int idcompanias, String nombreCompania, int idseccion, String nombreseccion, int numero, String endoso, Date vigenciadesde, Date vigenciahasta, Date fechapago, Date diapago) {
+    public Polizas(int idpolizas, int compania, int seccion, int poliza, int certificado, int renueva, int renovadapor, int intpoliza, int productor, int tipooper, Date fechamis, Date desde, Date hasta, int estado, Date fechaestado, int asegurado, int moneda, int cobrador, double prima, double premio, int usuario, int usuarioofi, int formapago) {
         this.idpolizas = idpolizas;
-        this.idcompanias = idcompanias;
-        this.nombreCompania = nombreCompania;
-        this.idseccion = idseccion;
-        this.nombreseccion = nombreseccion;
-        this.numero = numero;
-        this.endoso = endoso;
-        this.vigenciadesde = vigenciadesde;
-        this.vigenciahasta = vigenciahasta;
-        this.fechapago = fechapago;
-        this.diapago = diapago;
+        this.compania = compania;
+        this.seccion = seccion;
+        this.poliza = poliza;
+        this.certificado = certificado;
+        this.renueva = renueva;
+        this.renovadapor = renovadapor;
+        this.intpoliza = intpoliza;
+        this.productor = productor;
+        this.tipooper = tipooper;
+        this.fechamis = fechamis;
+        this.desde = desde;
+        this.hasta = hasta;
+        this.estado = estado;
+        this.fechaestado = fechaestado;
+        this.asegurado = asegurado;
+        this.moneda = moneda;
+        this.cobrador = cobrador;
+        this.prima = prima;
+        this.premio = premio;
+        this.usuario = usuario;
+        this.usuarioofi = usuarioofi;
+        this.formapago = formapago;
     }
 
-    public int getNumpoliza() {
-        return numpoliza;
-    }
-
-    public void setNumpoliza(int numpoliza) {
-        this.numpoliza = numpoliza;
-    }
-
-    
     public int getIdpolizas() {
         return idpolizas;
     }
@@ -59,85 +73,179 @@ public class Polizas {
         this.idpolizas = idpolizas;
     }
 
-    public int getIdcompanias() {
-        return idcompanias;
+    public int getCompania() {
+        return compania;
     }
 
-    public void setIdcompanias(int idcompanias) {
-        this.idcompanias = idcompanias;
+    public void setCompania(int compania) {
+        this.compania = compania;
     }
 
-    public String getNombreCompania() {
-        return nombreCompania;
+    public int getSeccion() {
+        return seccion;
     }
 
-    public void setNombreCompania(String nombreCompania) {
-        this.nombreCompania = nombreCompania;
+    public void setSeccion(int seccion) {
+        this.seccion = seccion;
     }
 
-    public int getIdseccion() {
-        return idseccion;
+    public int getPoliza() {
+        return poliza;
     }
 
-    public void setIdseccion(int idseccion) {
-        this.idseccion = idseccion;
+    public void setPoliza(int poliza) {
+        this.poliza = poliza;
     }
 
-    public String getNombreseccion() {
-        return nombreseccion;
+    public int getCertificado() {
+        return certificado;
     }
 
-    public void setNombreseccion(String nombreseccion) {
-        this.nombreseccion = nombreseccion;
+    public void setCertificado(int certificado) {
+        this.certificado = certificado;
     }
 
-    public int getNumero() {
-        return numero;
+    public int getRenueva() {
+        return renueva;
     }
 
-    public void setNumero(int numero) {
-        this.numero = numero;
+    public void setRenueva(int renueva) {
+        this.renueva = renueva;
     }
 
-    public String getEndoso() {
-        return endoso;
+    public int getRenovadapor() {
+        return renovadapor;
     }
 
-    public void setEndoso(String endoso) {
-        this.endoso = endoso;
+    public void setRenovadapor(int renovadapor) {
+        this.renovadapor = renovadapor;
     }
 
-    public Date getVigenciadesde() {
-        return vigenciadesde;
+    public int getIntpoliza() {
+        return intpoliza;
     }
 
-    public void setVigenciadesde(Date vigenciadesde) {
-        this.vigenciadesde = vigenciadesde;
+    public void setIntpoliza(int intpoliza) {
+        this.intpoliza = intpoliza;
     }
 
-    public Date getVigenciahasta() {
-        return vigenciahasta;
+    public int getProductor() {
+        return productor;
     }
 
-    public void setVigenciahasta(Date vigenciahasta) {
-        this.vigenciahasta = vigenciahasta;
+    public void setProductor(int productor) {
+        this.productor = productor;
     }
 
-    public Date getFechapago() {
-        return fechapago;
+    public int getTipooper() {
+        return tipooper;
     }
 
-    public void setFechapago(Date fechapago) {
-        this.fechapago = fechapago;
+    public void setTipooper(int tipooper) {
+        this.tipooper = tipooper;
     }
 
-    public Date getDiapago() {
-        return diapago;
+    public Date getFechamis() {
+        return fechamis;
     }
 
-    public void setDiapago(Date diapago) {
-        this.diapago = diapago;
+    public void setFechamis(Date fechamis) {
+        this.fechamis = fechamis;
     }
-    
-    
+
+    public Date getDesde() {
+        return desde;
+    }
+
+    public void setDesde(Date desde) {
+        this.desde = desde;
+    }
+
+    public Date getHasta() {
+        return hasta;
+    }
+
+    public void setHasta(Date hasta) {
+        this.hasta = hasta;
+    }
+
+    public int getEstado() {
+        return estado;
+    }
+
+    public void setEstado(int estado) {
+        this.estado = estado;
+    }
+
+    public Date getFechaestado() {
+        return fechaestado;
+    }
+
+    public void setFechaestado(Date fechaestado) {
+        this.fechaestado = fechaestado;
+    }
+
+    public int getAsegurado() {
+        return asegurado;
+    }
+
+    public void setAsegurado(int asegurado) {
+        this.asegurado = asegurado;
+    }
+
+    public int getMoneda() {
+        return moneda;
+    }
+
+    public void setMoneda(int moneda) {
+        this.moneda = moneda;
+    }
+
+    public int getCobrador() {
+        return cobrador;
+    }
+
+    public void setCobrador(int cobrador) {
+        this.cobrador = cobrador;
+    }
+
+    public double getPrima() {
+        return prima;
+    }
+
+    public void setPrima(double prima) {
+        this.prima = prima;
+    }
+
+    public double getPremio() {
+        return premio;
+    }
+
+    public void setPremio(double premio) {
+        this.premio = premio;
+    }
+
+    public int getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(int usuario) {
+        this.usuario = usuario;
+    }
+
+    public int getUsuarioofi() {
+        return usuarioofi;
+    }
+
+    public void setUsuarioofi(int usuarioofi) {
+        this.usuarioofi = usuarioofi;
+    }
+
+    public int getFormapago() {
+        return formapago;
+    }
+
+    public void setFormapago(int formapago) {
+        this.formapago = formapago;
+    }
 }

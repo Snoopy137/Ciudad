@@ -7,7 +7,9 @@ package Conexion;
 
 import static Conexion.AccionesCobranza.crono;
 import Datos.Cobranza;
+import Datos.Hilo;
 import Datos.ListaCobranzas;
+import Datos.Monitor;
 import Formularios.Progreso;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -19,39 +21,25 @@ import java.util.logging.Logger;
  *
  * @author AlanDec
  */
-public class CargaMasivaCobranza1 extends Thread {
+public class CargaMasivaCobranza1 extends Hilo {
 
     private Progreso pro;
     private ListaCobranzas listcob;
-    private boolean pausa;
 
     public CargaMasivaCobranza1(Progreso pro, ListaCobranzas listcob) {
         this.pro = pro;
         this.listcob = listcob;
     }
 
-    public boolean isPausa() {
-        return pausa;
-    }
-
-    public void setPausa(boolean pausa) {
-        System.out.println(pausa+" como esta");
-        System.out.println(pausa+" lo que le llega");
-        this.pausa = pausa;
-        System.out.println(this.pausa+" así qeuda el campo de clase");
-        System.out.println("---------------------------------------");
-    }    
-
     @Override
-    public void run() {
-        if (pausa != false){
-            pro.crono.start();
-            pro.siguiendo(true);
-            pro.barres(false);
-            pro.proceso("Conectando con base de datos");
-            Connection con = ConexionBase.conectar();
-            pro.proceso("Conectado");
-            try {
+    public void execute() {
+        pro.crono.start();
+        pro.siguiendo(true);
+        pro.barres(false);
+        pro.proceso("Conectando con base de datos");
+        Connection con = ConexionBase.conectar();
+        pro.proceso("Conectado");
+        try {
             double porcentaje1 = 1.0 / listcob.getSize() * 100;
             double porcentaje = 0.0;
             String insert = "INSERT INTO COBRANZA (idCOBRANZA,COMPANIA,SECCION,POLIZA,"
@@ -63,6 +51,15 @@ public class CargaMasivaCobranza1 extends Thread {
             pro.barres(true);
             pro.progreso(0);
             for (int i = 0; i < listcob.getSize(); i++) {
+                synchronized (super.m) {
+                    while (!m.isTrue()) {
+                        try {
+                            m.wait();
+                        } catch (InterruptedException ex) {
+                            Logger.getLogger(CargaMasivaCobranza1.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
+                }
                 Object date = "NULL";
                 porcentaje = porcentaje + porcentaje1;
                 Cobranza cob = listcob.getCobranza(i);
@@ -90,12 +87,10 @@ public class CargaMasivaCobranza1 extends Thread {
             crono.stop();
             pro.crono.stop();
             con.close();
-        } 
-        catch (SQLException ex) {
-                Logger.getLogger(AccionesCobranza.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (InterruptedException ex) {
-                Logger.getLogger(CargaMasivaCobranza1.class.getName()).log(Level.SEVERE, null, ex);
-            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AccionesCobranza.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(CargaMasivaCobranza1.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }

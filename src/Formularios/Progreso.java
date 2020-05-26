@@ -6,6 +6,8 @@
 package Formularios;
 
 import Conexion.CargaMasivaCobranza1;
+import Datos.Hilo;
+import Datos.Monitor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -51,41 +53,40 @@ public class Progreso extends javax.swing.JDialog {
         JPB_barra.setStringPainted(es);
     }
 
-    public CargaMasivaCobranza1 getT() {
+    public Hilo getT() {
         return t;
     }
 
-    public void setT(CargaMasivaCobranza1 t) {
+    public void setT(Hilo t) {
         this.t = t;
     }
-
-    public Thread getT1() {
-        return t1;
-    }
-
-    public void setT1(Thread t1) {
-        this.t1 = t1;
+    
+    public void setMonitor(Monitor m){
+        this.m = m;
     }
     
-    
+    public Monitor getMonitor(){
+        return m;
+    }
     
     public int cancelar(){
         addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
             public void windowClosing(java.awt.event.WindowEvent evt) {
-                try {
-                    t.wait();
-                    decision = javax.swing.JOptionPane.showConfirmDialog(null, "Desea cancelar la operación", "Aviso!", javax.swing.JOptionPane.YES_OPTION);
-                    if (decision == 0){
-                        t.notify();
-                        t.interrupt();
-                        dispose();
-                    }
-                    else{
-                        t.notify();
-                    }
-                } catch (InterruptedException ex) {
-                    Logger.getLogger(Progreso.class.getName()).log(Level.SEVERE, null, ex);
+                t.pausa();
+                decision = javax.swing.JOptionPane.showConfirmDialog(null, "Desea cancelar la operación", "Aviso!", javax.swing.JOptionPane.YES_OPTION);
+                System.out.println(decision);
+                if (decision == 0){
+                    System.out.println("elegiste "+decision);
+                    System.out.println(t.getState());
+                    System.out.println(t.getState());
+                    t.terminate();
+//                    dispose();
+                    System.out.println(t.getState());
+                }
+                else{
+                    System.out.println("elegiste "+ decision);
+                    t.play();
                 }
             }
         });
@@ -140,7 +141,7 @@ public class Progreso extends javax.swing.JDialog {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(cancelar());
         setResizable(false);
 
         JPB_barra.setStringPainted(true);
@@ -219,16 +220,11 @@ public class Progreso extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        t.setPausa(false);
+        t.play();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        System.out.println(t.isPausa()+" el estado inical");
-        t.setPausa(false);
-        System.out.println(t.getState()+" el estado");
-        System.out.println(t.isAlive()+" si esta vivo o no");
-        System.out.println(t.isPausa()+" como esta la pausa en el thread");
-        System.out.println("----------------------------------------------");
+        t.pausa();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -274,9 +270,9 @@ public class Progreso extends javax.swing.JDialog {
         });
     }
 
-    private Thread t1;
-    private CargaMasivaCobranza1 t;
+    private Hilo t;
     private int decision = 2;
+    private Monitor m;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JProgressBar JPB_barra;
     private javax.swing.JButton jButton1;

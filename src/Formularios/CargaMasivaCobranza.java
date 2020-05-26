@@ -8,7 +8,9 @@ package Formularios;
 import Conexion.AccionesCobranza;
 import Conexion.CargaMasivaCobranza1;
 import Datos.Cobranza;
+import Datos.Hilo;
 import Datos.ListaCobranzas;
+import Datos.Monitor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -274,10 +276,10 @@ public class CargaMasivaCobranza extends javax.swing.JFrame {
             crono.start();
             String ruta = jf.getSelectedFile().getAbsolutePath();
             ListaCobranzas listacob = new ListaCobranzas();
-            class carga extends Thread{
+            class carga extends Hilo{
 
                 @Override
-                public void run() {
+                public void execute() {
                     try {
                         File archivo = new File(ruta);
                         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
@@ -290,8 +292,16 @@ public class CargaMasivaCobranza extends javax.swing.JFrame {
                         double porcentaje = 0.0;
                         SimpleDateFormat date = new SimpleDateFormat("dd/MM/yyyy");
                         long cuit = 0;
-                        //AccionesAsegurados.crono.start();
                         for (int i = 0; i < listaRegistro.getLength(); i++) {
+                            synchronized (super.m) {
+                                while (!m.isTrue()) {
+                                    try {
+                                        m.wait();
+                                    } catch (InterruptedException ex) {
+                                        Logger.getLogger(CargaMasivaCobranza1.class.getName()).log(Level.SEVERE, null, ex);
+                                    }
+                                }
+                            }
                             porcentaje = porcentaje + porcentaje1;
                             Node nodo = listaRegistro.item(i);
                             if (nodo.getNodeType() == Node.ELEMENT_NODE) {
@@ -344,7 +354,6 @@ public class CargaMasivaCobranza extends javax.swing.JFrame {
                         CargaMasivaCobranza1 car = new CargaMasivaCobranza1(pro, listacob);
                         pro.setT(car);
                         car.start();
-                        car.setPausa(true);
                         AccionesCobranza.crono.stop();
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -352,8 +361,8 @@ public class CargaMasivaCobranza extends javax.swing.JFrame {
                 }
                 
             }
-            Thread t= new Thread(new carga());
-            pro.setT1(t);
+            Hilo t= new carga();
+            pro.setT(t);
             t.start();
         }
     }//GEN-LAST:event_jButton2ActionPerformed
