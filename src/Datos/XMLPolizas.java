@@ -140,7 +140,7 @@ public class XMLPolizas extends Hilo {
                     System.out.println(i);
                 }
                 pro.cant(String.valueOf(i + 1) + " registros procesados de " + listaRegistro.getLength());
-                pro.progreso((int) porcentaje);
+                pro.progreso((int) Math.round(porcentaje));
             }
             pro.crono.stop();
             System.out.println("Proceso completado");
