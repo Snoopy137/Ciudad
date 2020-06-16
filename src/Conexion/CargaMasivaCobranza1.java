@@ -9,7 +9,6 @@ import static Conexion.AccionesCobranza.crono;
 import Datos.Cobranza;
 import Datos.Hilo;
 import Datos.ListaCobranzas;
-import Datos.Monitor;
 import Formularios.Progreso;
 import java.sql.Connection;
 import java.sql.PreparedStatement;

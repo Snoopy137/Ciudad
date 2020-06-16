@@ -5,7 +5,7 @@
  */
 package Datos;
 
-import Conexion.CargaMasivaCobranza1;
+import Conexion.CargaMasivaPolizas;
 import Formularios.Progreso;
 import java.io.File;
 import java.io.IOException;
@@ -83,7 +83,7 @@ public class XMLPolizas extends Hilo {
                         try {
                             m.wait();
                         } catch (InterruptedException ex) {
-                            Logger.getLogger(CargaMasivaCobranza1.class.getName()).log(Level.SEVERE, null, ex);
+                            Logger.getLogger(XMLPolizas.class.getName()).log(Level.SEVERE, null, ex);
                         }
                     }
                 }
@@ -104,10 +104,17 @@ public class XMLPolizas extends Hilo {
                     if (!element.getAttribute("U").equals("")){
                         renueva = Integer.parseInt(element.getAttribute("U"));
                     }
+                    int renovadapor = 0;
+                    if (!element.getAttribute("S").equals("")){
+                        renovadapor = Integer.parseInt(element.getAttribute("S"));
+                    }
                     int productor = Integer.parseInt(element.getAttribute("L"));
                     Date fechamis = date.parse(element.getAttribute("H"));
                     Date desde = date.parse(element.getAttribute("I"));
-//                    Date hasta = date.parse(element.getAttribute("J"));
+                    Date hasta = null;
+                    if(!element.getAttribute("J").equals("")){
+                        hasta = date.parse(element.getAttribute("J"));
+                    }
                     int estado = 1;
                     if(!element.getAttribute("F").equals("")){
                         estado = Integer.parseInt(element.getAttribute("F"));
@@ -120,16 +127,21 @@ public class XMLPolizas extends Hilo {
                     }
                     int usuario = 999;
                     int formapago = 1;
+                    if (!element.getAttribute("N").equals(""))Integer.parseInt(element.getAttribute("N"));
+                    if (element.getAttribute("N").equals("")){
+                        System.out.println(poliza);
+                    }
                     Polizas p = new Polizas();
                     p.setAsegurado(asegurado);
                     p.setSeccion(seccion);
+                    p.setRenovadapor(renovadapor);
                     p.setPoliza(poliza);
                     p.setCertificado(certificado);
                     p.setRenueva(renueva);
                     p.setProductor(productor);
                     p.setFechamis(fechamis);
                     p.setDesde(desde);
-  //                  p.setHasta(hasta);
+                    p.setHasta(hasta);
                     p.setEstado(estado);
                     p.setFechaestado(fechaestado);
                     p.setAsegurado(asegurado);
@@ -137,13 +149,14 @@ public class XMLPolizas extends Hilo {
                     p.setUsuario(usuario);
                     p.setFormapago(formapago);
                     polist.add(p);
-                    System.out.println(i);
                 }
                 pro.cant(String.valueOf(i + 1) + " registros procesados de " + listaRegistro.getLength());
                 pro.progreso((int) Math.round(porcentaje));
             }
             pro.crono.stop();
             System.out.println("Proceso completado");
+            Hilo carga = new CargaMasivaPolizas(pro, polist);
+            carga.execute();
         } catch (Exception e) {
             e.printStackTrace();
         }

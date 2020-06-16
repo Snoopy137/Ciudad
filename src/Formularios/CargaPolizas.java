@@ -73,6 +73,7 @@ public class CargaPolizas extends javax.swing.JFrame {
             pro.crono.start();
             XMLPolizas x = new XMLPolizas(ruta, pro);
             x.start();
+            
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 

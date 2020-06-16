@@ -19,5 +19,7 @@ import java.sql.Statement;
  * @author linux
  */
 public class AccionesPolizas {
-    
+    public void cargaMasiva(ListaPolizas listpol){
+        
+    }
 }
