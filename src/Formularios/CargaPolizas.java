@@ -6,7 +6,7 @@
 
 package Formularios;
 
-import Datos.XMLPolizas;
+import Datos.XMLPolizasFederacion;
 import javax.swing.JFileChooser;
 import javax.swing.UIManager;
 
@@ -71,7 +71,7 @@ public class CargaPolizas extends javax.swing.JFrame {
             pro.proceso("Procesando Archivo");
             pro.setVisible(true);
             pro.crono.start();
-            XMLPolizas x = new XMLPolizas(ruta, pro);
+            XMLPolizasFederacion x = new XMLPolizasFederacion(ruta, pro);
             x.start();
             
         }

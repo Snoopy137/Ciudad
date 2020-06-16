@@ -27,7 +27,7 @@ import org.xml.sax.SAXException;
  *
  * @author AlanDec
  */
-public class XMLPolizas extends Hilo {
+public class XMLPolizasFederacion extends Hilo {
 
     private String ruta;
     private Progreso pro;
@@ -39,8 +39,8 @@ public class XMLPolizas extends Hilo {
     private Document document;
     SimpleDateFormat date = new SimpleDateFormat("yyyyMMdd");
 
-    public XMLPolizas (){}
-    public XMLPolizas (String ruta, Progreso pro){
+    public XMLPolizasFederacion (){}
+    public XMLPolizasFederacion (String ruta, Progreso pro){
         this.ruta = ruta;
         this.pro = pro;
         readFile();
@@ -63,13 +63,12 @@ public class XMLPolizas extends Hilo {
             document.getDocumentElement().normalize();
             listaRegistro = document.getElementsByTagName("ROW");
             porcentaje1 = 1.0 / listaRegistro.getLength() * 100;
-            System.out.println(listaRegistro.getLength());
         } catch (ParserConfigurationException ex) {
-            Logger.getLogger(XMLPolizas.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(XMLPolizasFederacion.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SAXException ex) {
-            Logger.getLogger(XMLPolizas.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(XMLPolizasFederacion.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
-            Logger.getLogger(XMLPolizas.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(XMLPolizasFederacion.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -83,7 +82,7 @@ public class XMLPolizas extends Hilo {
                         try {
                             m.wait();
                         } catch (InterruptedException ex) {
-                            Logger.getLogger(XMLPolizas.class.getName()).log(Level.SEVERE, null, ex);
+                            Logger.getLogger(XMLPolizasFederacion.class.getName()).log(Level.SEVERE, null, ex);
                         }
                     }
                 }
@@ -128,10 +127,8 @@ public class XMLPolizas extends Hilo {
                     int usuario = 999;
                     int formapago = 1;
                     if (!element.getAttribute("N").equals(""))Integer.parseInt(element.getAttribute("N"));
-                    if (element.getAttribute("N").equals("")){
-                        System.out.println(poliza);
-                    }
                     Polizas p = new Polizas();
+                    p.setCompania(1);
                     p.setAsegurado(asegurado);
                     p.setSeccion(seccion);
                     p.setRenovadapor(renovadapor);
@@ -154,7 +151,6 @@ public class XMLPolizas extends Hilo {
                 pro.progreso((int) Math.round(porcentaje));
             }
             pro.crono.stop();
-            System.out.println("Proceso completado");
             Hilo carga = new CargaMasivaPolizas(pro, polist);
             carga.execute();
         } catch (Exception e) {

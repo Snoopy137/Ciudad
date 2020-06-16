@@ -61,19 +61,20 @@ public class CargaMasivaPolizas extends Hilo {
                         }
                     }
                 }
-                Object date = "NULL";
                 porcentaje = porcentaje + porcentaje1;
                 Polizas pol = listpol.getPoliza(i);
+                Object hasta = "NULL";
+                if(pol.getHasta()!= null)hasta=" '"+new java.sql.Date(pol.getHasta().getTime())+"'";
                 sb.append("(").append(0).append(",").append(pol.getCompania()).append(",").append(pol.getSeccion()).append(",").
                         append(pol.getPoliza()).append(",").append(pol.getCertificado()).append(",").append(pol.getRenueva()).append(",").
-                        append(pol.getRenovadapor()).append(",").append(pol.getProductor()).append(",'").append(pol.getFechamis()).append("','").
-                        append(pol.getDesde()).append("','").append(pol.getHasta()).append("',").append(pol.getEstado()).append(",").append(pol.getAsegurado()).
+                        append(pol.getRenovadapor()).append(",").append(pol.getProductor()).append(",'").append(new java.sql.Date(pol.getFechamis().getTime())).append("','").
+                        append(new java.sql.Date(pol.getDesde().getTime())).append("',").append(hasta).append(",").append(pol.getEstado()).append(",'"+new java.sql.Date(pol.getFechaestado().getTime())).append("',").append(pol.getAsegurado()).
                         append(",").append(pol.getMoneda()).append(",").append(pol.getCobrador()).append(",").append("999").append(",").append(pol.getFormapago()).
                         append(")");
                 if (i != listpol.getZise() - 1) {
                     sb.append(",");
                 }
-                pro.progreso((int) porcentaje);
+                pro.progreso((int) Math.round(porcentaje));
                 pro.cant(String.valueOf(i + 1) + " registros procesados de " + listpol.getZise());
             }
             insert = sb.toString();
@@ -85,16 +86,18 @@ public class CargaMasivaPolizas extends Hilo {
             pro.siguiendo(true);
             pro.barres(false);
             pro.proceso("Escribiendo datos en base");
-            System.out.println(insert);
             int resultado = pst.executeUpdate();
             pro.siguiendo(false);
             pro.barres(true);
             pro.proceso("Proceso completado");
             crono.stop();
             pro.crono.stop();
+            pst.close();
             con.close();
         } catch (SQLException ex) {
             Logger.getLogger(AccionesCobranza.class.getName()).log(Level.SEVERE, null, ex);
+            pro.crono.stop();
+            javax.swing.JOptionPane.showMessageDialog(null, "Sucedio un error","Error!",javax.swing.JOptionPane.ERROR_MESSAGE);
         }
     }
     
