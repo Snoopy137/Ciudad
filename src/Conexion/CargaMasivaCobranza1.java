@@ -50,7 +50,8 @@ public class CargaMasivaCobranza1 extends Hilo {
             pro.barres(true);
             pro.progreso(0);
             for (int i = 0; i < listcob.getSize(); i++) {
-                synchronized (super.m) {
+                while(execute){
+                    synchronized (super.m) {
                     while (!m.isTrue()) {
                         try {
                             m.wait();
@@ -71,7 +72,7 @@ public class CargaMasivaCobranza1 extends Hilo {
                 }
                 pro.progreso((int) porcentaje);
                 pro.cant(String.valueOf(i + 1) + " registros procesados de " + listcob.getSize());
-                Thread.sleep(50);
+                }
             }
             insert = sb.toString();
             sb.append(";");
@@ -88,8 +89,6 @@ public class CargaMasivaCobranza1 extends Hilo {
             con.close();
         } catch (SQLException ex) {
             Logger.getLogger(AccionesCobranza.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(CargaMasivaCobranza1.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }

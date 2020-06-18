@@ -77,11 +77,11 @@ public class CargaMasivaPolizas extends Hilo {
                 pro.progreso((int) Math.round(porcentaje));
                 pro.cant(String.valueOf(i + 1) + " registros procesados de " + listpol.getZise());
             }
-            insert = sb.toString();
             sb.append("ON DUPLICATE key UPDATE COMPANIA=values(COMPANIA),SECCION=values(SECCION),POLIZA=values(POLIZA),"
-                            + "CERTIFICADO=values(CERTIFICADO),RENUEVA=values(RENUEVA),RENOAVDAPOR=values(RENOAVDAPOR),PRODUCTOR=values(PRODUCTOR),FECHAMIS=values(FECHAMIS),"
+                            + "CERTIFICADO=values(CERTIFICADO),RENUEVA=values(RENUEVA),RENOVADAPOR=values(RENOVADAPOR),PRODUCTOR=values(PRODUCTOR),FECHAMIS=values(FECHAMIS),"
                             + "DESDE=values(DESDE),HASTA=values(HASTA),ESTADO=values(ESTADO),FECHAESTADO=values(FECHAESTADO),ASEGURADO=values(ASEGURADO),"
                             + "MONEDA=values(MONEDA),COBRADOR=values(COBRADOR),FORMAPAGO=values(FORMAPAGO);");
+            insert = sb.toString();
             PreparedStatement pst = con.prepareStatement(insert);
             pro.siguiendo(true);
             pro.barres(false);
