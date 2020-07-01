@@ -21,13 +21,13 @@ public class Endoso {
     private Date fechaemis;
     private Date desde;
     private Date hasta;
-    private int tipoendoso;
+    private String tipoendoso;
     private int motivo;
-    private int plan;
+    private String plan;
     private int asegurado;
     private int moneda;
-    private int suma;
-    private int prima;
+    private double suma;
+    private double prima;
     private int codproducto;
     private int usuario;
     private int usuarioofi;
@@ -35,7 +35,7 @@ public class Endoso {
     public Endoso() {
     }
 
-    public Endoso(int idENDOSOS, int compania, int seccion, int poliza, int certificado, int endoso, Date fechaemis, Date desde, Date hasta, int tipoendoso, int motivo, int plan, int asegurado, int moneda, int suma, int prima, int codproducto, int usuario, int usuarioofi) {
+    public Endoso(int idENDOSOS, int compania, int seccion, int poliza, int certificado, int endoso, Date fechaemis, Date desde, Date hasta, String tipoendoso, int motivo, String plan, int asegurado, int moneda, int suma, int prima, int codproducto, int usuario, int usuarioofi) {
         this.idENDOSOS = idENDOSOS;
         this.compania = compania;
         this.seccion = seccion;
@@ -129,11 +129,11 @@ public class Endoso {
         this.hasta = hasta;
     }
 
-    public int getTipoendoso() {
+    public String getTipoendoso() {
         return tipoendoso;
     }
 
-    public void setTipoendoso(int tipoendoso) {
+    public void setTipoendoso(String tipoendoso) {
         this.tipoendoso = tipoendoso;
     }
 
@@ -145,11 +145,11 @@ public class Endoso {
         this.motivo = motivo;
     }
 
-    public int getPlan() {
+    public String getPlan() {
         return plan;
     }
 
-    public void setPlan(int plan) {
+    public void setPlan(String plan) {
         this.plan = plan;
     }
 
@@ -169,19 +169,19 @@ public class Endoso {
         this.moneda = moneda;
     }
 
-    public int getSuma() {
+    public double getSuma() {
         return suma;
     }
 
-    public void setSuma(int suma) {
+    public void setSuma(double suma) {
         this.suma = suma;
     }
 
-    public int getPrima() {
+    public double getPrima() {
         return prima;
     }
 
-    public void setPrima(int prima) {
+    public void setPrima(double prima) {
         this.prima = prima;
     }
 

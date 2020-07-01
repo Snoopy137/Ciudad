@@ -5,16 +5,21 @@
  */
 package Datos;
 
+import Conexion.CargaMasivaEndoso;
 import Formularios.Progreso;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
@@ -69,7 +74,75 @@ public class XMLEndososFederacion extends Hilo {
 
     @Override
     public void execute() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            ArrayList <Endoso> listend = new ArrayList<>();
+            for (int i = 0; i < listaRegistro.getLength(); i++) {
+                synchronized (super.m) {
+                    while (!m.isTrue()) {
+                        try {
+                            m.wait();
+                        } catch (InterruptedException ex) {
+                            Logger.getLogger(XMLPolizasFederacion.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
+                }
+                porcentaje = porcentaje + porcentaje1;
+                Node nodo = listaRegistro.item(i);
+                if (nodo.getNodeType() == Node.ELEMENT_NODE) {
+                    Element element = (Element) nodo;
+                    int seccion = 4;
+                    if(!element.getAttribute("A").equals(""))seccion = Integer.parseInt(element.getAttribute("A"));
+                    int poliza = Integer.parseInt(element.getAttribute("B"));
+                    int certificado = 0;
+                    if(!element.getAttribute("C").equals(""))certificado = Integer.parseInt(element.getAttribute("C"));
+                    int endoso = 0;
+                    if(!element.getAttribute("D").equals(""))Integer.parseInt(element.getAttribute("D"));
+                    Date fechamis = date.parse(element.getAttribute("E"));
+                    Date desde = date.parse(element.getAttribute("F"));
+                    Date hasta = null;
+                    if(!element.getAttribute("G").equals(""))date.parse(element.getAttribute("G"));
+                    String tipoEndoso = element.getAttribute("H");
+                    int motivo = Integer.parseInt(element.getAttribute("I"));
+                    String plan = element.getAttribute("L");
+                    int asegurado = Integer.parseInt(element.getAttribute("P"));
+                    int moneda = 1;
+                    if(!element.getAttribute("Q").equals(""))moneda = Integer.parseInt(element.getAttribute("Q"));
+                    double suma = 0;
+                    if(!element.getAttribute("V").equals(""))suma = Double.parseDouble(element.getAttribute("V"));
+                    double prima = 0;
+                    if(!element.getAttribute("W").equals(""))prima = Double.parseDouble(element.getAttribute("W"));
+                    int codproducto = 0;
+                    if(!element.getAttribute("X").equals(""))Integer.parseInt(element.getAttribute("X"));
+                    int usuario = 999;
+                    Endoso end = new Endoso();
+                    end.setAsegurado(asegurado);
+                    end.setCertificado(certificado);
+                    end.setCodproducto(codproducto);
+                    end.setCompania(1);
+                    end.setDesde(desde);
+                    end.setEndoso(endoso);
+                    end.setFechaemis(fechamis);
+                    end.setHasta(hasta);
+                    end.setMoneda(moneda);
+                    end.setMotivo(motivo);
+                    end.setPlan(plan);
+                    end.setPoliza(poliza);
+                    end.setPrima(prima);
+                    end.setSeccion(seccion);
+                    end.setSuma(suma);
+                    end.setTipoendoso(tipoEndoso);
+                    end.setUsuario(usuario);
+                    listend.add(end);
+                }
+                pro.cant(String.valueOf(i + 1) + " registros procesados de " + listaRegistro.getLength());
+                pro.progreso((int) Math.round(porcentaje));
+            }
+            pro.crono.stop();
+            Hilo carga = new CargaMasivaEndoso(pro, listend);
+            carga.execute();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
     
 }
