@@ -15,6 +15,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.sql.Date;
 
 /**
  *
@@ -42,7 +43,7 @@ public class CargaMasivaEndoso extends Hilo {
             double porcentaje1 = 1.0 / listend.getSize() * 100;
             double porcentaje = 0.0;
             String insert = "INSERT INTO ENDOSOS (idENDOSOS,COMPANIA,SECCION,POLIZA,"
-                    + "CERTIFICADO,ENDOSO,FECHAMIS,DESDE,HASTA,"
+                    + "CERTIFICADO,ENDOSO,FECHAEMIS,DESDE,HASTA,"
                     + "TIPOENDOSO,MOTIVO,PLAN,ASEGURADO,MONEDA,SUMA,PRIMA,CODPRODUCTO,"
                     + "USUARIO,USUARIOOFI) VALUES";
             StringBuilder sb = new StringBuilder(insert);
@@ -67,13 +68,13 @@ public class CargaMasivaEndoso extends Hilo {
                 StringBuilder append = sb.append("(").append(0).append(",").append(end.getCompania()).append(",").append(end.getSeccion()).append(",").append(end.getPoliza()).append(",").append(end.getCertificado()).
                         append(",").
                         append(end.getEndoso()).append(",").
-                        append("'").append(end.getFechaemis()).append("',").append("'").append(end.getDesde()).
+                        append("'").append(new java.sql.Date(end.getFechaemis().getTime())).append("',").append("'").append(new java.sql.Date(end.getDesde().getTime())).
                         append("',").
                         append(hasta).append(",'").append(end.getTipoendoso()).append("',").append(end.getMotivo()).append(",'").append(end.getPlan()).
                         append("',").
                         append(end.getAsegurado()).append(",").append(end.getMoneda()).append(",").append(end.getSuma()).append(",").append(end.getPrima()).
                         append(",").
-                        append(end.getCodproducto()).append(",").append(end.getUsuario()).append(",").append(end.getUsuarioofi());
+                        append(end.getCodproducto()).append(",").append(end.getUsuario()).append(",").append(end.getUsuarioofi()).append(")");
                 if (i != listend.getSize() - 1) {
                     sb.append(",");
                 }
@@ -81,7 +82,7 @@ public class CargaMasivaEndoso extends Hilo {
                 pro.cant(String.valueOf(i + 1) + " registros procesados de " + listend.getSize());
             }
             sb.append("ON DUPLICATE key UPDATE COMPANIA=values(COMPANIA),SECCION=values(SECCION),POLIZA=values(POLIZA),"
-                            + "CERTIFICADO=values(CERTIFICADO),ENDOSO=values(ENDOSO),FECHAMIS=values(FECHAMIS),DESDE=values(DESDE),HASTA=values(HASTA),"
+                            + "CERTIFICADO=values(CERTIFICADO),ENDOSO=values(ENDOSO),FECHAEMIS=values(FECHAEMIS),DESDE=values(DESDE),HASTA=values(HASTA),"
                             + "TIPOENDOSO=values(TIPOENDOSO),MOTIVO=values(MOTIVO),PLAN=values(PLAN),ASEGURADO=values(ASEGURADO),MONEDA=values(MONEDA),"
                             + "SUMA=values(SUMA),PRIMA=values(PRIMA),CODPRODUCTO=values(CODPRODUCTO),USUARIO=values(USUARIO),USUARIOOFI=values(USUARIOOFI);");
             insert = sb.toString();
