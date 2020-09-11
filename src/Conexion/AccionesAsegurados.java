@@ -155,4 +155,38 @@ public class AccionesAsegurados {
         Thread t = new Thread(new Modifica());
         t.start();
     }
+    
+    public static ListaAsegurados buscarAsegurados(String nombre, int DNI){
+        ListaAsegurados asegList = new ListaAsegurados();
+        Connection con = ConexionBase.conectar();
+        if(!nombre.equals(""))nombre="%"+nombre+"%";
+        String cond = "OR";
+        if(!nombre.equals("") && DNI != 0)cond="AND";
+        try {
+            PreparedStatement pst = con.prepareStatement("SELECT * FROM asegurados WHERE nombre LIKE '"+nombre+"' "+cond+" DNINro LIKE '"+DNI+"%'");
+            System.out.println(pst.toString());
+            ResultSet rs = pst.executeQuery();
+            while (rs.next()){
+                Asegurados aseg = new Asegurados();
+                aseg.setNombreasegurado(rs.getString("nombre"));
+                aseg.setActividad(rs.getNString("Actividad"));
+                aseg.setAlta(rs.getDate("ALTA"));
+                asegList.agregaAsegurado(aseg);
+            }
+            con.close();
+            rs.close();
+            pst.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(AccionesAsegurados.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+        return asegList;
+    }
+    
+    public static void main (String []ags){
+        ListaAsegurados asegList=buscarAsegurados ("al",18);
+        for(int i=0;i<asegList.getSize();i++){
+            System.out.println(asegList.getAsegurado(i).getAlta()+" "+asegList.getAsegurado(i).getNombreasegurado());
+        }
+        System.out.println(asegList.getSize());
+    }
 }
