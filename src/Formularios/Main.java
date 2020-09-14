@@ -6,6 +6,7 @@
 package Formularios;
 
 import Datos.Usuarios;
+import com.apple.eawt.Application;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Window;
@@ -34,8 +35,6 @@ public class Main extends javax.swing.JFrame {
                 cerrarcesion();
             }
         });
-        System.out.print("vacio");
-        //jPanel1.setSize(rootPane.getSize());
     }
     public Main(Usuarios u) {
         initComponents();
@@ -78,7 +77,9 @@ public class Main extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel2 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
+        richLabel1 = new Label.RichLabel();
+        jPanel3 = new javax.swing.JPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         menusuarios = new javax.swing.JMenuItem();
@@ -87,28 +88,51 @@ public class Main extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
 
-        jButton1.setText("jButton1");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+        richLabel1.setText("ASEGURADOS");
+        richLabel1.setMouseovercolor(new java.awt.Color(0, 204, 204));
+        richLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                richLabel1MouseClicked(evt);
             }
         });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(richLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(richLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 585, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1174, Short.MAX_VALUE)
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(312, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addGap(123, 123, 123))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(233, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addGap(147, 147, 147))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         jMenu1.setText("Control");
@@ -159,20 +183,23 @@ public class Main extends javax.swing.JFrame {
         cerrarcesion();
     }//GEN-LAST:event_mencierrecesionActionPerformed
 
-    private void menusuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menusuariosActionPerformed
-        AdministrarUsuarios adm = new AdministrarUsuarios();
-        adm.setVisible(true);
-    }//GEN-LAST:event_menusuariosActionPerformed
-
     private void mencambiocontraseniaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mencambiocontraseniaActionPerformed
         CambiarContrasenia camb = new CambiarContrasenia(us);
         camb.setVisible(true);
     }//GEN-LAST:event_mencambiocontraseniaActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        Progreso cho = new Progreso(this,true);
-        cho.setVisible(true);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void menusuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menusuariosActionPerformed
+        AdministrarUsuarios adm = new AdministrarUsuarios();
+        adm.setVisible(true);
+    }//GEN-LAST:event_menusuariosActionPerformed
+
+    private void richLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_richLabel1MouseClicked
+        Asegurados aseg = new Asegurados();
+        aseg.setSize(jPanel3.getWidth(), jPanel3.getHeight());
+        jPanel3.removeAll();
+        jPanel3.add(aseg);
+        aseg.revalidate();
+    }//GEN-LAST:event_richLabel1MouseClicked
 
     /**
      * @param args the command line arguments
@@ -195,6 +222,7 @@ public class Main extends javax.swing.JFrame {
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
+        System.setProperty("apple.laf.useScreenMenuBar", "true");
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Windows".equals(info.getName())) {
@@ -222,12 +250,14 @@ public class Main extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JMenuItem mencambiocontrasenia;
     private javax.swing.JMenuItem mencierrecesion;
     private javax.swing.JMenuItem menusuarios;
+    private Label.RichLabel richLabel1;
     // End of variables declaration//GEN-END:variables
 }

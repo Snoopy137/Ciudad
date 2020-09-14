@@ -30,7 +30,7 @@ public class AccionesCobranza {
     public int insertaCobranza (Cobranza cob){
         int resultado = 0;
         try {
-            Connection con = ConexionBase.conectar();
+            Connection con = new ConexionBase().conectar();
             
             PreparedStatement pst = con.prepareStatement("INSERT INTO COBRANZA VALUES ("+0+","+cob.getCompania()+","+cob.getSeccion()+","+cob.getPoliza()+","
                     + ""+cob.getCertificado()+","+cob.getIngreso()+","+cob.getConsecutivo()+","+cob.getFecha()+","+cob.getFechaCobro()+","
@@ -56,7 +56,7 @@ public class AccionesCobranza {
             public void run() {
                 double porcentaje1 = 1.0 / listcob.getSize() * 100;
                 double porcentaje = 0.0;
-                Connection con = ConexionBase.conectar();
+                Connection con = new ConexionBase().conectar();
                 for (int i = 0; i < 50; i++) {
                     try {
                         Object date = "NULL";
@@ -96,7 +96,7 @@ public class AccionesCobranza {
         pro.siguiendo(true);
         pro.barres(false);
         pro.proceso("Conectando con base de datos");
-        Connection con = ConexionBase.conectar();
+        Connection con = new ConexionBase().conectar();
         pro.proceso("Conectado");
         class carga implements Runnable {
 
@@ -139,7 +139,7 @@ public class AccionesCobranza {
                     pro.proceso("Proceso completado");
                     crono.stop();
                     pro.crono.stop();
-                    con.close();
+                    ConexionBase.desconectar();
                 } 
                 catch (SQLException ex) {
                     Logger.getLogger(AccionesCobranza.class.getName()).log(Level.SEVERE, null, ex);
@@ -151,7 +151,7 @@ public class AccionesCobranza {
     }
     
     public static void main(String[] args) {
-        Connection con = ConexionBase.conectar();
+        Connection con = new ConexionBase().conectar();
         try {
             System.out.println("conectado");
             PreparedStatement pst = con.prepareStatement("DELETE FROM POLIZAS");

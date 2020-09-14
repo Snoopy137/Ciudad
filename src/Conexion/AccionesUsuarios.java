@@ -29,7 +29,7 @@ public class AccionesUsuarios {
         String correo = u.getCorreo();
         
         try{
-            Connection con = ConexionBase.conectar();
+            Connection con = new ConexionBase().conectar();
             PreparedStatement existe = con.prepareStatement("SELECT * FROM usuarios WHERE Usuario = '"+usuario+"' ");
             PreparedStatement psmt = con.prepareStatement("INSERT INTO usuarios VALUES ('"+0+"','"+nombre+"','"+apellido+"','"+correo+"','"+usuario+"','"+contrasenia+"'"
                     + ",'"+privilejios+"' )");
@@ -45,6 +45,7 @@ public class AccionesUsuarios {
         catch (Exception e){
             e.printStackTrace();
         }
+        ConexionBase.desconectar();
         return status;
     }
     
@@ -55,7 +56,7 @@ public class AccionesUsuarios {
         String privilejios = u.getPriviliegios();
         
         try{
-            Connection con = ConexionBase.conectar();
+            Connection con = new ConexionBase().conectar();
             PreparedStatement valida = con.prepareStatement("SELECT * FROM usuarios WHERE Usuario = '"+usuario+"'"
                    );
             ResultSet rs = valida.executeQuery();
@@ -85,7 +86,7 @@ public class AccionesUsuarios {
         String privilejios = u.getPriviliegios();
         
         try{
-            Connection con = ConexionBase.conectar();
+            Connection con = new ConexionBase().conectar();
             PreparedStatement pst = con.prepareStatement("UPDATE usuarios SET Nombre = '"+nombre+"', Usuario ='"+usuario+"'"
                     + ",Contrasenia = '"+contrasenia+"', Privilegios = '"+privilejios+"' WHERE idusuarios = "+id+" ");
             status = pst.executeUpdate();
@@ -100,7 +101,7 @@ public class AccionesUsuarios {
     }
     
     public static ListaUsuarios BuscaUsuario (int row, String nombre){
-        Connection con =ConexionBase.conectar();
+        Connection con = new ConexionBase().conectar();
         String filtro = "WHERE Nombre like '%" + nombre +"%'";
 		if (row != 0){
 			filtro = filtro + " AND nrosocio = " + row;      
@@ -134,7 +135,7 @@ public class AccionesUsuarios {
     }
     
     public static Usuarios Busqueda(int usu){
-        Connection con = ConexionBase.conectar();
+        Connection con = new ConexionBase().conectar();
         Usuarios u = new Usuarios();
         try{
             PreparedStatement pst = con.prepareStatement("SELECT * FROM usuarios WHERE idusuarios = "+usu);
@@ -159,7 +160,7 @@ public class AccionesUsuarios {
     
     public static int cambiarcontrasenia(Usuarios u,String contraseniavieja, String contrasenia){
         int id = u.getIdusuario();
-        Connection con = ConexionBase.conectar();
+        Connection con = new ConexionBase().conectar();
         int resultado = 0;
         try{
             PreparedStatement siex = con.prepareStatement("SELECT * FROM usuarios WHERE ID ="+id+" AND Contrasenia = '"+contraseniavieja+"' ");

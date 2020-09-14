@@ -36,7 +36,7 @@ public class CargaMasivaCobranza1 extends Hilo {
         pro.siguiendo(true);
         pro.barres(false);
         pro.proceso("Conectando con base de datos");
-        Connection con = ConexionBase.conectar();
+        Connection con = new ConexionBase().conectar();
         pro.proceso("Conectado");
         try {
             double porcentaje1 = 1.0 / listcob.getSize() * 100;
@@ -86,7 +86,7 @@ public class CargaMasivaCobranza1 extends Hilo {
             pro.proceso("Proceso completado");
             crono.stop();
             pro.crono.stop();
-            con.close();
+            ConexionBase.desconectar();
         } catch (SQLException ex) {
             Logger.getLogger(AccionesCobranza.class.getName()).log(Level.SEVERE, null, ex);
         }

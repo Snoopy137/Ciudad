@@ -37,7 +37,7 @@ public class CargaMasivaEndoso extends Hilo {
         pro.siguiendo(true);
         pro.barres(false);
         pro.proceso("Conectando con base de datos");
-        Connection con = ConexionBase.conectar();
+        Connection con = new ConexionBase().conectar();
         pro.proceso("Conectado");
         try {
             double porcentaje1 = 1.0 / listend.getSize() * 100;
@@ -96,7 +96,7 @@ public class CargaMasivaEndoso extends Hilo {
             pro.proceso("Proceso completado");
             pro.crono.stop();
             pst.close();
-            con.close();
+            ConexionBase.desconectar();
         } 
         catch (SQLException ex) {
             ex.printStackTrace();

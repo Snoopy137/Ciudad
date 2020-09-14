@@ -159,23 +159,24 @@ public class AccionesAsegurados {
     public static ListaAsegurados buscarAsegurados(String nombre, int DNI){
         ListaAsegurados asegList = new ListaAsegurados();
         Connection con = ConexionBase.conectar();
-        if(!nombre.equals(""))nombre="%"+nombre+"%";
+        if(!nombre.equals(""))nombre=nombre+"%";
         String cond = "OR";
         if(!nombre.equals("") && DNI != 0)cond="AND";
+        if(nombre.equals("") && DNI == 0)nombre="%"+nombre+"%";
         try {
             PreparedStatement pst = con.prepareStatement("SELECT * FROM asegurados WHERE nombre LIKE '"+nombre+"' "+cond+" DNINro LIKE '"+DNI+"%'");
-            System.out.println(pst.toString());
             ResultSet rs = pst.executeQuery();
             while (rs.next()){
                 Asegurados aseg = new Asegurados();
                 aseg.setNombreasegurado(rs.getString("nombre"));
                 aseg.setActividad(rs.getNString("Actividad"));
-                aseg.setAlta(rs.getDate("ALTA"));
+                aseg.setDNInumero(rs.getInt("DNINro"));
+                aseg.setTele1(rs.getString("Tele1"));
                 asegList.agregaAsegurado(aseg);
             }
-            con.close();
             rs.close();
             pst.close();
+            ConexionBase.desconectar();
         } catch (SQLException ex) {
             Logger.getLogger(AccionesAsegurados.class.getName()).log(Level.SEVERE, null, ex);
         } 
@@ -183,9 +184,9 @@ public class AccionesAsegurados {
     }
     
     public static void main (String []ags){
-        ListaAsegurados asegList=buscarAsegurados ("al",18);
+        ListaAsegurados asegList=buscarAsegurados ("a",180);
         for(int i=0;i<asegList.getSize();i++){
-            System.out.println(asegList.getAsegurado(i).getAlta()+" "+asegList.getAsegurado(i).getNombreasegurado());
+            System.out.println(asegList.getAsegurado(i).getDNInumero()+" "+asegList.getAsegurado(i).getNombreasegurado());
         }
         System.out.println(asegList.getSize());
     }

@@ -43,8 +43,4 @@ public class ConexionBase {
         }
         return con;
     }
-    public static void main(String[] args) {
-        conectar();
-        desconectar();
-    }
 }

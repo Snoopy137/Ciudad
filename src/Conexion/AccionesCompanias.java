@@ -21,7 +21,7 @@ public class AccionesCompanias {
     
     public static int Inserta(Companias comp){
         int resultado = 0;
-        Connection con = ConexionBase.conectar();
+        Connection con = new ConexionBase().conectar();
         int id = comp.getIdcompanias();
         String nombre = comp.getNombrecompanias();
         try{
@@ -44,7 +44,7 @@ public class AccionesCompanias {
     }
     
     public static ListaCompanias buscacompanias (int row, String nombre){
-        Connection con =ConexionBase.conectar();
+        Connection con = new ConexionBase().conectar();
         String filtro = "WHERE NombreCompañia like '%" + nombre +"%'";
 		if (row != 0){
 			filtro = filtro + " AND nrosocio = " + row;      
