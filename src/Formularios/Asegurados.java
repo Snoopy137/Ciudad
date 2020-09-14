@@ -67,6 +67,7 @@ public class Asegurados extends javax.swing.JPanel {
 
         TXTnombreODNI.setToolTipText("");
 
+        TBLasegurados.setAutoCreateRowSorter(true);
         TBLasegurados.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
@@ -79,6 +80,7 @@ public class Asegurados extends javax.swing.JPanel {
             }
         ));
         TBLasegurados.getTableHeader().setReorderingAllowed(false);
+        TBLasegurados.setDefaultEditor(Object.class, null);
         jScrollPane1.setViewportView(TBLasegurados);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
