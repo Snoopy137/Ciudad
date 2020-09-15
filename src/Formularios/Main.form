@@ -111,6 +111,7 @@
           <SubComponents>
             <Component class="Label.RichLabel" name="richLabel1">
               <Properties>
+                <Property name="horizontalAlignment" type="int" value="0"/>
                 <Property name="text" type="java.lang.String" value="ASEGURADOS"/>
                 <Property name="mouseovercolor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="cc" green="cc" red="0" type="rgb"/>

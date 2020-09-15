@@ -164,7 +164,7 @@ public class AccionesAsegurados {
         if(!nombre.equals("") && DNI != 0)cond="AND";
         if(nombre.equals("") && DNI == 0)nombre="%"+nombre+"%";
         try {
-            PreparedStatement pst = con.prepareStatement("SELECT * FROM asegurados WHERE nombre LIKE '"+nombre+"' "+cond+" DNINro LIKE '"+DNI+"%'");
+            PreparedStatement pst = con.prepareStatement("SELECT * FROM asegurados WHERE nombre LIKE '"+nombre.replaceAll("'","\\''")+"' "+cond+" DNINro LIKE '"+DNI+"%'");
             ResultSet rs = pst.executeQuery();
             while (rs.next()){
                 Asegurados aseg = new Asegurados();

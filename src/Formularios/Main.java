@@ -88,6 +88,7 @@ public class Main extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
 
+        richLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         richLabel1.setText("ASEGURADOS");
         richLabel1.setMouseovercolor(new java.awt.Color(0, 204, 204));
         richLabel1.addMouseListener(new java.awt.event.MouseAdapter() {

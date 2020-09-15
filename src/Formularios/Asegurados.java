@@ -6,7 +6,10 @@
 package Formularios;
 
 import Conexion.AccionesAsegurados;
+import Conexion.BuscarAsegurados;
 import Datos.ListaAsegurados;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -18,8 +21,10 @@ public class Asegurados extends javax.swing.JPanel {
     /**
      * Creates new form Asegurados
      */
+    
     public Asegurados() {
         initComponents();
+        System.out.println("cargue componententes "+new SimpleDateFormat("HH:mm:ss").format(new Date().getTime()));
         llenarTabla();
     }
     
@@ -29,16 +34,25 @@ public class Asegurados extends javax.swing.JPanel {
         asegurados.addColumn("DNI");
         asegurados.addColumn("Teléfono");
         TBLasegurados.setModel(asegurados);
+        System.out.println("modelo agregado "+new SimpleDateFormat("HH:mm:ss").format(new Date().getTime()));
         int DNI = 0;
         String nombre = "";
         if(!TXTnombreODNI.getText().trim().equals("")){
             char c = TXTnombreODNI.getText().charAt(0);
             if((c<'a' || c>'z') && (c<'A' || c>'Z' ) && (c<' ' || c>' ')){
                 DNI = Integer.parseInt(TXTnombreODNI.getText());
+                nombre = "";
             }
-            nombre = TXTnombreODNI.getText();
+            else{
+                nombre = TXTnombreODNI.getText();
+            }
         }
-        ListaAsegurados listAseg = AccionesAsegurados.buscarAsegurados(nombre, DNI);
+        System.out.println("procese campo "+new SimpleDateFormat("HH:mm:ss").format(new Date().getTime()));
+        BuscarAsegurados lista = new BuscarAsegurados(nombre, DNI);
+        System.out.println("arranque hilo "+new SimpleDateFormat("HH:mm:ss").format(new Date().getTime()));
+        lista.execute();
+        ListaAsegurados listAseg = lista.getListAseg();
+        System.out.println("carge lista "+new SimpleDateFormat("HH:mm:ss").format(new Date().getTime()));
         for (int i=0;i<listAseg.getSize();i++){
             Object [] o = null;            
             asegurados.addRow(o);
@@ -46,6 +60,7 @@ public class Asegurados extends javax.swing.JPanel {
             asegurados.setValueAt(listAseg.getAsegurado(i).getDNInumero(), i, 1);
             asegurados.setValueAt(listAseg.getAsegurado(i).getTele1(), i, 2);
         }
+        System.out.println("cargue tabLa "+new SimpleDateFormat("HH:mm:ss").format(new Date().getTime()));
     }
 
     /**
@@ -61,11 +76,18 @@ public class Asegurados extends javax.swing.JPanel {
         TXTnombreODNI = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         TBLasegurados = new javax.swing.JTable();
+        BTNbuscar = new javax.swing.JButton();
+        BTNnuevoasegurado = new javax.swing.JButton();
 
         jLabel1.setText("INGRESE NOMBRE O DNI:");
         jLabel1.setAlignmentY(0.0F);
 
         TXTnombreODNI.setToolTipText("");
+        TXTnombreODNI.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TXTnombreODNIActionPerformed(evt);
+            }
+        });
 
         TBLasegurados.setAutoCreateRowSorter(true);
         TBLasegurados.setModel(new javax.swing.table.DefaultTableModel(
@@ -83,6 +105,15 @@ public class Asegurados extends javax.swing.JPanel {
         TBLasegurados.setDefaultEditor(Object.class, null);
         jScrollPane1.setViewportView(TBLasegurados);
 
+        BTNbuscar.setText("BUSCAR");
+        BTNbuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BTNbuscarActionPerformed(evt);
+            }
+        });
+
+        BTNnuevoasegurado.setText("Crear");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -94,7 +125,10 @@ public class Asegurados extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(TXTnombreODNI)))
+                        .addComponent(TXTnombreODNI)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(BTNbuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(BTNnuevoasegurado))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -102,15 +136,28 @@ public class Asegurados extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(TXTnombreODNI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE)
+                    .addComponent(BTNbuscar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 561, Short.MAX_VALUE)
+                .addComponent(BTNnuevoasegurado)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 527, Short.MAX_VALUE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void BTNbuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTNbuscarActionPerformed
+        llenarTabla();
+    }//GEN-LAST:event_BTNbuscarActionPerformed
+
+    private void TXTnombreODNIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TXTnombreODNIActionPerformed
+        llenarTabla();
+    }//GEN-LAST:event_TXTnombreODNIActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BTNbuscar;
+    private javax.swing.JButton BTNnuevoasegurado;
     private javax.swing.JTable TBLasegurados;
     private javax.swing.JTextField TXTnombreODNI;
     private javax.swing.JLabel jLabel1;
