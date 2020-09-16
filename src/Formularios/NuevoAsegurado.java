@@ -83,8 +83,11 @@ public class NuevoAsegurado extends javax.swing.JFrame {
         int resultado = AccionesAsegurados.insertaAsegurado(aseg);
         switch (resultado){
             case 0:javax.swing.JOptionPane.showMessageDialog(this, "Algo salio mal!","Error!",javax.swing.JOptionPane.INFORMATION_MESSAGE);
+            break;
             case 1:javax.swing.JOptionPane.showMessageDialog(this, "El nuevo registro ha sido grabado","Registro Exitoso",javax.swing.JOptionPane.INFORMATION_MESSAGE);
+            break;
             case 2:javax.swing.JOptionPane.showMessageDialog(this, "Este DNI ya se encuentra registrado!","Dato Duplicado!",javax.swing.JOptionPane.INFORMATION_MESSAGE);
+            break;
             
         }   
     }
@@ -262,7 +265,7 @@ public class NuevoAsegurado extends javax.swing.JFrame {
             }
         });
 
-        CMBcobrador.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Sleccionar..." }));
+        CMBcobrador.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar..." }));
         CMBcobrador.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 CMBcobradorKeyPressed(evt);
