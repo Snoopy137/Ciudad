@@ -79,6 +79,9 @@
               <Connection code="new javax.swing.table.DefaultTableModel(&#xa;    new Object [][] {&#xa;        {null, null, null},&#xa;        {null, null, null},&#xa;        {null, null, null},&#xa;        {null, null, null}&#xa;    },&#xa;    new String [] {&#xa;        &quot;Nombre&quot;, &quot;TEL&quot;, &quot;DNI&quot;&#xa;    }&#xa;)" type="code"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="TBLaseguradosMouseClicked"/>
+          </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="TBLasegurados.getTableHeader().setReorderingAllowed(false);&#xa;TBLasegurados.setDefaultEditor(Object.class, null);"/>
           </AuxValues>
@@ -97,6 +100,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Crear"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BTNnuevoaseguradoActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

@@ -5,22 +5,33 @@
  */
 package Formularios;
 
+import Conexion.AccionesAsegurados;
+import Conexion.AccionesUsuarios;
 import Datos.DNITipo;
+import Datos.ListaUsuarios;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  *
  * @author admin
  */
-public class NuevoAegurado extends javax.swing.JFrame {
+public class NuevoAsegurado extends javax.swing.JFrame {
 
     /**
      * Creates new form NuevoAegurado
      */
     
-    public NuevoAegurado() {
+    public NuevoAsegurado() {
         initComponents();
         llenarComboDNI();
+        llenarComboCobrador();
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                cancelar();
+            }
+        });
     }
 
     private void llenarComboDNI(){
@@ -29,6 +40,52 @@ public class NuevoAegurado extends javax.swing.JFrame {
         for (String string : DNI) {
             CMBdnitipo.addItem(string);
         }
+    }
+    
+    private void llenarComboCobrador (){
+        ListaUsuarios usu = AccionesUsuarios.BuscaUsuario(0, "");
+        for (int i=0;i<usu.getSize();i++){
+            CMBcobrador.addItem(usu.getUsuario(i).getIdusuario()+" "+ usu.getUsuario(i).getNombre());
+        }
+    }
+    
+    private void cancelar (){
+        int decision = javax.swing.JOptionPane.showConfirmDialog(this, "Desea cancelar la carga?","Cancelar",javax.swing.JOptionPane.OK_CANCEL_OPTION);
+        if (decision == 0){
+            System.out.println("0");
+            this.dispose();
+        }
+    }
+    
+    private void agregaAsegurado(){
+        Datos.Asegurados aseg = new Datos.Asegurados();
+        aseg.setActividad(TXTactividad.getText().toUpperCase());
+        aseg.setAlta(new java.sql.Date(new Date().getTime()));
+        aseg.setCobrador(Integer.parseInt(CMBcobrador.getSelectedItem().toString().substring(0, 1).trim().toUpperCase()));
+        aseg.setCodigopostal(TXTcodigopostal.getText().toUpperCase());
+        aseg.setCuil(Long.parseLong(TXTcuil.getText().toUpperCase()));
+        aseg.setDNItipo(CMBdnitipo.getSelectedItem().toString().substring(2,3).toUpperCase());
+        aseg.setDNInumero(Integer.parseInt(TXTdninumero.getText().toUpperCase()));
+        aseg.setDomicilioasegurado(TXTdomicilio.getText().toUpperCase());
+        aseg.setDomiciliocobroasegurado(TXTdomiciliocobro.getText().toUpperCase());
+        String activo = "I";
+        aseg.setTele2(TXTtelefono2.getText());
+        aseg.setTele1(TXTtelefono1.getText());
+        aseg.setTele3(TXTtelefono3.getText());
+        if (CHBactivo.isSelected())activo="A";
+        aseg.setEstado(activo);
+        aseg.setFechanac(new java.sql.Date(DATnacimiento.getDate().getTime()));
+        aseg.setLocalidad(TXTlocalidad.getText().toUpperCase());
+        aseg.setMail(TXTmail.getText().toUpperCase());
+        aseg.setNombreasegurado(TXTnombre.getText().toUpperCase()+" "+TXTapellido.getText().toUpperCase());
+        aseg.setObservaciones(TXTobservaciones.getText().toUpperCase());
+        int resultado = AccionesAsegurados.insertaAsegurado(aseg);
+        switch (resultado){
+            case 0:javax.swing.JOptionPane.showMessageDialog(this, "Algo salio mal!","Error!",javax.swing.JOptionPane.INFORMATION_MESSAGE);
+            case 1:javax.swing.JOptionPane.showMessageDialog(this, "El nuevo registro ha sido grabado","Registro Exitoso",javax.swing.JOptionPane.INFORMATION_MESSAGE);
+            case 2:javax.swing.JOptionPane.showMessageDialog(this, "Este DNI ya se encuentra registrado!","Dato Duplicado!",javax.swing.JOptionPane.INFORMATION_MESSAGE);
+            
+        }   
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -43,8 +100,8 @@ public class NuevoAegurado extends javax.swing.JFrame {
         TXTtelefono3 = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        TXTapellido = new javax.swing.JTextField();
         TXTnombre = new javax.swing.JTextField();
+        TXTapellido = new javax.swing.JTextField();
         DATnacimiento = new com.toedter.calendar.JDateChooser();
         jLabel2 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
@@ -80,15 +137,23 @@ public class NuevoAegurado extends javax.swing.JFrame {
         BTNguardar = new javax.swing.JButton();
         BTNcancelar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+
+        TXTtelefono3.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                TXTtelefono3KeyTyped(evt);
+            }
+        });
 
         jLabel11.setText("Fecha Nac.");
 
-        jLabel1.setText("Apellido");
+        jLabel1.setText("Nombre");
 
         DATnacimiento.setDateFormatString("d MMM, YYYY");
+        DATnacimiento.setDoubleBuffered(false);
+        DATnacimiento.setRequestFocusEnabled(false);
 
-        jLabel2.setText("Nombre");
+        jLabel2.setText("Apellido");
 
         jLabel12.setText("C.U.I.L.");
 
@@ -106,19 +171,38 @@ public class NuevoAegurado extends javax.swing.JFrame {
 
         jLabel6.setText("C.P.");
 
+        TXTcodigopostal.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                TXTcodigopostalKeyTyped(evt);
+            }
+        });
+
         jLabel7.setText("DNI Tipo");
 
         CMBdnitipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar..." }));
 
+        CHBactivo.setSelected(true);
         CHBactivo.setText("Activo");
 
         jLabel8.setText("Teléfono1");
 
         jLabel16.setText("Cobrador");
 
-        CMBcobrador.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        TXTtelefono1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                TXTtelefono1KeyTyped(evt);
+            }
+        });
+
+        CMBcobrador.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Sleccionar..." }));
 
         jLabel9.setText("Teléfono2");
+
+        TXTtelefono2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                TXTtelefono2KeyTyped(evt);
+            }
+        });
 
         jLabel10.setText("Telefono3");
 
@@ -131,11 +215,25 @@ public class NuevoAegurado extends javax.swing.JFrame {
 
         jLabel18.setText("DNI Número");
 
+        TXTdninumero.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                TXTdninumeroKeyTyped(evt);
+            }
+        });
+
         BTNguardar.setText("Guardar");
-        BTNguardar.setPreferredSize(new java.awt.Dimension(79, 22));
+        BTNguardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BTNguardarActionPerformed(evt);
+            }
+        });
 
         BTNcancelar.setText("Cancelar");
-        BTNcancelar.setPreferredSize(new java.awt.Dimension(84, 22));
+        BTNcancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BTNcancelarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -171,7 +269,7 @@ public class NuevoAegurado extends javax.swing.JFrame {
                                     .addComponent(TXTtelefono3, javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(TXTtelefono1)
                                     .addComponent(TXTmail)
-                                    .addComponent(TXTapellido, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(TXTnombre, javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(TXTdomicilio, javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(TXTlocalidad, javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(CMBdnitipo, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -188,7 +286,7 @@ public class NuevoAegurado extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(DATnacimiento, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(TXTnombre, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(TXTapellido, javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(TXTactividad)
                                     .addComponent(CMBcobrador, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(TXTtelefono2)
@@ -197,11 +295,11 @@ public class NuevoAegurado extends javax.swing.JFrame {
                                     .addComponent(TXTdninumero, javax.swing.GroupLayout.Alignment.TRAILING))))))
                 .addContainerGap())
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(369, Short.MAX_VALUE)
+                .addContainerGap(263, Short.MAX_VALUE)
                 .addComponent(BTNguardar, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(BTNcancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 370, Short.MAX_VALUE))
+                .addComponent(BTNcancelar)
+                .addGap(0, 263, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -211,7 +309,7 @@ public class NuevoAegurado extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel1)
-                            .addComponent(TXTapellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(TXTnombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(TXTdomicilio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -244,7 +342,7 @@ public class NuevoAegurado extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
-                            .addComponent(TXTnombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(TXTapellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(TXTdomiciliocobro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -278,11 +376,11 @@ public class NuevoAegurado extends javax.swing.JFrame {
                 .addGap(15, 15, 15)
                 .addComponent(jLabel17)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 211, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 235, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(BTNcancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(BTNguardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(BTNcancelar)
+                    .addComponent(BTNguardar))
                 .addContainerGap())
         );
 
@@ -298,7 +396,41 @@ public class NuevoAegurado extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void BTNcancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTNcancelarActionPerformed
+        cancelar();
+    }//GEN-LAST:event_BTNcancelarActionPerformed
+
+    private void BTNguardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTNguardarActionPerformed
+        agregaAsegurado();
+    }//GEN-LAST:event_BTNguardarActionPerformed
+
+    private void TXTcodigopostalKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TXTcodigopostalKeyTyped
+        char c = evt.getKeyChar();
+        if ((c<'a' || c>'z') && (c<'A' || c>'Z') && (c<' ' || c>' ')) evt.consume();
+    }//GEN-LAST:event_TXTcodigopostalKeyTyped
+
+    private void TXTdninumeroKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TXTdninumeroKeyTyped
+        char c = evt.getKeyChar();
+        if ((c < 'a' || c > 'z') && (c < 'A' || c > 'Z') && (c < ' ' || c > ' '))evt.consume();
+    }//GEN-LAST:event_TXTdninumeroKeyTyped
+
+    private void TXTtelefono1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TXTtelefono1KeyTyped
+        char c = evt.getKeyChar();
+        if ((c < 'a' || c > 'z') && (c < 'A' || c > 'Z') && (c < ' ' || c > ' '))evt.consume();
+    }//GEN-LAST:event_TXTtelefono1KeyTyped
+
+    private void TXTtelefono2KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TXTtelefono2KeyTyped
+        char c = evt.getKeyChar();
+        if ((c < 'a' || c > 'z') && (c < 'A' || c > 'Z') && (c < ' ' || c > ' '))evt.consume();
+    }//GEN-LAST:event_TXTtelefono2KeyTyped
+
+    private void TXTtelefono3KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TXTtelefono3KeyTyped
+        char c = evt.getKeyChar();
+        if ((c < 'a' || c > 'z') && (c < 'A' || c > 'Z') && (c < ' ' || c > ' '))evt.consume();
+    }//GEN-LAST:event_TXTtelefono3KeyTyped
 
     /**
      * @param args the command line arguments
@@ -317,20 +449,21 @@ public class NuevoAegurado extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(NuevoAegurado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(NuevoAsegurado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(NuevoAegurado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(NuevoAsegurado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(NuevoAegurado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(NuevoAsegurado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(NuevoAegurado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(NuevoAsegurado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new NuevoAegurado().setVisible(true);
+                new NuevoAsegurado().setVisible(true);
             }
         });
     }

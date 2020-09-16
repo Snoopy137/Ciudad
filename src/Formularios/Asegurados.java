@@ -24,7 +24,6 @@ public class Asegurados extends javax.swing.JPanel {
     
     public Asegurados() {
         initComponents();
-        System.out.println("cargue componententes "+new SimpleDateFormat("HH:mm:ss").format(new Date().getTime()));
         llenarTabla();
     }
     
@@ -34,7 +33,6 @@ public class Asegurados extends javax.swing.JPanel {
         asegurados.addColumn("DNI");
         asegurados.addColumn("Teléfono");
         TBLasegurados.setModel(asegurados);
-        System.out.println("modelo agregado "+new SimpleDateFormat("HH:mm:ss").format(new Date().getTime()));
         int DNI = 0;
         String nombre = "";
         if(!TXTnombreODNI.getText().trim().equals("")){
@@ -47,12 +45,9 @@ public class Asegurados extends javax.swing.JPanel {
                 nombre = TXTnombreODNI.getText();
             }
         }
-        System.out.println("procese campo "+new SimpleDateFormat("HH:mm:ss").format(new Date().getTime()));
         BuscarAsegurados lista = new BuscarAsegurados(nombre, DNI);
-        System.out.println("arranque hilo "+new SimpleDateFormat("HH:mm:ss").format(new Date().getTime()));
         lista.execute();
         ListaAsegurados listAseg = lista.getListAseg();
-        System.out.println("carge lista "+new SimpleDateFormat("HH:mm:ss").format(new Date().getTime()));
         for (int i=0;i<listAseg.getSize();i++){
             Object [] o = null;            
             asegurados.addRow(o);
@@ -60,7 +55,6 @@ public class Asegurados extends javax.swing.JPanel {
             asegurados.setValueAt(listAseg.getAsegurado(i).getDNInumero(), i, 1);
             asegurados.setValueAt(listAseg.getAsegurado(i).getTele1(), i, 2);
         }
-        System.out.println("cargue tabLa "+new SimpleDateFormat("HH:mm:ss").format(new Date().getTime()));
     }
 
     /**
@@ -103,6 +97,11 @@ public class Asegurados extends javax.swing.JPanel {
         ));
         TBLasegurados.getTableHeader().setReorderingAllowed(false);
         TBLasegurados.setDefaultEditor(Object.class, null);
+        TBLasegurados.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TBLaseguradosMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(TBLasegurados);
 
         BTNbuscar.setText("BUSCAR");
@@ -113,6 +112,11 @@ public class Asegurados extends javax.swing.JPanel {
         });
 
         BTNnuevoasegurado.setText("Crear");
+        BTNnuevoasegurado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BTNnuevoaseguradoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -153,6 +157,17 @@ public class Asegurados extends javax.swing.JPanel {
     private void TXTnombreODNIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TXTnombreODNIActionPerformed
         llenarTabla();
     }//GEN-LAST:event_TXTnombreODNIActionPerformed
+
+    private void BTNnuevoaseguradoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTNnuevoaseguradoActionPerformed
+        NuevoAsegurado nuevo = new NuevoAsegurado();
+        nuevo.setVisible(true);
+    }//GEN-LAST:event_BTNnuevoaseguradoActionPerformed
+
+    private void TBLaseguradosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TBLaseguradosMouseClicked
+        if(evt.getClickCount() == 2){
+            System.out.println("dobleclick");
+        }
+    }//GEN-LAST:event_TBLaseguradosMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

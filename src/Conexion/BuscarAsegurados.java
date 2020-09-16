@@ -59,16 +59,13 @@ public class BuscarAsegurados extends Hilo{
     public void execute() {
         ListaAsegurados asegList = new ListaAsegurados();
         Connection con = ConexionBase.conectar();
-        System.out.println("conecte "+new SimpleDateFormat("HH:mm:ss").format(new Date().getTime()));
         if(!nombre.equals(""))nombre=nombre+"%";
         String cond = "OR";
         if(!nombre.equals("") && DNI != 0)cond="AND";
         if(nombre.equals("") && DNI == 0)nombre="%"+nombre+"%";
         try {
             PreparedStatement pst = con.prepareStatement("SELECT * FROM asegurados WHERE nombre LIKE '"+nombre.replaceAll("'","\\''")+"' "+cond+" DNINro LIKE '"+DNI+"%'");
-            System.out.println("genere consulta "+new SimpleDateFormat("HH:mm:ss").format(new Date().getTime()));
             ResultSet rs = pst.executeQuery();
-            System.out.println("ejecuto query "+new SimpleDateFormat("HH:mm:ss").format(new Date().getTime()));
             while (rs.next()){
                 Asegurados aseg = new Asegurados();
                 aseg.setNombreasegurado(rs.getString("nombre"));
@@ -77,12 +74,10 @@ public class BuscarAsegurados extends Hilo{
                 aseg.setTele1(rs.getString("Tele1"));
                 asegList.agregaAsegurado(aseg);
             }
-            System.out.println("llene lista en el hlo "+new SimpleDateFormat("HH:mm:ss").format(new Date().getTime()));
             rs.close();
             pst.close();
             ConexionBase.desconectar();
             setListAseg(asegList);
-            System.out.println(getListAseg().getSize()+" "+new SimpleDateFormat("HH:mm:ss").format(new Date().getTime()));
         } catch (SQLException ex) {
             Logger.getLogger(AccionesAsegurados.class.getName()).log(Level.SEVERE, null, ex);
         } 

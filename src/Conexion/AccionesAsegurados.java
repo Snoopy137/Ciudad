@@ -28,32 +28,40 @@ public class AccionesAsegurados {
 
     public static int insertaAsegurado(Asegurados A) {
         int resultado = 0;
+        Object date = "NULL";
         Connection con = ConexionBase.conectar();
         try {
-            PreparedStatement pstex = con.prepareStatement("SELECT * FROM asegurados WHERE Numaseg = " + A.getNumasegurado());
+            PreparedStatement pstex = con.prepareStatement("SELECT * FROM asegurados WHERE  DNINro = " + A.getDNInumero());
             ResultSet rs = pstex.executeQuery();
             if (rs.next()) {
                 resultado = 2;
                 return resultado;
             } 
             else {
-                PreparedStatement pst = con.prepareStatement("INSERT INTO asegurados VALUES (" + 0 + ", " + A.getNumasegurado() + ","
-                        + " '" + A.getNombreasegurado() + "', '" + A.getDomicilioasegurado() + "','" + A.getDomiciliocobroasegurado() + "',"
-                        + " '" + A.getLocalidad() + "','" + A.getCodigopostal() + "','" + A.getDNItipo() + "'," + A.getDNInumero() + ","
-                        + " '" + A.getTele1() + "','" + A.getTele2() + "','" + A.getTele3() + "','" + A.getFechanac() + "'," + A.getCuil() + ","
-                        + " '" + A.getActividad() + "','" + A.getMail() + "','" + A.getEstado() + "'," + A.getCobrador() + ",'" + A.getObservaciones() + "',"
-                        + " '" + A.getAlta() + "','" + A.getBaja() + "'," + A.getUsu() + ",'" + A.getModificado() + "' ) ");
+                if (A.getBaja() != null) {
+                    date = "'" + A.getBaja() + "'";
+                }
+                PreparedStatement pst = con.prepareStatement("INSERT INTO asegurados VALUES (0," +A.getNumasegurado() + ","
+                                + " '" + A.getNombreasegurado().replace("'", "\\'") +"', '" + A.getDomicilioasegurado() + "','" + A.getDomiciliocobroasegurado() + "',"
+                                + " '" + A.getLocalidad() + "','" + A.getCodigopostal() + "','" + A.getDNItipo() + "'," + A.getDNInumero() + ","
+                                + " '" + A.getTele1() + "','" + A.getTele2() + "','" + A.getTele3() + "','" + A.getFechanac() + "'," + A.getCuil() + ","
+                                + " '" + A.getActividad() + "','" + A.getMail() + "','" + A.getEstado() + "'," + A.getCobrador() + ",'" + A.getObservaciones() + "',"
+                                + " '" + A.getAlta() + "'," + date + "," +999 +",'" + new java.sql.Date(new java.util.Date().getTime()) + "' )");
+                System.out.println(pst);
                 resultado = pst.executeUpdate();
                 ConexionBase.desconectar();
+                System.out.println(resultado);
                 return resultado;
 
             }
         } 
         catch (Exception e) {
             e.printStackTrace();
+            System.out.println(resultado);
             ConexionBase.desconectar();
         }
         ConexionBase.desconectar();
+        System.out.println(resultado);
         return resultado;
     }
 
@@ -85,7 +93,7 @@ public class AccionesAsegurados {
                                 + " '" + A.getLocalidad() + "','" + A.getCodigopostal() + "','" + A.getDNItipo() + "'," + A.getDNInumero() + ","
                                 + " '" + A.getTele1() + "','" + A.getTele2() + "','" + A.getTele3() + "','" + A.getFechanac() + "'," + A.getCuil() + ","
                                 + " '" + A.getActividad() + "','" + A.getMail() + "','" + A.getEstado() + "'," + A.getCobrador() + ",'" + A.getObservaciones() + "',"
-                                + " '" + A.getAlta() + "'," + date + ", 999 ,'" + A.getModificado() + "' ) ") ;
+                                + " '" + A.getAlta() + "'," + date + ", 999 ,'" + new java.sql.Date(new java.util.Date().getTime()) + "' ) ") ;
                         if (i!=listaseg.getSize()-1){
                             sb.append(", \n");
                         }
@@ -105,6 +113,7 @@ public class AccionesAsegurados {
                     pro.proceso("Proceso Completado");
                     pro.dispose();
                     pro.crono.stop();
+                    ConexionBase.desconectar();
                 }
                 catch (SQLException e) {
                     e.printStackTrace();
