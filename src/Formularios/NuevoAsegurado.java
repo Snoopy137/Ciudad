@@ -9,6 +9,7 @@ import Conexion.AccionesAsegurados;
 import Conexion.AccionesUsuarios;
 import Datos.DNITipo;
 import Datos.ListaUsuarios;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -21,7 +22,7 @@ public class NuevoAsegurado extends javax.swing.JFrame {
     /**
      * Creates new form NuevoAegurado
      */
-    
+
     public NuevoAsegurado() {
         initComponents();
         llenarComboDNI();
@@ -139,6 +140,11 @@ public class NuevoAsegurado extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
 
+        TXTtelefono3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TXTtelefono3ActionPerformed(evt);
+            }
+        });
         TXTtelefono3.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 TXTtelefono3KeyTyped(evt);
@@ -148,6 +154,18 @@ public class NuevoAsegurado extends javax.swing.JFrame {
         jLabel11.setText("Fecha Nac.");
 
         jLabel1.setText("Nombre");
+
+        TXTnombre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TXTnombreActionPerformed(evt);
+            }
+        });
+
+        TXTapellido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TXTapellidoActionPerformed(evt);
+            }
+        });
 
         DATnacimiento.setDateFormatString("d MMM, YYYY");
         DATnacimiento.setDoubleBuffered(false);
@@ -159,13 +177,54 @@ public class NuevoAsegurado extends javax.swing.JFrame {
 
         jLabel3.setText("Domicilio");
 
+        TXTcuil.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TXTcuilActionPerformed(evt);
+            }
+        });
+
+        TXTdomicilio.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                TXTdomicilioFocusLost(evt);
+            }
+        });
+        TXTdomicilio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TXTdomicilioActionPerformed(evt);
+            }
+        });
+
         jLabel13.setText("Actividad");
 
         jLabel4.setText("Domicilio cobro");
 
+        TXTactividad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TXTactividadActionPerformed(evt);
+            }
+        });
+
+        TXTdomiciliocobro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TXTdomiciliocobroActionPerformed(evt);
+            }
+        });
+
         jLabel5.setText("Localidad");
 
         jLabel14.setText("Mail");
+
+        TXTmail.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TXTmailActionPerformed(evt);
+            }
+        });
+
+        TXTlocalidad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TXTlocalidadActionPerformed(evt);
+            }
+        });
 
         jLabel15.setText("Estado");
 
@@ -179,7 +238,11 @@ public class NuevoAsegurado extends javax.swing.JFrame {
 
         jLabel7.setText("DNI Tipo");
 
-        CMBdnitipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar..." }));
+        CMBdnitipo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                CMBdnitipoKeyPressed(evt);
+            }
+        });
 
         CHBactivo.setSelected(true);
         CHBactivo.setText("Activo");
@@ -188,6 +251,11 @@ public class NuevoAsegurado extends javax.swing.JFrame {
 
         jLabel16.setText("Cobrador");
 
+        TXTtelefono1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TXTtelefono1ActionPerformed(evt);
+            }
+        });
         TXTtelefono1.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 TXTtelefono1KeyTyped(evt);
@@ -195,9 +263,19 @@ public class NuevoAsegurado extends javax.swing.JFrame {
         });
 
         CMBcobrador.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Sleccionar..." }));
+        CMBcobrador.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                CMBcobradorKeyPressed(evt);
+            }
+        });
 
         jLabel9.setText("Teléfono2");
 
+        TXTtelefono2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TXTtelefono2ActionPerformed(evt);
+            }
+        });
         TXTtelefono2.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 TXTtelefono2KeyTyped(evt);
@@ -209,12 +287,22 @@ public class NuevoAsegurado extends javax.swing.JFrame {
         TXTobservaciones.setColumns(20);
         TXTobservaciones.setLineWrap(true);
         TXTobservaciones.setRows(5);
+        TXTobservaciones.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                TXTobservacionesKeyPressed(evt);
+            }
+        });
         jScrollPane1.setViewportView(TXTobservaciones);
 
         jLabel17.setText("Observaciones");
 
         jLabel18.setText("DNI Número");
 
+        TXTdninumero.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TXTdninumeroActionPerformed(evt);
+            }
+        });
         TXTdninumero.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 TXTdninumeroKeyTyped(evt);
@@ -409,28 +497,97 @@ public class NuevoAsegurado extends javax.swing.JFrame {
 
     private void TXTcodigopostalKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TXTcodigopostalKeyTyped
         char c = evt.getKeyChar();
-        if ((c<'a' || c>'z') && (c<'A' || c>'Z') && (c<' ' || c>' ')) evt.consume();
+        if ((c<'0' || c>'9') && (c<' ' || c>' ')) evt.consume();
     }//GEN-LAST:event_TXTcodigopostalKeyTyped
 
     private void TXTdninumeroKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TXTdninumeroKeyTyped
         char c = evt.getKeyChar();
-        if ((c < 'a' || c > 'z') && (c < 'A' || c > 'Z') && (c < ' ' || c > ' '))evt.consume();
+        if ((c<'0' || c>'9') && (c<' ' || c>' ')) evt.consume();
     }//GEN-LAST:event_TXTdninumeroKeyTyped
 
     private void TXTtelefono1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TXTtelefono1KeyTyped
         char c = evt.getKeyChar();
-        if ((c < 'a' || c > 'z') && (c < 'A' || c > 'Z') && (c < ' ' || c > ' '))evt.consume();
+        if ((c<'0' || c>'9') && (c<' ' || c>' ')) evt.consume();
     }//GEN-LAST:event_TXTtelefono1KeyTyped
 
     private void TXTtelefono2KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TXTtelefono2KeyTyped
         char c = evt.getKeyChar();
-        if ((c < 'a' || c > 'z') && (c < 'A' || c > 'Z') && (c < ' ' || c > ' '))evt.consume();
+        if ((c<'0' || c>'9') && (c<' ' || c>' ')) evt.consume();
     }//GEN-LAST:event_TXTtelefono2KeyTyped
 
     private void TXTtelefono3KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TXTtelefono3KeyTyped
         char c = evt.getKeyChar();
-        if ((c < 'a' || c > 'z') && (c < 'A' || c > 'Z') && (c < ' ' || c > ' '))evt.consume();
+        if ((c<'0' || c>'9') && (c<' ' || c>' ')) evt.consume();
     }//GEN-LAST:event_TXTtelefono3KeyTyped
+
+    private void TXTdomicilioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TXTdomicilioFocusLost
+        TXTdomiciliocobro.setText(TXTdomicilio.getText());
+    }//GEN-LAST:event_TXTdomicilioFocusLost
+
+    private void TXTnombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TXTnombreActionPerformed
+        TXTapellido.requestFocus();
+    }//GEN-LAST:event_TXTnombreActionPerformed
+
+    private void TXTapellidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TXTapellidoActionPerformed
+        TXTdomicilio.requestFocus();
+    }//GEN-LAST:event_TXTapellidoActionPerformed
+
+    private void TXTdomicilioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TXTdomicilioActionPerformed
+        TXTdomiciliocobro.requestFocus();
+    }//GEN-LAST:event_TXTdomicilioActionPerformed
+
+    private void TXTdomiciliocobroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TXTdomiciliocobroActionPerformed
+        TXTlocalidad.requestFocus();
+    }//GEN-LAST:event_TXTdomiciliocobroActionPerformed
+
+    private void TXTlocalidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TXTlocalidadActionPerformed
+        CMBdnitipo.requestFocus();
+    }//GEN-LAST:event_TXTlocalidadActionPerformed
+
+    private void CMBdnitipoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_CMBdnitipoKeyPressed
+        if(evt.getKeyCode()== KeyEvent.VK_ENTER)TXTdninumero.requestFocus();
+    }//GEN-LAST:event_CMBdnitipoKeyPressed
+
+    private void TXTdninumeroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TXTdninumeroActionPerformed
+        TXTtelefono1.requestFocus();
+    }//GEN-LAST:event_TXTdninumeroActionPerformed
+
+    private void TXTtelefono1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TXTtelefono1ActionPerformed
+        TXTtelefono2.requestFocus();
+    }//GEN-LAST:event_TXTtelefono1ActionPerformed
+
+    private void TXTtelefono2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TXTtelefono2ActionPerformed
+        TXTtelefono3.requestFocus();
+    }//GEN-LAST:event_TXTtelefono2ActionPerformed
+
+    private void TXTtelefono3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TXTtelefono3ActionPerformed
+        TXTcuil.requestFocus();
+    }//GEN-LAST:event_TXTtelefono3ActionPerformed
+
+    private void TXTcuilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TXTcuilActionPerformed
+        TXTactividad.requestFocus();
+    }//GEN-LAST:event_TXTcuilActionPerformed
+
+    private void TXTactividadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TXTactividadActionPerformed
+        TXTmail.requestFocus();
+    }//GEN-LAST:event_TXTactividadActionPerformed
+
+    private void TXTmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TXTmailActionPerformed
+        CMBcobrador.requestFocus();
+    }//GEN-LAST:event_TXTmailActionPerformed
+
+    private void CMBcobradorKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_CMBcobradorKeyPressed
+        if(evt.getKeyCode()==KeyEvent.VK_ENTER){
+            TXTobservaciones.requestFocus();
+        }
+    }//GEN-LAST:event_CMBcobradorKeyPressed
+
+    private void TXTobservacionesKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TXTobservacionesKeyPressed
+        if(evt.getKeyCode()==KeyEvent.VK_TAB){
+            evt.consume();
+            BTNguardar.requestFocus();
+        }
+    }//GEN-LAST:event_TXTobservacionesKeyPressed
 
     /**
      * @param args the command line arguments

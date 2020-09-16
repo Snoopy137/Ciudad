@@ -222,6 +222,7 @@
       <SubComponents>
         <Component class="javax.swing.JTextField" name="TXTtelefono3">
           <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="TXTtelefono3ActionPerformed"/>
             <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="TXTtelefono3KeyTyped"/>
           </Events>
         </Component>
@@ -236,8 +237,14 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="TXTnombre">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="TXTnombreActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="TXTapellido">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="TXTapellidoActionPerformed"/>
+          </Events>
         </Component>
         <Component class="com.toedter.calendar.JDateChooser" name="DATnacimiento">
           <Properties>
@@ -262,8 +269,15 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="TXTcuil">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="TXTcuilActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="TXTdomicilio">
+          <Events>
+            <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="TXTdomicilioFocusLost"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="TXTdomicilioActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel13">
           <Properties>
@@ -276,8 +290,14 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="TXTactividad">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="TXTactividadActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="TXTdomiciliocobro">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="TXTdomiciliocobroActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel5">
           <Properties>
@@ -290,8 +310,14 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="TXTmail">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="TXTmailActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="TXTlocalidad">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="TXTlocalidadActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel15">
           <Properties>
@@ -316,11 +342,12 @@
         <Component class="javax.swing.JComboBox" name="CMBdnitipo">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="1">
-                <StringItem index="0" value="Seleccionar..."/>
-              </StringArray>
+              <StringArray count="0"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="CMBdnitipoKeyPressed"/>
+          </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
           </AuxValues>
@@ -343,6 +370,7 @@
         </Component>
         <Component class="javax.swing.JTextField" name="TXTtelefono1">
           <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="TXTtelefono1ActionPerformed"/>
             <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="TXTtelefono1KeyTyped"/>
           </Events>
         </Component>
@@ -354,6 +382,9 @@
               </StringArray>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="CMBcobradorKeyPressed"/>
+          </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
           </AuxValues>
@@ -365,6 +396,7 @@
         </Component>
         <Component class="javax.swing.JTextField" name="TXTtelefono2">
           <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="TXTtelefono2ActionPerformed"/>
             <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="TXTtelefono2KeyTyped"/>
           </Events>
         </Component>
@@ -386,6 +418,9 @@
                 <Property name="lineWrap" type="boolean" value="true"/>
                 <Property name="rows" type="int" value="5"/>
               </Properties>
+              <Events>
+                <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="TXTobservacionesKeyPressed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
@@ -401,6 +436,7 @@
         </Component>
         <Component class="javax.swing.JTextField" name="TXTdninumero">
           <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="TXTdninumeroActionPerformed"/>
             <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="TXTdninumeroKeyTyped"/>
           </Events>
         </Component>
