@@ -23,7 +23,7 @@ import java.util.logging.Logger;
  */
 public class BuscarAsegurados extends Hilo{
     private String nombre;
-    private int DNI;
+    private Long DNI;
     private ListaAsegurados listAseg;
 
     public ListaAsegurados getListAseg() {
@@ -34,7 +34,7 @@ public class BuscarAsegurados extends Hilo{
         this.listAseg = listAseg;
     }
 
-    public BuscarAsegurados(String nombre, int DNI) {
+    public BuscarAsegurados(String nombre, Long DNI) {
         this.nombre = nombre;
         this.DNI = DNI;
     }
@@ -47,11 +47,11 @@ public class BuscarAsegurados extends Hilo{
         this.nombre = nombre;
     }
 
-    public int getDNI() {
+    public Long getDNI() {
         return DNI;
     }
 
-    public void setDNI(int DNI) {
+    public void setDNI(Long DNI) {
         this.DNI = DNI;
     } 
     
@@ -71,7 +71,7 @@ public class BuscarAsegurados extends Hilo{
                 Asegurados aseg = new Asegurados();
                 aseg.setNombreasegurado(rs.getString("nombre"));
                 aseg.setActividad(rs.getNString("Actividad"));
-                aseg.setDNInumero(rs.getInt("DNINro"));
+                aseg.setDNInumero(rs.getLong("DNINro"));
                 aseg.setTele1(rs.getString("Tele1"));
                 asegList.agregaAsegurado(aseg);
             }
