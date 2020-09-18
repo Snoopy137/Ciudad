@@ -21,7 +21,7 @@ public class Asegurados {
     private String localidad;
     private String codigopostal;
     private String DNItipo;
-    private int DNInumero;
+    private long DNInumero;
     private String tele1;
     private String tele2;
     private String tele3;
@@ -131,11 +131,11 @@ public class Asegurados {
         this.DNItipo = DNItipo;
     }
 
-    public int getDNInumero() {
+    public long getDNInumero() {
         return DNInumero;
     }
 
-    public void setDNInumero(int DNInumero) {
+    public void setDNInumero(long DNInumero) {
         this.DNInumero = DNInumero;
     }
 

@@ -61,10 +61,11 @@ public class BuscarAsegurados extends Hilo{
         Connection con = ConexionBase.conectar();
         if(!nombre.equals(""))nombre=nombre+"%";
         String cond = "OR";
-        if(!nombre.equals("") && DNI != 0)cond="AND";
-        if(nombre.equals("") && DNI == 0)nombre="%"+nombre+"%";
+        if(!nombre.equals("") && DNI != 100000001)cond="AND";
+        if(nombre.equals("") && DNI == 100000001)nombre="%"+nombre+"%";
         try {
             PreparedStatement pst = con.prepareStatement("SELECT * FROM asegurados WHERE nombre LIKE '"+nombre.replaceAll("'","\\''")+"' "+cond+" DNINro LIKE '"+DNI+"%'");
+            System.out.println(pst);
             ResultSet rs = pst.executeQuery();
             while (rs.next()){
                 Asegurados aseg = new Asegurados();

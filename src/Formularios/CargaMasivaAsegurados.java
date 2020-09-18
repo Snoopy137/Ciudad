@@ -120,7 +120,6 @@ public class CargaMasivaAsegurados extends javax.swing.JFrame {
                 double porcentaje = 0.0;
                 Date fechanac = null;
                 SimpleDateFormat date = new SimpleDateFormat("dd/MM/yyyy");
-                long cuit=0;
                 pro.siguiendo(false);
                 for (int i = 0;i<listaRegistro.getLength();i++){
                     porcentaje = porcentaje + porcentaje1;
@@ -129,6 +128,7 @@ public class CargaMasivaAsegurados extends javax.swing.JFrame {
                     Node nodo = listaRegistro.item(i);
                     if (nodo.getNodeType() == Node.ELEMENT_NODE){
                         Element element = (Element) nodo;
+                        long cuit=0;
                         if (!element.getAttribute("AD").equals("")){
                             fechanac = new SimpleDateFormat("yyyyMMdd").parse(element.getAttribute("AD"));
                         }
@@ -146,10 +146,13 @@ public class CargaMasivaAsegurados extends javax.swing.JFrame {
                         +" "+element.getAttribute("P"));
                         A.setLocalidad(element.getAttribute("J"));
                         A.setCodigopostal(element.getAttribute("I"));
-                        A.setDNItipo(element.getAttribute("C"));
+                        String DNI = "DNI";
+                        if (!element.getAttribute("C").equals(""))DNI=element.getAttribute("C");
+                        A.setDNItipo(DNI);
                         if (!element.getAttribute("D").equals("")){
-                          A.setDNInumero(Integer.parseInt(element.getAttribute("D")));  
+                          A.setDNInumero(Long.parseLong(element.getAttribute("D")));  
                         }
+                        else A.setDNInumero(cuit);
                         A.setTele1(element.getAttribute("K"));
                         A.setTele2(element.getAttribute("L"));
                         A.setTele3("");

@@ -12,6 +12,7 @@ import Formularios.CargaMasivaAsegurados;
 import Formularios.Progreso;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.math.BigInteger;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -170,8 +171,8 @@ public class AccionesAsegurados {
         Connection con = ConexionBase.conectar();
         if(!nombre.equals(""))nombre=nombre+"%";
         String cond = "OR";
-        if(!nombre.equals("") && DNI != 0)cond="AND";
-        if(nombre.equals("") && DNI == 0)nombre="%"+nombre+"%";
+        if(!nombre.equals("") && DNI != 00000001)cond="AND";
+        if(nombre.equals("") && DNI == 00000001)nombre="%"+nombre+"%";
         try {
             PreparedStatement pst = con.prepareStatement("SELECT * FROM asegurados WHERE nombre LIKE '"+nombre.replaceAll("'","\\''")+"' "+cond+" DNINro LIKE '"+DNI+"%'");
             ResultSet rs = pst.executeQuery();
@@ -193,10 +194,6 @@ public class AccionesAsegurados {
     }
     
     public static void main (String []ags){
-        ListaAsegurados asegList=buscarAsegurados ("a",180);
-        for(int i=0;i<asegList.getSize();i++){
-            System.out.println(asegList.getAsegurado(i).getDNInumero()+" "+asegList.getAsegurado(i).getNombreasegurado());
-        }
-        System.out.println(asegList.getSize());
+        System.out.println((Long.parseLong("14403400")));
     }
 }

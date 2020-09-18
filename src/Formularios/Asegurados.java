@@ -33,11 +33,15 @@ public class Asegurados extends javax.swing.JPanel {
         asegurados.addColumn("DNI");
         asegurados.addColumn("Teléfono");
         TBLasegurados.setModel(asegurados);
-        int DNI = 0;
+        int DNI = 100000001;
         String nombre = "";
         if(!TXTnombreODNI.getText().trim().equals("")){
-            char c = TXTnombreODNI.getText().charAt(0);
-            if((c<'a' || c>'z') && (c<'A' || c>'Z' ) && (c<' ' || c>' ')){
+            boolean letra=false;
+            for(int i = 0;i<TXTnombreODNI.getText().length();i++){
+                char c = TXTnombreODNI.getText().charAt(i);
+                if((c<'a' || c>'z') && (c<'A' || c>'Z' ) && (c<' ' || c>' '))letra=true;
+            }
+            if(letra==false){
                 DNI = Integer.parseInt(TXTnombreODNI.getText());
                 nombre = "";
             }
