@@ -6,14 +6,7 @@
 package Formularios;
 
 import Datos.Usuarios;
-import com.apple.eawt.Application;
-import java.awt.Graphics;
-import java.awt.Image;
 import java.awt.Window;
-import java.io.File;
-import java.io.IOException;
-import javax.swing.ImageIcon;
-import javax.swing.filechooser.FileSystemView;
 
 /**
  *
@@ -27,8 +20,6 @@ public class Main extends javax.swing.JFrame {
     Usuarios us;
     public Main (){
         initComponents();
-        setLocationRelativeTo(null);
-        setExtendedState(MAXIMIZED_BOTH);
         addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
             public void windowClosing(java.awt.event.WindowEvent evt) {
@@ -38,9 +29,6 @@ public class Main extends javax.swing.JFrame {
     }
     public Main(Usuarios u) {
         initComponents();
-        setLocationRelativeTo(null);
-        setExtendedState(MAXIMIZED_BOTH);
-        setTitle(u.getNombre());
         addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
             public void windowClosing(java.awt.event.WindowEvent evt) {
@@ -87,6 +75,7 @@ public class Main extends javax.swing.JFrame {
         mencierrecesion = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setExtendedState(6);
 
         richLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         richLabel1.setText("ASEGURADOS");
@@ -178,6 +167,7 @@ public class Main extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void mencierrecesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mencierrecesionActionPerformed
