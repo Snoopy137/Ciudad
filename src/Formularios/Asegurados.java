@@ -59,6 +59,8 @@ public class Asegurados extends javax.swing.JPanel {
             asegurados.setValueAt(listAseg.getAsegurado(i).getDNInumero(), i, 1);
             asegurados.setValueAt(listAseg.getAsegurado(i).getTele1(), i, 2);
         }
+        System.out.println("llene tabla "+ new SimpleDateFormat("HH:mm:ss").format(new Date().getTime()));
+        System.out.println("--------------------------------------------------------------");
     }
 
     /**
