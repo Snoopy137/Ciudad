@@ -79,7 +79,6 @@ public class Main extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setExtendedState(6);
 
-        richLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         richLabel1.setText("ASEGURADOS");
         richLabel1.setMouseovercolor(new java.awt.Color(0, 204, 204));
         richLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -98,7 +97,7 @@ public class Main extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(richLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 585, Short.MAX_VALUE))
+                .addGap(0, 609, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -172,6 +171,14 @@ public class Main extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void richLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_richLabel1MouseClicked
+        Asegurados aseg = new Asegurados();
+        aseg.setSize(jPanel3.getWidth(), jPanel3.getHeight());
+        jPanel3.removeAll();
+        jPanel3.add(aseg);
+        aseg.revalidate();
+    }//GEN-LAST:event_richLabel1MouseClicked
+
     private void mencierrecesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mencierrecesionActionPerformed
         cerrarcesion();
     }//GEN-LAST:event_mencierrecesionActionPerformed
@@ -185,14 +192,6 @@ public class Main extends javax.swing.JFrame {
         AdministrarUsuarios adm = new AdministrarUsuarios();
         adm.setVisible(true);
     }//GEN-LAST:event_menusuariosActionPerformed
-
-    private void richLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_richLabel1MouseClicked
-        Asegurados aseg = new Asegurados();
-        aseg.setSize(jPanel3.getWidth(), jPanel3.getHeight());
-        jPanel3.removeAll();
-        jPanel3.add(aseg);
-        aseg.revalidate();
-    }//GEN-LAST:event_richLabel1MouseClicked
 
     /**
      * @param args the command line arguments

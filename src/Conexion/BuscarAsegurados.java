@@ -8,12 +8,9 @@ package Conexion;
 import Datos.Asegurados;
 import Datos.Hilo;
 import Datos.ListaAsegurados;
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -78,5 +75,39 @@ public class BuscarAsegurados extends Hilo{
         } catch (SQLException ex) {
             Logger.getLogger(AccionesAsegurados.class.getName()).log(Level.SEVERE, null, ex);
         } 
+    }
+    
+    public Asegurados buscaAegurado (){
+        Asegurados aseg = new Asegurados();
+        try {
+            PreparedStatement pst = ConexionBase.con.prepareStatement("SELECT * FROM asegurados WHERE nombre = '"+nombre.replaceAll("'","\\''")+"' AND DNINro = "+DNI);
+            ResultSet rs = pst.executeQuery();
+            if (rs.next()) {
+                aseg.setNombreasegurado(rs.getString("Nombre"));
+                aseg.setActividad(rs.getString("Actividad"));
+                aseg.setNumasegurado(rs.getInt("Numaseg"));
+                aseg.setDomicilioasegurado(rs.getString("Domicilio"));
+                aseg.setDomiciliocobroasegurado(rs.getString("DomicilioCobro"));
+                aseg.setLocalidad(rs.getString("Localidad"));
+                aseg.setCodigopostal(rs.getString("CodPostal"));
+                aseg.setDNItipo(rs.getString("DNITipo"));
+                aseg.setDNInumero(rs.getLong("DNINro"));
+                aseg.setTele1(rs.getString("Tele1"));
+                aseg.setTele1(rs.getString("Tele2"));
+                aseg.setTele1(rs.getString("Tele3"));
+                aseg.setFechanac(rs.getDate("FecNac"));
+                aseg.setCuil(rs.getLong("CUIL"));
+                aseg.setMail(rs.getString("Mail"));
+                aseg.setEstado(rs.getString("Estado"));
+                aseg.setCobrador(rs.getInt("Cobrador"));
+                aseg.setObservaciones(rs.getString("Observ"));
+                aseg.setAlta(rs.getDate("ALTA"));
+                aseg.setAlta(rs.getDate("BAJA"));
+                aseg.setFechanac(rs.getDate("Fecha"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(BuscarAsegurados.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return aseg;
     }
 }
