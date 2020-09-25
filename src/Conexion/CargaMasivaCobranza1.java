@@ -50,8 +50,7 @@ public class CargaMasivaCobranza1 extends Hilo {
             pro.barres(true);
             pro.progreso(0);
             for (int i = 0; i < listcob.getSize(); i++) {
-                while(execute){
-                    synchronized (super.m) {
+                synchronized (super.m) {
                     while (!m.isTrue()) {
                         try {
                             m.wait();
@@ -72,7 +71,6 @@ public class CargaMasivaCobranza1 extends Hilo {
                 }
                 pro.progreso((int) porcentaje);
                 pro.cant(String.valueOf(i + 1) + " registros procesados de " + listcob.getSize());
-                }
             }
             insert = sb.toString();
             sb.append(";");

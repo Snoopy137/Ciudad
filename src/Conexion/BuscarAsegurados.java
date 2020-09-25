@@ -58,30 +58,22 @@ public class BuscarAsegurados extends Hilo{
     @Override
     public void execute() {
         ListaAsegurados asegList = new ListaAsegurados();
-        System.out.println("arranco hilo "+ new SimpleDateFormat("HH:mm:ss").format(new Date().getTime()));
-        Connection con = ConexionBase.conectar();
-        System.out.println("conectado "+ new SimpleDateFormat("HH:mm:ss").format(new Date().getTime()));
         if(!nombre.equals(""))nombre=nombre+"%";
         String cond = "OR";
         if(!nombre.equals("") && DNI != 100000001)cond="AND";
         if(nombre.equals("") && DNI == 100000001)nombre="%"+nombre+"%";
         try {
-            PreparedStatement pst = con.prepareStatement("SELECT * FROM asegurados WHERE nombre LIKE '"+nombre.replaceAll("'","\\''")+"' "+cond+" DNINro LIKE '"+DNI+"%'");
-            //SELECT Nombre,DNInro,Tele1 FROM ciudad.asegurados WHERE nombre LIKE '"+nombre.replaceAll("'","\\''")+"' "+cond+" DNINro LIKE '"+DNI+"%'"
-            System.out.println("arranca query "+ new SimpleDateFormat("HH:mm:ss").format(new Date().getTime()));
+            PreparedStatement pst = ConexionBase.con.prepareStatement("SELECT Nombre,DNINro,Tele1 FROM asegurados WHERE nombre LIKE '"+nombre.replaceAll("'","\\''")+"' "+cond+" DNINro LIKE '"+DNI+"%' ORDER BY Nombre");
             ResultSet rs = pst.executeQuery();
-            System.out.println("termina query "+ new SimpleDateFormat("HH:mm:ss").format(new Date().getTime()));
             while (rs.next()){
                 Asegurados aseg = new Asegurados();
-                aseg.setNombreasegurado(rs.getString("nombre"));
+                aseg.setNombreasegurado(rs.getString("Nombre"));
                 aseg.setDNInumero(rs.getLong("DNINro"));
                 aseg.setTele1(rs.getString("Tele1"));
                 asegList.agregaAsegurado(aseg);
             }
-            System.out.println("llena rs "+ new SimpleDateFormat("HH:mm:ss").format(new Date().getTime()));
             rs.close();
             pst.close();
-            ConexionBase.desconectar();
             setListAseg(asegList);
         } catch (SQLException ex) {
             Logger.getLogger(AccionesAsegurados.class.getName()).log(Level.SEVERE, null, ex);

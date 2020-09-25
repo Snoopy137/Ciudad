@@ -5,6 +5,7 @@
  */
 package Formularios;
 
+import Conexion.ConexionBase;
 import Datos.Usuarios;
 import java.awt.Window;
 
@@ -20,6 +21,7 @@ public class Main extends javax.swing.JFrame {
     Usuarios us;
     public Main (){
         initComponents();
+        ConexionBase.conectar();
         addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
             public void windowClosing(java.awt.event.WindowEvent evt) {
@@ -202,6 +204,7 @@ public class Main extends javax.swing.JFrame {
         for (Window window : Window.getWindows()){
             window.dispose();
         }
+        ConexionBase.desconectar();
         Login log = new Login();
         log.setVisible(true);
     }

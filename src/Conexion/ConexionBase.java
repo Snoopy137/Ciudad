@@ -7,6 +7,9 @@ package Conexion;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 /**
  *
@@ -15,7 +18,7 @@ import java.sql.DriverManager;
 public class ConexionBase {
     static Connection con = null;
     static String usuario = "P29OqZKK1A";
-    static String password = "7fzBC3B3v7";
+    static String password = "hUfTTSmZxT";
     static String url = "jdbc:mysql://remotemysql.com:3306/";
     static String basee = "P29OqZKK1A";
     
@@ -44,8 +47,9 @@ public class ConexionBase {
         return con;
     }
     
-    public static void main(String[] args) {
-        conectar();
+    public static void main(String[] args) throws SQLException {
+        PreparedStatement pst = conectar().prepareStatement("delete from COBRANZA");
+        int rs = pst.executeUpdate();
         desconectar();
     }
 }
