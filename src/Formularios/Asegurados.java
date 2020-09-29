@@ -165,11 +165,6 @@ public class Asegurados extends javax.swing.JPanel {
                 TXTnombreODNIActionPerformed(evt);
             }
         });
-        TXTnombreODNI.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                TXTnombreODNIKeyTyped(evt);
-            }
-        });
 
         BTNnuevoasegurado.setText("Crear");
         BTNnuevoasegurado.addActionListener(new java.awt.event.ActionListener() {
@@ -436,13 +431,6 @@ public class Asegurados extends javax.swing.JPanel {
         NuevoAsegurado nuevo = new NuevoAsegurado();
         nuevo.setVisible(true);
     }//GEN-LAST:event_BTNnuevoaseguradoActionPerformed
-
-    private void TXTnombreODNIKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TXTnombreODNIKeyTyped
-        System.out.println("apretaste tabla");
-        if(evt.getKeyChar()==KeyEvent.VK_DOWN){
-            TBLasegurados.changeSelection(TBLasegurados.getSelectedRow() + 1, 0, false, false);
-        }
-    }//GEN-LAST:event_TXTnombreODNIKeyTyped
 
     private void TBLaseguradosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TBLaseguradosMouseClicked
         int row = TBLasegurados.rowAtPoint(evt.getPoint());
