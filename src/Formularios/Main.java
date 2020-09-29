@@ -7,6 +7,8 @@ package Formularios;
 
 import Conexion.ConexionBase;
 import Datos.Usuarios;
+import com.formdev.flatlaf.FlatLaf;
+import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.Window;
 
 /**
@@ -216,6 +218,7 @@ public class Main extends javax.swing.JFrame {
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
         System.setProperty("apple.laf.useScreenMenuBar", "true");
+        FlatLightLaf.install();
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Windows".equals(info.getName())) {

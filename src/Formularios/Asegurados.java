@@ -8,6 +8,8 @@ package Formularios;
 import Conexion.AccionesAsegurados;
 import Conexion.BuscarAsegurados;
 import Datos.ListaAsegurados;
+import apple.laf.JRSUIConstants;
+import com.sun.glass.events.KeyEvent;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.table.DefaultTableModel;
@@ -59,6 +61,22 @@ public class Asegurados extends javax.swing.JPanel {
             asegurados.setValueAt(listAseg.getAsegurado(i).getTele1(), i, 2);
         }
     }
+    
+    private void llenarCampos (Datos.Asegurados aseg){
+        TXTactividad.setText(aseg.getActividad());
+        TXTcuil.setText(String.valueOf(aseg.getCuil()));
+        TXTcobrador.setText(String.valueOf(aseg.getCobrador()));
+        TXTcodpostal.setText(aseg.getCodigopostal());
+        TXTdninro.setText(String.valueOf(aseg.getDNInumero()));
+        TXTdnitipo.setText(aseg.getDNItipo());
+        TXTdomicilio.setText(aseg.getDomicilioasegurado());
+        TXTdomiciliocobro.setText(aseg.getDomiciliocobroasegurado());
+        TXTemail.setText(aseg.getMail());
+        TXTlocalidad.setText(aseg.getLocalidad());
+        if (!aseg.getObservaciones().equals("null")){
+            TXTobservaciones.setText(aseg.getObservaciones());
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -77,7 +95,6 @@ public class Asegurados extends javax.swing.JPanel {
         TXTnombreODNI = new javax.swing.JTextField();
         BTNnuevoasegurado = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
-        jLabel5 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         TXTobservaciones = new javax.swing.JTextPane();
@@ -101,6 +118,7 @@ public class Asegurados extends javax.swing.JPanel {
         jLabel10 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
 
         TBLasegurados.setAutoCreateRowSorter(true);
         TBLasegurados.setModel(new javax.swing.table.DefaultTableModel(
@@ -108,17 +126,25 @@ public class Asegurados extends javax.swing.JPanel {
                 {null, null, null},
                 {null, null, null},
                 {null, null, null},
+                {null, null, null},
                 {null, null, null}
             },
             new String [] {
-                "Nombre", "TEL", "DNI"
+                "Nombre", "DNI", "Telefono"
             }
         ));
+        TBLasegurados.setGridColor(new java.awt.Color(255, 255, 255));
+        TBLasegurados.setRowSelectionAllowed(true);
         TBLasegurados.getTableHeader().setReorderingAllowed(false);
         TBLasegurados.setDefaultEditor(Object.class, null);
         TBLasegurados.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 TBLaseguradosMouseClicked(evt);
+            }
+        });
+        TBLasegurados.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                TBLaseguradosKeyReleased(evt);
             }
         });
         jScrollPane1.setViewportView(TBLasegurados);
@@ -139,6 +165,11 @@ public class Asegurados extends javax.swing.JPanel {
                 TXTnombreODNIActionPerformed(evt);
             }
         });
+        TXTnombreODNI.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                TXTnombreODNIKeyTyped(evt);
+            }
+        });
 
         BTNnuevoasegurado.setText("Crear");
         BTNnuevoasegurado.addActionListener(new java.awt.event.ActionListener() {
@@ -154,7 +185,7 @@ public class Asegurados extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 494, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -179,8 +210,8 @@ public class Asegurados extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
-        jLabel5.setText("CUIL");
-
+        TXTobservaciones.setEditable(false);
+        TXTobservaciones.setBackground(new java.awt.Color(255, 255, 255));
         jScrollPane2.setViewportView(TXTobservaciones);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -189,18 +220,26 @@ public class Asegurados extends javax.swing.JPanel {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2)
-                .addContainerGap())
+                .addComponent(jScrollPane2))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 98, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 165, Short.MAX_VALUE)
         );
 
-        jLabel3.setText("DMOICILIO DE CORBO");
+        jLabel3.setText("DMOICILIO DE COBRO");
+
+        TXTcuil.setEditable(false);
+        TXTcuil.setBackground(new java.awt.Color(255, 255, 255));
+
+        TXTdomicilio.setEditable(false);
+        TXTdomicilio.setBackground(new java.awt.Color(255, 255, 255));
+
+        TXTdnitipo.setEditable(false);
+        TXTdnitipo.setBackground(new java.awt.Color(255, 255, 255));
+
+        TXTactividad.setEditable(false);
+        TXTactividad.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel2.setText("DOMICILIO:");
 
@@ -208,17 +247,36 @@ public class Asegurados extends javax.swing.JPanel {
 
         jLabel11.setText("OBSERVACIONES");
 
+        TXTdninro.setEditable(false);
+        TXTdninro.setBackground(new java.awt.Color(255, 255, 255));
+
         jLabel7.setText("CODIGO POSTAL");
 
+        TXTcobrador.setEditable(false);
+        TXTcobrador.setBackground(new java.awt.Color(255, 255, 255));
         TXTcobrador.setToolTipText("");
 
+        TXTcodpostal.setEditable(false);
+        TXTcodpostal.setBackground(new java.awt.Color(255, 255, 255));
+
         jLabel4.setText("DOCUMENTO");
+
+        TXTdomiciliocobro.setEditable(false);
+        TXTdomiciliocobro.setBackground(new java.awt.Color(255, 255, 255));
+
+        TXTlocalidad.setEditable(false);
+        TXTlocalidad.setBackground(new java.awt.Color(255, 255, 255));
+
+        TXTemail.setEditable(false);
+        TXTemail.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel10.setText("COBRADOR");
 
         jLabel6.setText("LOCALIDAD");
 
         jLabel9.setText("E-MAIL");
+
+        jLabel5.setText("CUIL");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -229,7 +287,7 @@ public class Asegurados extends javax.swing.JPanel {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(jLabel11)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 391, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(391, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(TXTcodpostal, javax.swing.GroupLayout.Alignment.LEADING)
@@ -262,19 +320,21 @@ public class Asegurados extends javax.swing.JPanel {
                             .addComponent(TXTlocalidad))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGap(82, 82, 82))
-                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addComponent(TXTdnitipo)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(TXTdninro))
                             .addComponent(TXTactividad)
                             .addComponent(TXTcuil)
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGap(173, 173, 173)))))
-                .addContainerGap())
+                                .addGap(173, 173, 173))
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(TXTdnitipo)
+                                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel4Layout.createSequentialGroup()
+                                        .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addGap(90, 90, 90))
+                                    .addComponent(TXTdninro)))))))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -284,7 +344,10 @@ public class Asegurados extends javax.swing.JPanel {
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(TXTdomicilio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(TXTdomicilio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(TXTdnitipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(TXTdninro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -296,12 +359,10 @@ public class Asegurados extends javax.swing.JPanel {
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(TXTdnitipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(TXTdninro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(50, 50, 50))
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLabel5))
+                                .addGap(78, 78, 78))
                             .addComponent(TXTcuil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel8)
@@ -319,7 +380,7 @@ public class Asegurados extends javax.swing.JPanel {
                     .addComponent(TXTcobrador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel11)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -327,27 +388,19 @@ public class Asegurados extends javax.swing.JPanel {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(296, 296, 296))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(56, 56, 56)
-                        .addComponent(jLabel5))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -356,15 +409,15 @@ public class Asegurados extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 506, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(130, 130, 130))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
@@ -384,11 +437,29 @@ public class Asegurados extends javax.swing.JPanel {
         nuevo.setVisible(true);
     }//GEN-LAST:event_BTNnuevoaseguradoActionPerformed
 
-    private void TBLaseguradosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TBLaseguradosMouseClicked
-        if(evt.getClickCount() == 2){
-            System.out.println("dobleclick");
+    private void TXTnombreODNIKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TXTnombreODNIKeyTyped
+        System.out.println("apretaste tabla");
+        if(evt.getKeyChar()==KeyEvent.VK_DOWN){
+            TBLasegurados.changeSelection(TBLasegurados.getSelectedRow() + 1, 0, false, false);
         }
+    }//GEN-LAST:event_TXTnombreODNIKeyTyped
+
+    private void TBLaseguradosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TBLaseguradosMouseClicked
+        int row = TBLasegurados.rowAtPoint(evt.getPoint());
+        String nombre = TBLasegurados.getValueAt(row, 0).toString();
+        long dni = (long)TBLasegurados.getValueAt(row, 1);
+        Datos.Asegurados aseg = new BuscarAsegurados(nombre,dni).buscaAegurado();
+        llenarCampos(aseg);
     }//GEN-LAST:event_TBLaseguradosMouseClicked
+
+    private void TBLaseguradosKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TBLaseguradosKeyReleased
+        if (evt.getKeyCode() == KeyEvent.VK_DOWN || evt.getKeyCode() == KeyEvent.VK_UP) {
+            String nombre = TBLasegurados.getValueAt(TBLasegurados.getSelectedRow(), 0).toString();
+            long dni = (long) TBLasegurados.getValueAt(TBLasegurados.getSelectedRow(), 1);
+            Datos.Asegurados aseg = new BuscarAsegurados(nombre, dni).buscaAegurado();
+            llenarCampos(aseg);
+        }
+    }//GEN-LAST:event_TBLaseguradosKeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
