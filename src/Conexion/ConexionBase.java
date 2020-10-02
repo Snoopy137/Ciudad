@@ -67,7 +67,7 @@ public class ConexionBase {
         NodeList listaRegistro;
         Document document;
         try {
-            File archivo = new File("/home/linux/NetBeansProjects/Ciudad/Ciudad/CART_CIUDADES.xml");
+            File archivo = new File("/Users/admin/NetBeansProjects/Ciudad/Ciudad/CART_CIUDADES.xml");
             dbf = DocumentBuilderFactory.newInstance();
             documentBuilder = dbf.newDocumentBuilder();
             document = documentBuilder.parse(archivo);
@@ -80,10 +80,11 @@ public class ConexionBase {
                     int provincia = Integer.parseInt(element.getAttribute("A"));
                     int codigo = Integer.parseInt(element.getAttribute("B"));
                     String nombre = element.getAttribute("C");
-                    int codPostal = Integer.parseInt(element.getAttribute("D"));
+                    int codPostal = 0;
+                    if(!element.getAttribute("D").equals(""))codPostal = Integer.parseInt(element.getAttribute("D"));
                     PreparedStatement pst = ConexionBase.con.prepareStatement("INSERT INTO POSTALES VALUES (idPOSTALES,PROVINCIA,CODIGO,NOMBRE,POSTAL),"
-                            + "("+(i+1)+","+provincia+","+codigo+", '"+nombre.replace("  ","").replaceAll("'", "\\'")+"',"+codPostal+")\n"
-                                    + "ON DUPLICATE key ();");
+                            + "("+(i+1)+","+provincia+","+codigo+", '"+nombre.replace("  ","").replaceAll("'", "\\''")+"',"+codPostal+")"
+                                    + "ON DUPLICATE key UPDATE PROVINCIA=VALUES(PROVINCIA),CODIGO=VALUES(CODIGO),NOMBRE=VALUES(NOMBRE),POSTAL=VALUES(POSTAL) ");
                     System.out.println(pst);
                     int result = pst.executeUpdate();
                 }

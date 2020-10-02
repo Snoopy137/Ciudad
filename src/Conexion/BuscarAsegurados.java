@@ -80,7 +80,7 @@ public class BuscarAsegurados extends Hilo{
     public Asegurados buscaAegurado (){
         Asegurados aseg = new Asegurados();
         try {
-            PreparedStatement pst = ConexionBase.con.prepareStatement("SELECT * FROM asegurados WHERE nombre = '"+nombre.replaceAll("'","\\''")+"' AND DNINro = "+DNI);
+            PreparedStatement pst = ConexionBase.con.prepareStatement("SELECT * FROM asegurados INNER JOIN POSTALES ON asegurados.localidad = POSTALES.CODIGO WHERE asegurados.nombre = '"+nombre.replaceAll("'","\\''")+"' AND asegurados.DNINro = "+DNI);
             ResultSet rs = pst.executeQuery();
             if (rs.next()) {
                 aseg.setNombreasegurado(rs.getString("Nombre"));
@@ -88,7 +88,7 @@ public class BuscarAsegurados extends Hilo{
                 aseg.setNumasegurado(rs.getInt("Numaseg"));
                 aseg.setDomicilioasegurado(rs.getString("Domicilio"));
                 aseg.setDomiciliocobroasegurado(rs.getString("DomicilioCobro"));
-                aseg.setLocalidad(rs.getString("Localidad"));
+                aseg.setLocalidad(rs.getString("POSTALES.NOMBRE"));
                 aseg.setCodigopostal(rs.getString("CodPostal"));
                 aseg.setDNItipo(rs.getString("DNITipo"));
                 aseg.setDNInumero(rs.getLong("DNINro"));
