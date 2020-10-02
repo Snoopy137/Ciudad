@@ -81,7 +81,9 @@ public class ConexionBase {
                     int codigo = Integer.parseInt(element.getAttribute("B"));
                     String nombre = element.getAttribute("C");
                     int codPostal = Integer.parseInt(element.getAttribute("D"));
-                    PreparedStatement pst = ConexionBase.con.prepareStatement("INSERT INTO POSTALES VALUES (0,"+provincia+","+codigo+", '"+nombre.replace("  ","")+"',"+codPostal+")");
+                    PreparedStatement pst = ConexionBase.con.prepareStatement("INSERT INTO POSTALES VALUES (idPOSTALES,PROVINCIA,CODIGO,NOMBRE,POSTAL),"
+                            + "("+(i+1)+","+provincia+","+codigo+", '"+nombre.replace("  ","").replaceAll("'", "\\'")+"',"+codPostal+")\n"
+                                    + "ON DUPLICATE key ();");
                     System.out.println(pst);
                     int result = pst.executeUpdate();
                 }
