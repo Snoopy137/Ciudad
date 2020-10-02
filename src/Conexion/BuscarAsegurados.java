@@ -80,7 +80,7 @@ public class BuscarAsegurados extends Hilo{
     public Asegurados buscaAegurado (){
         Asegurados aseg = new Asegurados();
         try {
-            PreparedStatement pst = ConexionBase.con.prepareStatement("SELECT * FROM asegurados, WHERE nombre = '"+nombre.replaceAll("'","\\''")+"' AND DNINro = "+DNI);
+            PreparedStatement pst = ConexionBase.con.prepareStatement("SELECT * FROM asegurados WHERE nombre = '"+nombre.replaceAll("'","\\''")+"' AND DNINro = "+DNI);
             ResultSet rs = pst.executeQuery();
             if (rs.next()) {
                 aseg.setNombreasegurado(rs.getString("Nombre"));

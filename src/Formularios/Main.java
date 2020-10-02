@@ -7,7 +7,6 @@ package Formularios;
 
 import Conexion.ConexionBase;
 import Datos.Usuarios;
-import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.Window;
 
@@ -23,7 +22,7 @@ public class Main extends javax.swing.JFrame {
     Usuarios us;
     public Main (){
         initComponents();
-        ConexionBase.conectar();
+        if(ConexionBase.con == null)ConexionBase.conectar();
         addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
             public void windowClosing(java.awt.event.WindowEvent evt) {
@@ -40,7 +39,6 @@ public class Main extends javax.swing.JFrame {
             }
         });
         us = u;
-        System.out.print("u");
     }
     
     public Main (String privlegios,Usuarios u){
@@ -56,7 +54,6 @@ public class Main extends javax.swing.JFrame {
             }
         });
         us = u;
-        System.out.print("privi");
     }
 
     /**
@@ -81,7 +78,9 @@ public class Main extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setExtendedState(6);
 
+        richLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         richLabel1.setText("ASEGURADOS");
+        richLabel1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         richLabel1.setMouseovercolor(new java.awt.Color(0, 204, 204));
         richLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -174,11 +173,12 @@ public class Main extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void richLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_richLabel1MouseClicked
-        Asegurados aseg = new Asegurados();
+        Formularios.Asegurados aseg = new Asegurados();
         aseg.setSize(jPanel3.getWidth(), jPanel3.getHeight());
         jPanel3.removeAll();
         jPanel3.add(aseg);
         aseg.revalidate();
+        aseg.pideFoco();
     }//GEN-LAST:event_richLabel1MouseClicked
 
     private void mencierrecesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mencierrecesionActionPerformed

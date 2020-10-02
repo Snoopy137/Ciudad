@@ -68,11 +68,9 @@ public class AccionesUsuarios {
                 us.setNombre(rs.getString("Nombre"));
                 us.setUsuario(rs.getString("Usuario"));
             }
-            ConexionBase.desconectar();
         }
         catch(Exception e){
             e.printStackTrace();
-            ConexionBase.desconectar();
         }
         return us;
     }
