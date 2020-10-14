@@ -40,7 +40,7 @@ public class ConexionBase {
             try{
                 con = DriverManager.getConnection(url+basee,usuario,password);
             }
-            catch (Exception e){
+            catch (SQLException e){
                 e.printStackTrace();
             }
         }
@@ -53,7 +53,7 @@ public class ConexionBase {
                 con.close();
                 con = null;
             }
-            catch (Exception e){
+            catch (SQLException e){
                 e.printStackTrace();
             }
         }
