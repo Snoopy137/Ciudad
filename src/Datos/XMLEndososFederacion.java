@@ -100,7 +100,7 @@ public class XMLEndososFederacion extends Hilo {
                     Date fechamis = date.parse(element.getAttribute("E"));
                     Date desde = date.parse(element.getAttribute("F"));
                     Date hasta = null;
-                    if(!element.getAttribute("G").equals(""))date.parse(element.getAttribute("G"));
+                    if(!element.getAttribute("G").equals(""))hasta = date.parse(element.getAttribute("G"));
                     String tipoEndoso = element.getAttribute("H");
                     int motivo = Integer.parseInt(element.getAttribute("I"));
                     String plan = element.getAttribute("L");
