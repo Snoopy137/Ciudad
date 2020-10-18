@@ -67,7 +67,7 @@ public final class XMLRecibosFederacion extends Hilo{
                     }
                     int endoso = 0;
                     if (!element.getAttribute("D").equals("")) {
-                        endoso = Integer.parseInt("D");
+                        endoso = Integer.parseInt(element.getAttribute("D"));
                     }
                     Date fecvenc = date.parse(element.getAttribute("E"));
                     int estado = 1;
@@ -76,8 +76,10 @@ public final class XMLRecibosFederacion extends Hilo{
                     }
                     int cuota = Integer.parseInt(element.getAttribute("G"));
                     String anticipo = element.getAttribute("H");
-                    Double prima = Double.parseDouble(element.getAttribute("I"));
-                    Double premio = Double.parseDouble(element.getAttribute("J"));
+                    Double prima = 0.0;
+                    if(!element.getAttribute("I").equals("")) prima = Double.parseDouble(element.getAttribute("I"));
+                    Double premio = 0.0;
+                    if(!element.getAttribute("J").equals(""))Double.parseDouble(element.getAttribute("J"));
                     Recibos recibo = new Recibos(compania, seccion, poliza, certificado, endoso, fecvenc, estado, cuota, anticipo, prima, premio);
                     listRecibos.add(recibo);
                 }

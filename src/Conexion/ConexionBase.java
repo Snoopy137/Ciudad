@@ -5,24 +5,9 @@
  */
 package Conexion;
 
-import Datos.XMLPolizasFederacion;
-import java.io.File;
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
 
 /**
  *
@@ -58,43 +43,5 @@ public class ConexionBase {
             }
         }
         return con;
-    }
-    
-    public static void main(String[] args) throws SQLException {
-        ConexionBase.conectar();
-        DocumentBuilderFactory dbf;
-        DocumentBuilder documentBuilder;
-        NodeList listaRegistro;
-        Document document;
-        try {
-            File archivo = new File("/Users/admin/NetBeansProjects/Ciudad/Ciudad/CART_CIUDADES.xml");
-            dbf = DocumentBuilderFactory.newInstance();
-            documentBuilder = dbf.newDocumentBuilder();
-            document = documentBuilder.parse(archivo);
-            document.getDocumentElement().normalize();
-            listaRegistro = document.getElementsByTagName("ROW");
-            for (int i = 0; i < listaRegistro.getLength(); i++) {
-                Node nodo = listaRegistro.item(i);
-                if (nodo.getNodeType() == Node.ELEMENT_NODE) {
-                    Element element = (Element) nodo;
-                    int provincia = Integer.parseInt(element.getAttribute("A"));
-                    int codigo = Integer.parseInt(element.getAttribute("B"));
-                    String nombre = element.getAttribute("C");
-                    int codPostal = 0;
-                    if(!element.getAttribute("D").equals(""))codPostal = Integer.parseInt(element.getAttribute("D"));
-                    PreparedStatement pst = ConexionBase.con.prepareStatement("INSERT INTO POSTALES VALUES (idPOSTALES,PROVINCIA,CODIGO,NOMBRE,POSTAL),"
-                            + "("+(i+1)+","+provincia+","+codigo+", '"+nombre.replace("  ","").replaceAll("'", "\\''")+"',"+codPostal+")"
-                                    + "ON DUPLICATE key UPDATE PROVINCIA=VALUES(PROVINCIA),CODIGO=VALUES(CODIGO),NOMBRE=VALUES(NOMBRE),POSTAL=VALUES(POSTAL) ");
-                    System.out.println(pst);
-                    int result = pst.executeUpdate();
-                }
-            }
-        } catch (ParserConfigurationException ex) {
-            Logger.getLogger(XMLPolizasFederacion.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SAXException ex) {
-            Logger.getLogger(XMLPolizasFederacion.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(XMLPolizasFederacion.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }
 }

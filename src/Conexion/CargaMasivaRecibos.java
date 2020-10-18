@@ -35,12 +35,13 @@ public class CargaMasivaRecibos extends Hilo{
         pro.siguiendo(true);
         pro.barres(false);
         pro.proceso("Conectando con base de datos");
-        Connection con = ConexionBase.con;
+        //Connection con = ConexionBase.con;
+        Connection con = ConexionBase.conectar();
         pro.proceso("Conectado");
         try {
             double porcentaje1 = 1.0 / listaRecibos.getSize() * 100;
             double porcentaje = 0.0;
-            String insert = "INSERT INTO RECIBOS (idENDOSOS,COMPANIA,SECCION,POLIZA,"
+            String insert = "INSERT INTO RECIBOS (idRECIBOS,COMPANIA,SECCION,POLIZA,"
                     + "CERTIFICADO,ENDOSO,FECVENC,"
                     + "ESTADO,CUOTA,ANTICIPO,PREMIO,PRIMA) VALUES";
             StringBuilder sb = new StringBuilder(insert);
@@ -60,9 +61,18 @@ public class CargaMasivaRecibos extends Hilo{
                 }
                 porcentaje = porcentaje + porcentaje1;
                 Recibos recibo = listaRecibos.getRecibo(i);
-                StringBuilder append = sb.append("(").append(0).append(",").append(recibo.getCompania()).append(",").append(recibo.getEstado()).append(",").append(recibo.getCuota()).append(",").
-                        append(",").
-                        append("'").append(recibo.getAnticipo()).append("',").append(recibo.getPremio()).
+                StringBuilder append = sb.append("(").
+                        append(0).append(",").
+                        append(recibo.getCompania()).
+                        append(",").append(recibo.getSeccion()).
+                        append(",").append(recibo.getPoliza()).
+                        append(",").append(recibo.getCertificado()).
+                        append(",").append(recibo.getEndoso()).
+                        append(",'").append(new java.sql.Date(recibo.getFecvenc().getTime())).
+                        append("',").append(recibo.getEstado()).
+                        append(",").append(recibo.getCuota()).append(",").
+                        append("'").append(recibo.getAnticipo()).
+                        append("',").append(recibo.getPremio()).
                         append(",").append(recibo.getPrima()).append(")");
                 if (i != listaRecibos.getSize() - 1) {
                     sb.append(",");
