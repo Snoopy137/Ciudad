@@ -9,6 +9,7 @@ import Conexion.AccionesAsegurados;
 import Conexion.AccionesUsuarios;
 import Datos.DNITipo;
 import Datos.ListaUsuarios;
+import com.formdev.flatlaf.FlatDarkLaf;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Date;
@@ -601,6 +602,7 @@ public class NuevoAsegurado extends javax.swing.JFrame {
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
+        FlatDarkLaf.install();
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Mac OSX".equals(info.getName())) {
