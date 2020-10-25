@@ -62,10 +62,17 @@ public class XMLAutosFederacion extends Hilo{
             if (nodo.getNodeType() == Node.ELEMENT_NODE) {
                 Element element = (Element) nodo;
                 int compania = 1;
-                int seccion = Integer.parseInt(element.getAttribute("A"));
+                int seccion = (element.getAttribute("A").equals("")) ? 4 : Integer.parseInt(element.getAttribute("A"));
                 int poliza = Integer.parseInt(element.getAttribute("B"));
-                
-                Autos auto = new Autos();
+                int endoso = (element.getAttribute("C").equals("")) ? 0 : Integer.parseInt(element.getAttribute("C"));
+                int certificado = (element.getAttribute("D").equals("")) ? 0 : Integer.parseInt(element.getAttribute("D"));
+                String marca = element.getAttribute("C45020");
+                String modelo = element.getAttribute("C45020");
+                String patente = element.getAttribute("C40006");
+                int anio = (!element.getAttribute("C40004").equals("")) ? Integer.parseInt(element.getAttribute("C40004")) : 0;
+                String motor = element.getAttribute("C40005");
+                String chasis = element.getAttribute("C40070");
+                Autos auto = new Autos(compania, seccion, poliza, endoso, certificado, marca, modelo, patente, anio, motor, chasis);
                 listAutos.add(auto);
             }
             pro.cant(String.valueOf(i + 1) + " registros procesados de " + listaRegistro.getLength());
@@ -88,6 +95,5 @@ public class XMLAutosFederacion extends Hilo{
         } catch (ParserConfigurationException | SAXException | IOException ex) {
             Logger.getLogger(XMLPolizasFederacion.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
-    
+    }    
 }

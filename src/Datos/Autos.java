@@ -30,6 +30,20 @@ public class Autos {
     public Autos() {
     }
 
+    public Autos(int compania, int seccion, int poliza, int endoso, int certificado, String marca, String modelo, String patente, int anio, String motor, String chasis) {
+        this.compania = compania;
+        this.seccion = seccion;
+        this.poliza = poliza;
+        this.endoso = endoso;
+        this.certificado = certificado;
+        this.marca = marca;
+        this.modelo = modelo;
+        this.patente = patente;
+        this.anio = anio;
+        this.motor = motor;
+        this.chasis = chasis;
+    }
+    
     public Autos(int ID, int compania, int seccion, int poliza, int endoso, int certificado, String cobertura, int item, String marca, String modelo, String patente, int anio, String motor, String chasis, String accesorios, String obvserv) {
         this.ID = ID;
         this.compania = compania;
