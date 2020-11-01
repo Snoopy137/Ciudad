@@ -215,6 +215,7 @@ public class Asegurados extends javax.swing.JPanel {
 
         TXTobservaciones.setEditable(false);
         TXTobservaciones.setBackground(new java.awt.Color(255, 255, 255));
+        TXTobservaciones.setPreferredSize(new java.awt.Dimension(30, 22));
         jScrollPane2.setViewportView(TXTobservaciones);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
