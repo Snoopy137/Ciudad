@@ -22,11 +22,11 @@ import java.util.logging.Logger;
  * @author linux
  */
 public class AccionesPolizas {
-    public static ListaPolizas buscarPolizas(int pol){
+    public static ListaPolizas buscarPolizas(int asegurado){
         ListaPolizas listPol = new ListaPolizas();
         Connection con = new ConexionBase().conectar();
         try {
-            PreparedStatement pst = con.prepareStatement("SELECT * FROM POLIZAS WHERE Asegurado = "+pol);
+            PreparedStatement pst = con.prepareStatement("SELECT * FROM POLIZAS WHERE Asegurado = "+asegurado);
             ResultSet rs = pst.executeQuery();
             System.out.println(pst);
             while(rs.next()){
@@ -58,7 +58,6 @@ public class AccionesPolizas {
             }
             rs.close();
             pst.close();
-            ConexionBase.desconectar();
         } catch (SQLException ex) {
             Logger.getLogger(AccionesPolizas.class.getName()).log(Level.SEVERE, null, ex);
         }

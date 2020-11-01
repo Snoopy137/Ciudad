@@ -32,7 +32,10 @@ public class Asegurados extends javax.swing.JPanel {
         asegurados.addColumn("Nombre");
         asegurados.addColumn("DNI");
         asegurados.addColumn("Teléfono");
+        asegurados.addColumn("nroasegurado");
         TBLasegurados.setModel(asegurados);
+        TBLasegurados.getColumnModel().getColumn(3).setMinWidth(0);
+        TBLasegurados.getColumnModel().getColumn(3).setMaxWidth(0);
         Long DNI = (long)100000001;
         String nombre = "";
         if(!TXTnombreODNI.getText().trim().equals("")){
@@ -58,6 +61,7 @@ public class Asegurados extends javax.swing.JPanel {
             asegurados.setValueAt(listAseg.getAsegurado(i).getNombreasegurado(),i, 0);
             asegurados.setValueAt(listAseg.getAsegurado(i).getDNInumero(), i, 1);
             asegurados.setValueAt(listAseg.getAsegurado(i).getTele1(), i, 2);
+            asegurados.setValueAt(listAseg.getAsegurado(i).getNumasegurado(), i, 3);
         }
     }
     
@@ -480,6 +484,10 @@ public class Asegurados extends javax.swing.JPanel {
         Datos.Asegurados aseg = new BuscarAsegurados(nombre, dni).buscaAegurado();
         llenarCampos(aseg);
         TXTnombreODNI.requestFocus();
+        if (evt.getClickCount() == 2 ){
+            Formularios.Polizas poli = new Polizas(Integer.parseInt(TBLasegurados.getValueAt(row, 3).toString()));
+            poli.setVisible(true);
+        }
     }//GEN-LAST:event_TBLaseguradosMouseClicked
 
 

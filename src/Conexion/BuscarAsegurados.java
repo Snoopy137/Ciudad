@@ -60,13 +60,14 @@ public class BuscarAsegurados extends Hilo{
         if(!nombre.equals("") && DNI != 100000001)cond="AND";
         if(nombre.equals("") && DNI == 100000001)nombre="%"+nombre+"%";
         try {
-            PreparedStatement pst = ConexionBase.con.prepareStatement("SELECT Nombre,DNINro,Tele1 FROM asegurados WHERE nombre LIKE '"+nombre.replaceAll("'","\\''")+"' "+cond+" DNINro LIKE '"+DNI+"%' ORDER BY Nombre");
+            PreparedStatement pst = ConexionBase.con.prepareStatement("SELECT Nombre,DNINro,Tele1,Numaseg FROM asegurados WHERE nombre LIKE '"+nombre.replaceAll("'","\\''")+"' "+cond+" DNINro LIKE '"+DNI+"%' ORDER BY Nombre");
             ResultSet rs = pst.executeQuery();
             while (rs.next()){
                 Asegurados aseg = new Asegurados();
                 aseg.setNombreasegurado(rs.getString("Nombre"));
                 aseg.setDNInumero(rs.getLong("DNINro"));
                 aseg.setTele1(rs.getString("Tele1"));
+                aseg.setNumasegurado(rs.getInt("Numaseg"));
                 asegList.agregaAsegurado(aseg);
             }
             rs.close();
