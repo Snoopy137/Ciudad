@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?> 
+<DATAPACKET Version="2.0">
+<METADATA>
+	<FIELDS>
+		<FIELD attrname="POLIZA" fieldtype="string" width="7" /> 
+		<FIELD attrname="ASEGURADO" fieldtype="string" width="25" /> 
+		<FIELD attrname="VEHICULO" fieldtype="string" width="20" /> 
+		<FIELD attrname="ANIO" fieldtype="string" width="4" /> 
+		<FIELD attrname="PLAN" fieldtype="string" width="4" /> 
+		<FIELD attrname="TP" fieldtype="string" width="3" /> 
+		<FIELD attrname="CUOTA" fieldtype="string" width="10" /> 
+		<FIELD attrname="SUMA" fieldtype="string" width="6" /> 
+		<FIELD attrname="PREMIO" fieldtype="string" width="7" /> 
+		<FIELD attrname="OKM" fieldtype="string" width="3" /> 
+		<FIELD attrname="AA" fieldtype="string" width="2" /> 
+		<FIELD attrname="GNC" fieldtype="string" width="3" /> 
+		<FIELD attrname="MOTOR" fieldtype="string" width="15" /> 
+		<FIELD attrname="CHASIS" fieldtype="string" width="15" /> 
+		<FIELD attrname="PATENTE" fieldtype="string" width="7" /> 
+		<FIELD attrname="PROD" fieldtype="string" width="5" /> 
+		<FIELD attrname="COTIZAC" fieldtype="string" width="7" /> 
+		<FIELD attrname="BR" fieldtype="string" width="2" /> 
+		<FIELD attrname="D_COM" fieldtype="string" width="3" /> 
+		<FIELD attrname="A_COM" fieldtype="string" width="3" /> 
+		<FIELD attrname="PREM_ANT" fieldtype="string" width="7" /> 
+		<FIELD attrname="SALDO" fieldtype="string" width="7" /> 
+		<FIELD attrname="FECHA" fieldtype="string" width="10" /> 
+	</FIELDS>
+	<PARAMS LCID="1034" /> 
+</METADATA>
+<ROWDATA>
+</ROWDATA>
+</DATAPACKET>

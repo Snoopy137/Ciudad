@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?> 
+<DATAPACKET Version="2.0">
+<METADATA>
+	<FIELDS>
+		<FIELD attrname="A" fieldtype="string" WIDTH="2" desc="Código" /> 
+		<FIELD attrname="B" fieldtype="string" WIDTH="30" desc="Descripción" /> 
+	</FIELDS>
+	<PARAMS LCID="1034" /> 
+</METADATA>
+<ROWDATA>
+<ROW A="IN" B="INSCRIPTO" />
+<ROW A="NI" B="NO INSCRIPTO" />
+<ROW A="CF" B="CONSUMIDOR FINAL" />
+<ROW A="EA" B="EXENTO ACTIVIDAD" />
+<ROW A="IR" B="INSCRIPTO (R.18/97)" />
+<ROW A="ED" B="EXENTO DECRETO" />
+<ROW A="MO" B="MONOTRIBUTO" />
+<ROW A="NC" B="NO CATEGORIZADO" />
+<ROW B="VUELCO SOCIOS" />
+<ROW A="IM" B="INSCRIPTO (M)" />
+<ROW A="NA" B="NO ALCANZADO" />
+</ROWDATA>
+</DATAPACKET>

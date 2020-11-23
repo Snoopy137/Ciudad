@@ -36,8 +36,9 @@ public class Asegurados {
     private Date baja;
     private Usuarios usuario;
     private Date modificado;
+    private String tipoAsegurado;
 
-    public Asegurados(int idasegurado, int numasegurado, String nombreasegurado, String domicilioasegurado, String domiciliocobroasegurado, String localidad, String codigopostal, String DNItipo, int DNInumero, String tele1, String tele2, String tele3, Date fechanac, int cuil, String actividad, String mail, String estado, int cobrador, String observaciones, Date alta, Date baja, Usuarios usu, Date modificado) {
+    public Asegurados(int idasegurado, int numasegurado, String nombreasegurado, String domicilioasegurado, String domiciliocobroasegurado, String localidad, String codigopostal, String DNItipo, int DNInumero, String tele1, String tele2, String tele3, Date fechanac, int cuil, String actividad, String mail, String estado, int cobrador, String observaciones, Date alta, Date baja, Usuarios usu, Date modificado, String tipoAsegurado) {
         this.idasegurado = idasegurado;
         this.numasegurado = numasegurado;
         this.nombreasegurado = nombreasegurado;
@@ -61,12 +62,30 @@ public class Asegurados {
         this.baja = baja;
         this.usuario = usu;
         this.modificado = modificado;
+        this.tipoAsegurado = tipoAsegurado;
     }
     
     public Asegurados(){
         
     }
 
+    public Usuarios getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuarios usuario) {
+        this.usuario = usuario;
+    }
+
+    public String getTipoAsegurado() {
+        return tipoAsegurado;
+    }
+
+    public void setTipoAsegurado(String tipoAsegurado) {
+        this.tipoAsegurado = tipoAsegurado;
+    }
+
+    
     public int getIdasegurado() {
         return idasegurado;
     }

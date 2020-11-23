@@ -35,11 +35,12 @@ public class Polizas {
     private int usuario;
     private int usuarioofi;
     private int formapago;
+    private String tipoAsegurado;
     
     public Polizas() {
     }
 
-    public Polizas(int idpolizas, int compania, int seccion, int poliza, int certificado, int renueva, int renovadapor, int intpoliza, int productor, int tipooper, Date fechamis, Date desde, Date hasta, int estado, Date fechaestado, int asegurado, int moneda, int cobrador, double prima, double premio, int usuario, int usuarioofi, int formapago) {
+    public Polizas(int idpolizas, int compania, int seccion, int poliza, int certificado, int renueva, int renovadapor, int intpoliza, int productor, int tipooper, Date fechamis, Date desde, Date hasta, int estado, Date fechaestado, int asegurado, int moneda, int cobrador, double prima, double premio, int usuario, int usuarioofi, int formapago, String tipoAsegurado) {
         this.idpolizas = idpolizas;
         this.compania = compania;
         this.seccion = seccion;
@@ -63,6 +64,7 @@ public class Polizas {
         this.usuario = usuario;
         this.usuarioofi = usuarioofi;
         this.formapago = formapago;
+        this.tipoAsegurado = tipoAsegurado;
     }
 
     public int getIdpolizas() {
@@ -248,4 +250,13 @@ public class Polizas {
     public void setFormapago(int formapago) {
         this.formapago = formapago;
     }
+
+    public String getTipoAsegurado() {
+        return tipoAsegurado;
+    }
+
+    public void setTipoAsegurado(String tipoAsegurado) {
+        this.tipoAsegurado = tipoAsegurado;
+    }
+    
 }

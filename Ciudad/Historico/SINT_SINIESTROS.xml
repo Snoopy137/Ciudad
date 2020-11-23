@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?> 
+<DATAPACKET Version="2.0">
+<METADATA>
+	<FIELDS>
+		<FIELD attrname="A" fieldtype="r8" desc="Año" /> 
+		<FIELD attrname="B" fieldtype="r8" desc="Sección" /> 
+		<FIELD attrname="C" fieldtype="r8" desc="Número" /> 
+		<FIELD attrname="D" fieldtype="r8" desc="Poliza" /> 
+		<FIELD attrname="E" fieldtype="r8" desc="Certificado" default="0" /> 
+		<FIELD attrname="F" fieldtype="r8" desc="Endoso" default="0" /> 
+		<FIELD attrname="G" fieldtype="datetime" desc="Denuncia" /> 
+		<FIELD attrname="H" fieldtype="datetime" desc="Ocurrido" /> 
+		<FIELD attrname="I" fieldtype="string" WIDTH="2" desc="Estado" /> 
+		<FIELD attrname="J" fieldtype="datetime" desc="Fecha Estado" /> 
+		<FIELD attrname="K" fieldtype="r8" desc="Cod Localidad" /> 
+		<FIELD attrname="L" fieldtype="string" WIDTH="4" desc="Cod Causa" /> 
+		<FIELD attrname="M" fieldtype="string" WIDTH="3" desc="Tipo Siniestro" /> 
+		<FIELD attrname="N" fieldtype="string" WIDTH="5" desc="Hora" /> 
+		<FIELD attrname="O" fieldtype="string" WIDTH="50" desc="Lugar" /> 
+		<FIELD attrname="P" fieldtype="r8" desc="Agencia" /> 
+		<FIELD attrname="Q" fieldtype="string" WIDTH="1000" desc="Descripción Siniestro" />
+	</FIELDS>
+	<PARAMS LCID="1034" /> 
+</METADATA>
+<ROWDATA>
+<ROW />
+</ROWDATA>
+</DATAPACKET>

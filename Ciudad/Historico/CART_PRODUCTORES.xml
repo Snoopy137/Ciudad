@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?> 
+<DATAPACKET Version="2.0">
+<METADATA>
+	<FIELDS>
+		<FIELD attrname="A" fieldtype="r8" desc="Código" /> 
+		<FIELD attrname="B" fieldtype="string" WIDTH="60" desc="Nombre" /> 
+		<FIELD attrname="C" fieldtype="r8" desc="Cod Localidad" /> 
+		<FIELD attrname="D" fieldtype="string" WIDTH="50" desc="Dirección" /> 
+		<FIELD attrname="E" fieldtype="r8" desc="Matrícula" /> 
+		<FIELD attrname="F" fieldtype="r8" desc="Organizador" /> 
+		<FIELD attrname="G" fieldtype="r8" desc="Agencia" /> 
+	</FIELDS>
+	<PARAMS LCID="1034" /> 
+</METADATA>
+<ROWDATA>
+<ROW A="3321" B="CIUDAD JUAN PABLO" C="751" D="14 DE FEBRERO Nro: 553" E="50948" F="9760" G="22" />
+</ROWDATA>
+</DATAPACKET>

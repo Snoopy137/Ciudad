@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?> 
+<DATAPACKET Version="2.0">
+<METADATA>
+	<FIELDS>
+		<FIELD attrname="A" fieldtype="r8" desc="Sección" /> 
+		<FIELD attrname="B" fieldtype="r8" desc="Poliza" /> 
+		<FIELD attrname="C" fieldtype="r8" desc="Certificado" default="0" /> 
+		<FIELD attrname="D" fieldtype="r8" desc="Endoso" default="0" /> 
+		<FIELD attrname="E" fieldtype="r8" desc="Número" /> 
+		<FIELD attrname="F" fieldtype="string" WIDTH="3" desc="Tipo Documento" /> 
+		<FIELD attrname="G" fieldtype="r8" desc="Nro Documento" /> 
+		<FIELD attrname="H" fieldtype="string" WIDTH="50" desc="Persona" /> 
+		<FIELD attrname="I" fieldtype="r8" desc="Monto" /> 
+		<FIELD attrname="J" fieldtype="datetime" desc="Fecha" /> 
+	</FIELDS>
+	<PARAMS LCID="1034" /> 
+</METADATA>
+<ROWDATA>
+</ROWDATA>
+</DATAPACKET>

@@ -140,7 +140,7 @@ public class CargaMasivaAsegurados extends javax.swing.JFrame {
                         Asegurados A = new Asegurados ();
                         A.setNumasegurado(Integer.parseInt(element.getAttribute("A")));
                         A.setNombreasegurado(element.getAttribute("B"));
-                        A.setDomicilioasegurado(element.getAttribute("E")+" "+element.getAttribute("F")+" "+element.getAttribute("G")
+                        A.setDomicilioasegurado(element.getAttribute("E").replace("'", "\\'")+" "+element.getAttribute("F")+" "+element.getAttribute("G")
                         +" "+element.getAttribute("H"));
                         A.setDomiciliocobroasegurado(element.getAttribute("M")+" "+element.getAttribute("N")+" "+element.getAttribute("O")
                         +" "+element.getAttribute("P"));
@@ -175,6 +175,8 @@ public class CargaMasivaAsegurados extends javax.swing.JFrame {
                         else {
                             A.setEstado("I");
                         }
+                        String tipoAsegurado = (!element.getAttribute("AB").equals("")) ? element.getAttribute("AB"): "M";
+                        A.setTipoAsegurado(tipoAsegurado);
                         listaseg.agregaAsegurado(A);
                         //AccionesAsegurados.modificaAsegurado(A,(int)porcentaje,String.valueOf(i));
                     }

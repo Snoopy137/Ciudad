@@ -94,6 +94,8 @@ public class CargaMasivaPolizas extends Hilo {
             pro.crono.stop();
             pst.close();
             ConexionBase.desconectar();
+            Hilo otros = new CargaOtrosAseg(pro, listpol);
+            otros.execute();
         } catch (SQLException ex) {
             Logger.getLogger(AccionesCobranza.class.getName()).log(Level.SEVERE, null, ex);
             pro.crono.stop();

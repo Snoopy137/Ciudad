@@ -77,7 +77,7 @@ public class AccionesAsegurados {
                     String insert = "INSERT INTO asegurados (Numaseg,Nombre,Domicilio,"
                             + "DomicilioCobro,Localidad,CodPostal,DNITipo,DNINro,"
                             + "Tele1,Tele2,Tele3,FecNac,CUIL,"
-                            + "Actividad,Mail,Estado,Cobrador,Observ,ALTA,BAJA,Usuario,Fecha)VALUES\n ";
+                            + "Actividad,Mail,Estado,Cobrador,Observ,ALTA,BAJA,Usuario,Fecha, TIPO)VALUES\n ";
                     double porcentaje1 = 1.0 / listaseg.getSize() * 100;
                     double porcentaje = 0.0;
                     Connection con = ConexionBase.conectar();
@@ -94,7 +94,7 @@ public class AccionesAsegurados {
                                 + " '" + A.getLocalidad() + "','" + A.getCodigopostal() + "','" + A.getDNItipo() + "'," + A.getDNInumero() + ","
                                 + " '" + A.getTele1() + "','" + A.getTele2() + "','" + A.getTele3() + "','" + A.getFechanac() + "'," + A.getCuil() + ","
                                 + " '" + A.getActividad() + "','" + A.getMail() + "','" + A.getEstado() + "'," + A.getCobrador() + ",'" + A.getObservaciones() + "',"
-                                + " '" + A.getAlta() + "'," + date + ", 999 ,'" + new java.sql.Date(new java.util.Date().getTime()) + "' ) ") ;
+                                + " '" + A.getAlta() + "'," + date + ", 999 ,'" + new java.sql.Date(new java.util.Date().getTime()) + "', '"+A.getTipoAsegurado()+"' ) ") ;
                         if (i!=listaseg.getSize()-1){
                             sb.append(", \n");
                         }

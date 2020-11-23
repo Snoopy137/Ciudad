@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?> 
+<DATAPACKET Version="2.0">
+<METADATA>
+	<FIELDS>
+		<FIELD attrname="NUMERO" fieldtype="string" width="10" /> 
+		<FIELD attrname="INGRESO" fieldtype="string" width="15" /> 
+		<FIELD attrname="DEPOSITO" fieldtype="string" width="15" /> 
+		<FIELD attrname="TIPO" fieldtype="string" width="30" /> 
+		<FIELD attrname="MOVIMIENTO" fieldtype="string" width="60" /> 
+		<FIELD attrname="MONEDA" fieldtype="string" width="10" /> 
+		<FIELD attrname="MONTO" fieldtype="string" width="10" /> 
+		<FIELD attrname="PRODUCTOR" fieldtype="string" width="5" /> 
+	</FIELDS>
+	<PARAMS LCID="1034" /> 
+</METADATA>
+<ROWDATA>
+<ROW />
+</ROWDATA>
+</DATAPACKET>

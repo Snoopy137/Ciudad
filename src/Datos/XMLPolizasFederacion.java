@@ -76,6 +76,7 @@ public class XMLPolizasFederacion extends Hilo {
     public void execute() {
         try {
             ArrayList <Polizas> polist = new ArrayList<>();
+            ArrayList <Polizas> polist1 = new ArrayList<>();
             for (int i = 0; i < listaRegistro.getLength(); i++) {
                 synchronized (super.m) {
                     while (!m.isTrue()) {
@@ -127,6 +128,7 @@ public class XMLPolizasFederacion extends Hilo {
                     int usuario = 999;
                     int formapago = 1;
                     if (!element.getAttribute("N").equals(""))Integer.parseInt(element.getAttribute("N"));
+                    String tipoAsegurado = (!element.getAttribute("D").equals("")) ? element.getAttribute("D"):"M";
                     Polizas p = new Polizas();
                     p.setCompania(1);
                     p.setAsegurado(asegurado);
@@ -145,7 +147,8 @@ public class XMLPolizasFederacion extends Hilo {
                     p.setMoneda(moneda);
                     p.setUsuario(usuario);
                     p.setFormapago(formapago);
-                    polist.add(p);
+                    p.setTipoAsegurado(tipoAsegurado);
+                    if (p.getTipoAsegurado().equals("M")) polist.add(p); else polist1.add(p);
                 }
                 pro.cant(String.valueOf(i + 1) + " registros procesados de " + listaRegistro.getLength());
                 pro.progreso((int) Math.round(porcentaje));

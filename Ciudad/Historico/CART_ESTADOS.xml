@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?> 
+<DATAPACKET Version="2.0">
+<METADATA>
+	<FIELDS>
+		<FIELD attrname="A" fieldtype="r8" desc="Código" /> 
+		<FIELD attrname="B" fieldtype="string" WIDTH="40" desc="Descripción" /> 
+	</FIELDS>
+	<PARAMS LCID="1034" /> 
+</METADATA>
+<ROWDATA>
+<ROW A="1" B="CAPITAL" />
+<ROW A="2" B="BUENOS AIRES" />
+<ROW A="3" B="CATAMARCA" />
+<ROW A="4" B="CORDOBA" />
+<ROW A="5" B="CORRIENTES" />
+<ROW A="6" B="ENTRE RIOS" />
+<ROW A="7" B="JUJUY" />
+<ROW A="8" B="LA RIOJA" />
+<ROW A="9" B="MENDOZA" />
+<ROW A="10" B="SALTA" />
+<ROW A="11" B="SAN JUAN" />
+<ROW A="12" B="SAN LUIS" />
+<ROW A="13" B="SANTA FE" />
+<ROW A="14" B="SANTIAGO DEL ESTERO" />
+<ROW A="15" B="TUCUMAN" />
+<ROW A="16" B="CHACO" />
+<ROW A="17" B="CHUBUT" />
+<ROW A="18" B="FORMOSA" />
+<ROW A="19" B="LA PAMPA" />
+<ROW A="20" B="sin nombre" />
+<ROW A="21" B="MISIONES" />
+<ROW A="22" B="NEUQUEN" />
+<ROW A="23" B="RIO NEGRO" />
+<ROW A="24" B="SANTA CRUZ" />
+<ROW A="25" B="TIERRA DEL FUEGO" />
+<ROW A="26" B="EXTERIOR" />
+<ROW A="27" B="ZONA FRANCA (Ensenada)" />
+<ROW A="99" B="VARIOS" />
+</ROWDATA>
+</DATAPACKET>

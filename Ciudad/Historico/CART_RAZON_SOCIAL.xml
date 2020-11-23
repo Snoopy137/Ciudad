@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?> 
+<DATAPACKET Version="2.0">
+<METADATA>
+	<FIELDS>
+		<FIELD attrname="A" fieldtype="r8" desc="Código" /> 
+		<FIELD attrname="B" fieldtype="string" WIDTH="40" desc="Descripción" /> 
+	</FIELDS>
+	<PARAMS LCID="1034" /> 
+</METADATA>
+<ROWDATA>
+<ROW A="2" B="Soc. de Resp. Limitada" />
+<ROW A="1" B="Sociedad Anonima" />
+<ROW A="3" B="Sociedad Colectiva" />
+<ROW A="4" B="Otras Soc. Legales" />
+<ROW A="5" B="Soc. de Hecho" />
+<ROW A="6" B="Consorcio de Propietarios" />
+<ROW A="7" B="Banco" />
+<ROW A="8" B="Hospital" />
+<ROW A="9" B="Gobierno Nacional" />
+<ROW A="10" B="Gobierno Provincial" />
+<ROW A="11" B="Gobierno Municipal" />
+<ROW A="13" B="Escuela" />
+<ROW A="14" B="Cooperativa" />
+<ROW A="15" B="Entidad de Bien Publico" />
+<ROW A="17" B="Soc. o Asoc. Civil y Sind." />
+<ROW A="18" B="Club" />
+<ROW A="19" B="Sucesion" />
+<ROW A="21" B="Persona Fisica" />
+<ROW A="12" B="Colegio Profesional" />
+<ROW A="22" B="Consorcio no constituido" />
+</ROWDATA>
+</DATAPACKET>

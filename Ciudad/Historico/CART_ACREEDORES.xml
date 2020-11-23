@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?> 
+<DATAPACKET Version="2.0">
+<METADATA>
+	<FIELDS>
+		<FIELD attrname="A" fieldtype="r8" desc="Código" /> 
+		<FIELD attrname="B" fieldtype="string" WIDTH="1" desc="Tipo" /> 
+		<FIELD attrname="C" fieldtype="string" WIDTH="60" desc="Descripción" /> 
+		<FIELD attrname="D" fieldtype="string" WIDTH="1" desc="Tipo Asegurado" default="M" /> 
+		<FIELD attrname="E" fieldtype="string" WIDTH="50" desc="Calle" /> 
+		<FIELD attrname="F" fieldtype="string" WIDTH="8" desc="Número" /> 
+		<FIELD attrname="G" fieldtype="string" WIDTH="5" desc="Piso" /> 
+		<FIELD attrname="H" fieldtype="string" WIDTH="3" desc="Depto" /> 
+		<FIELD attrname="I" fieldtype="r8" desc="Cod Postal" /> 
+		<FIELD attrname="J" fieldtype="r8" desc="Cod Localidad" /> 
+		<FIELD attrname="K" fieldtype="string" WIDTH="20" desc="Teléfono" /> 
+		<FIELD attrname="L" fieldtype="string" WIDTH="20" desc="Fax" /> 
+		<FIELD attrname="M" fieldtype="string" WIDTH="50" desc="Calle" /> 
+		<FIELD attrname="N" fieldtype="string" WIDTH="8" desc="Número" /> 
+		<FIELD attrname="O" fieldtype="string" WIDTH="5" desc="Piso" /> 
+		<FIELD attrname="P" fieldtype="string" WIDTH="3" desc="Depto" /> 
+		<FIELD attrname="Q" fieldtype="r8" desc="Cod Postal" /> 
+		<FIELD attrname="R" fieldtype="r8" desc="Cod Localidad" /> 
+		<FIELD attrname="S" fieldtype="string" WIDTH="20" desc="Teléfono" /> 
+		<FIELD attrname="T" fieldtype="string" WIDTH="20" desc="Fax" /> 
+		<FIELD attrname="U" fieldtype="string" WIDTH="60" desc="Contacto" /> 
+		<FIELD attrname="V" fieldtype="string" WIDTH="30" desc="Cargo" /> 
+	</FIELDS>
+	<PARAMS LCID="1034" /> 
+</METADATA>
+<ROWDATA>
+<ROW A="32154" B="P" C="ASOCIACION MUTUAL SOLIDARIA PUERTO PIEDRAS" D="N" E="L DE LA TORRE" F="222" I="2919" J="751" />
+<ROW A="2919" B="P" C="FINAGRO S.A." D="N" E="MITRE N* 89" I="2400" />
+<ROW A="27941" B="P" C="VW S.A. DE AHORRO PARA FINES DETERMINADOS" D="N" E="H. FORD KM 34.600" I="8400" J="660" />
+<ROW A="8" B="P" C="BANCO SOCIAL DE CORDOBA." D="N" E="HUMBERTO 1o.No.30" I="5000" />
+<ROW A="1669" B="P" C="RODADEOS INTEGRALES S.A." D="N" E="BVARD.ORO#O 4723" I="2300" />
+<ROW A="31032" B="P" C="ASOCIACION MUTUAL CONSEJEROS DE LOS ARROYOS" D="N" E="CORDOBA" F="445" I="2919" J="751" K="03400-477608" />
+<ROW A="30550" B="H" C="BANCO NACION ARGENTINA SUC. VILLA CONSTITUCION" D="N" E="RIVADAVIA" F="1200" I="2919" J="751" />
+<ROW A="27572" B="P" C="VOLKSWAGEN S.A. DE AHORRO PARA FINES DETERMINADOS" D="N" E="DELCASSE Y AV HENRY FORD" F="S/N" I="1084" J="291" K="011-4317-9000" />
+<ROW A="33723" B="P" C="VILLA CRED FINANCIERA S.R.L." D="N" E="SAN MARTIN" F="1279" I="2919" J="751" K="03400474544" />
+<ROW A="32608" B="P" C="VOLKSWAGEN S.A. DE AHORRO PARA FINES DETERMINADOS" D="N" E="DELCASSE Y AVDA. HENRY FORD" F="S/N" I="1617" J="291" K="03414572266" />
+<ROW A="3461" B="P" C="DEVOL S.A." D="N" E="Pte PERON Nro 7220" I="2000" />
+<ROW A="38329" B="P" C="PSA FINANCE ARGENTINA S.A." D="N" E="MAIPU" F="942" G="19" I="1006" J="900" K="0810-333-7000" />
+<ROW A="3020" B="P" C="BANCO DE LA NACION ARGENTINA" D="N" E="RIVADAVIA NRO.1200" F="1200" I="2919" J="751" />
+<ROW A="1469" B="P" C="BANCO DE LA NACION ARGENTINA" D="N" E="BARTOLOME MITRE" F="334" I="8183" J="900" K="011-43476000" />
+<ROW A="29399" B="P" C="CIRCULO CERRADO S.A." D="N" E="B. AZUCENA VILLAFLOR" F="435" G="3" I="1107" J="900" />
+<ROW A="3726" B="H" C="BANCO DE LA NACION ARGENTINA" D="N" E="MITRE" F="178" I="8400" J="660" K="02944445922" />
+<ROW A="2442" B="P" C="VOLKSWAGEN S.A.DE AHORRO PARA FINES DETERMINADOS" D="N" E="AV. DE LAS INDUSTRIAS" F="3101" G="2" I="1107" J="291" />
+<ROW A="29137" B="P" C="ASOCIACION MUTUAL PREBACO" D="N" E="DORREGO" F="202" I="2000" J="585" />
+<ROW A="39582" B="P" C="PSA FINANCE ARGENTINA COMPAÑÍA FINANCIERA S.A" D="N" E="CARLOS PELLEGRINI" F="685" G="1" I="1009" J="900" K="4131-6351" />
+<ROW A="38654" B="P" C="BANCO SANTANDER RIO S.A." D="N" E="AV. BELGRANO" F="1180" I="2919" J="751" />
+<ROW A="34772" B="P" C="VOLKSWAGEN SA DE AHORRO PARA FINES DETERMINADOS" D="N" E="AV. DE LAS INDUSTRIAS" F="3101" I="1617" J="291" K="4317-9000" />
+<ROW A="31649" B="P" C="MEGACAR S.A." D="N" E="AV. DELLEPIANE" F="6281" I="1439" J="900" K="011-46385470" />
+<ROW A="39556" B="H" C="MAZZINI JORGE ARMANDO" D="N" J="751" K="0336154390398" />
+<ROW A="32262" B="P" C="ASOCIACION MUTUAL PUERTO PIEDRA" D="N" E="LISANDRO DE LA TORRE" F="222" I="2919" J="751" K="475095" />
+<ROW A="36378" B="P" C="BANCO NACION ARGENTINA" D="N" E="BARTOLOME MITRE" F="326" G="4" H="428" I="1036" J="900" />
+<ROW A="27883" B="H" C="BANCO DE LA NACION ARGENTINA" D="N" E="RIVADAVIA NRO.1200" I="2919" J="751" />
+</ROWDATA>
+</DATAPACKET>
