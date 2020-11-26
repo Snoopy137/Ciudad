@@ -65,12 +65,24 @@ public class CargaMasivaPolizas extends Hilo {
                 Polizas pol = listpol.getPoliza(i);
                 Object hasta = "NULL";
                 if(pol.getHasta()!= null)hasta=" '"+new java.sql.Date(pol.getHasta().getTime())+"'";
-                sb.append("(").append(0).append(",").append(pol.getCompania()).append(",").append(pol.getSeccion()).append(",").
-                        append(pol.getPoliza()).append(",").append(pol.getCertificado()).append(",").append(pol.getRenueva()).append(",").
-                        append(pol.getRenovadapor()).append(",").append(pol.getProductor()).append(",'").append(new java.sql.Date(pol.getFechamis().getTime())).append("','").
-                        append(new java.sql.Date(pol.getDesde().getTime())).append("',").append(hasta).append(",").append(pol.getEstado()).append(",'"+new java.sql.Date(pol.getFechaestado().getTime())).append("',").append(pol.getAsegurado()).
-                        append(",").append(pol.getMoneda()).append(",").append(pol.getCobrador()).append(",").append("999").append(",").append(pol.getFormapago()).
-                        append(")");
+                sb.append("(").append(0).append(",")
+                        .append(pol.getCompania()).append(",")
+                        .append(pol.getSeccion()).append(",")
+                        .append(pol.getPoliza()).append(",")
+                        .append(pol.getCertificado()).append(",")
+                        .append(pol.getRenueva()).append(",")
+                        .append(pol.getRenovadapor()).append(",")
+                        .append(pol.getProductor()).append(",'")
+                        .append(new java.sql.Date(pol.getFechamis().getTime())).append("','")
+                        .append(new java.sql.Date(pol.getDesde().getTime())).append("',")
+                        .append(hasta).append(",")
+                        .append(pol.getEstado()).append(",'"+new java.sql.Date(pol.getFechaestado().getTime())).append("',")
+                        .append(pol.getAsegurado())
+                        .append(",").append(pol.getMoneda()).append(",")
+                        .append(pol.getCobrador()).append(",")
+                        .append("999").append(",")
+                        .append(pol.getFormapago())
+                        .append(")\n");
                 if (i != listpol.getZise() - 1) {
                     sb.append(",");
                 }
@@ -82,6 +94,7 @@ public class CargaMasivaPolizas extends Hilo {
                             + "DESDE=values(DESDE),HASTA=values(HASTA),ESTADO=values(ESTADO),FECHAESTADO=values(FECHAESTADO),ASEGURADO=values(ASEGURADO),"
                             + "MONEDA=values(MONEDA),COBRADOR=values(COBRADOR),FORMAPAGO=values(FORMAPAGO);");
             insert = sb.toString();
+            System.out.println(insert);
             PreparedStatement pst = con.prepareStatement(insert);
             pro.siguiendo(true);
             pro.barres(false);
