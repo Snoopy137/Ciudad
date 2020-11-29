@@ -52,6 +52,7 @@ public class Asegurados extends javax.swing.JPanel {
                 nombre = TXTnombreODNI.getText();
             }
         }
+        System.out.println(nombre);
         BuscarAsegurados lista = new BuscarAsegurados(nombre, DNI);
         lista.execute();
         ListaAsegurados listAseg = lista.getListAseg();

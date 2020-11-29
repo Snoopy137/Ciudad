@@ -42,7 +42,7 @@ public class CargaOtrosAseg extends Hilo{
             double porcentaje1 = 1.0 / listpol.getZise() * 100;
             double porcentaje = 0.0;
             String insert = "INSERT INTO OTROSASEG (idOTROSASEG,COMPANIA,SECCION,POLIZA,"
-                    + "ENDOSO,CERTIFICADO,TIPO,CODIGO,) VALUES";
+                    + "ENDOSO,CERTIFICADO,TIPO,CODIGO) VALUES";
             StringBuilder sb = new StringBuilder(insert);
             pro.proceso("Procesando datos");
             pro.siguiendo(false);
@@ -60,9 +60,14 @@ public class CargaOtrosAseg extends Hilo{
                 }
                 porcentaje = porcentaje + porcentaje1;
                 Polizas pol = listpol.getPoliza(i);
-                sb.append("(").append(0).append(",").append(pol.getCompania()).append(",").append(pol.getSeccion()).append(",").
-                        append(pol.getPoliza()).append(",").append(0).append(",").append(pol.getCertificado()).append(",'").
-                        append(pol.getTipoAsegurado()).append("',").append(pol.getAsegurado()).append(")");
+                sb.append("(").append(0).append(",")
+                        .append(pol.getCompania()).append(",")
+                        .append(pol.getSeccion()).append(",")
+                        .append(pol.getPoliza()).append(",")
+                        .append(0).append(",")
+                        .append(pol.getCertificado()).append(",'")
+                        .append(pol.getTipoAsegurado()).append("',")
+                        .append(pol.getAsegurado()).append(")");
                 if (i != listpol.getZise() - 1) {
                     sb.append(",");
                 }
@@ -87,7 +92,7 @@ public class CargaOtrosAseg extends Hilo{
         } catch (SQLException ex) {
             Logger.getLogger(AccionesCobranza.class.getName()).log(Level.SEVERE, null, ex);
             pro.crono.stop();
-            javax.swing.JOptionPane.showMessageDialog(null, "Sucedio un error","Error!",javax.swing.JOptionPane.ERROR_MESSAGE);
+            javax.swing.JOptionPane.showMessageDialog(null, "Sucedio un error en la carga accesoria","Error!",javax.swing.JOptionPane.ERROR_MESSAGE);
         }
     }
     

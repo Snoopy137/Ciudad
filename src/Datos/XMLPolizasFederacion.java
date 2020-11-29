@@ -5,7 +5,10 @@
  */
 package Datos;
 
+import Conexion.AccionesAsegurados;
+import Conexion.BuscarAsegurados;
 import Conexion.CargaMasivaPolizas;
+import Conexion.ConexionBase;
 import Formularios.Progreso;
 import java.io.File;
 import java.io.IOException;
@@ -75,6 +78,7 @@ public class XMLPolizasFederacion extends Hilo {
     @Override
     public void execute() {
         try {
+            ListaAsegurados listAseg = AccionesAsegurados.listarAsegurados();
             ArrayList <Polizas> polist = new ArrayList<>();
             ArrayList <Polizas> polist1 = new ArrayList<>();
             for (int i = 0; i < listaRegistro.getLength(); i++) {
@@ -127,7 +131,7 @@ public class XMLPolizasFederacion extends Hilo {
                     }
                     int usuario = 999;
                     int formapago = 1;
-                    if (!element.getAttribute("N").equals(""))Integer.parseInt(element.getAttribute("N"));
+                    if (!element.getAttribute("N").equals(""))formapago = Integer.parseInt(element.getAttribute("N"));
                     String tipoAsegurado = (!element.getAttribute("D").equals("")) ? element.getAttribute("D"):"M";
                     Polizas p = new Polizas();
                     p.setCompania(1);
@@ -148,13 +152,22 @@ public class XMLPolizasFederacion extends Hilo {
                     p.setUsuario(usuario);
                     p.setFormapago(formapago);
                     p.setTipoAsegurado(tipoAsegurado);
-                    if (p.getTipoAsegurado().equals("M")) polist.add(p); else polist1.add(p);
+                    boolean existe = false;
+                    for (int j=0;j<listAseg.getSize();j++){
+//                        System.out.print(listAseg.getAsegurado(i)+" - "+asegurado);
+                        if(listAseg.getAsegurado(j).getNumasegurado() == asegurado){
+                            existe = true;
+                        }
+                    }
+                    if(!existe)polist1.add(p);
+                    else polist.add(p);
+//                    if (p.getTipoAsegurado().equals("M")) polist.add(p); else polist1.add(p);
                 }
                 pro.cant(String.valueOf(i + 1) + " registros procesados de " + listaRegistro.getLength());
                 pro.progreso((int) Math.round(porcentaje));
             }
             pro.crono.stop();
-            Hilo carga = new CargaMasivaPolizas(pro, polist);
+            Hilo carga = new CargaMasivaPolizas(pro, polist, polist1);
             carga.execute();
         } catch (Exception e) {
             e.printStackTrace();

@@ -167,6 +167,7 @@ public class AccionesAsegurados {
     }
     
     public static ListaAsegurados buscarAsegurados(String nombre, int DNI){
+        System.out.println(nombre +" "+DNI);
         ListaAsegurados asegList = new ListaAsegurados();
         Connection con = ConexionBase.conectar();
         if(!nombre.equals(""))nombre=nombre+"%";
@@ -193,7 +194,20 @@ public class AccionesAsegurados {
         return asegList;
     }
     
-    public static void main (String []ags){
-        System.out.println((Long.parseLong("14403400")));
+    public static ListaAsegurados listarAsegurados(){
+        ListaAsegurados lista = new ListaAsegurados();
+        try {
+            Connection con = ConexionBase.conectar();
+            PreparedStatement pst = con.prepareStatement("SELECT Numaseg FROM asegurados");
+            ResultSet rs = pst.executeQuery();
+            while(rs.next()){
+                Asegurados aseg = new Asegurados();
+                aseg.setNumasegurado(rs.getInt("Numaseg"));
+                lista.agregaAsegurado(aseg);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AccionesAsegurados.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return lista;
     }
 }

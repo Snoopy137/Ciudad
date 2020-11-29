@@ -26,10 +26,12 @@ public class CargaMasivaPolizas extends Hilo {
 
     private Progreso pro;
     private ListaPolizas listpol;
+    private ListaPolizas listpolotro;
 
-    public CargaMasivaPolizas(Progreso pro, ArrayList<Polizas> listpol) {
+    public CargaMasivaPolizas(Progreso pro, ArrayList<Polizas> listpol, ArrayList<Polizas> listpolotro) {
         this.pro = pro;
         this.listpol = new ListaPolizas(listpol);
+        this.listpolotro = new ListaPolizas(listpolotro);
     }
     
     @Override
@@ -45,13 +47,13 @@ public class CargaMasivaPolizas extends Hilo {
             double porcentaje = 0.0;
             String insert = "INSERT INTO POLIZAS (idPOLIZAS,COMPANIA,SECCION,POLIZA,"
                     + "CERTIFICADO,RENUEVA,RENOVADAPOR,PRODUCTOR,FECHAMIS,"
-                    + "DESDE,HASTA,ESTADO,FECHAESTADO,ASEGURADO,MONEDA,COBRADOR,USUARIO,FORMAPAGO) VALUES";
+                    + "DESDE,HASTA,ESTADO,FECHAESTADO,ASEGURADO,MONEDA,COBRADOR,USUARIO,FORMAPAGO) VALUES\n";
             StringBuilder sb = new StringBuilder(insert);
-            pro.proceso("Procesando datos");
             pro.siguiendo(false);
             pro.barres(true);
             pro.progreso(0);
             for (int i = 0; i < listpol.getZise(); i++) {
+                pro.proceso("Procesando datos");
                 synchronized (super.m) {
                     while (!m.isTrue()) {
                         try {
@@ -94,7 +96,6 @@ public class CargaMasivaPolizas extends Hilo {
                             + "DESDE=values(DESDE),HASTA=values(HASTA),ESTADO=values(ESTADO),FECHAESTADO=values(FECHAESTADO),ASEGURADO=values(ASEGURADO),"
                             + "MONEDA=values(MONEDA),COBRADOR=values(COBRADOR),FORMAPAGO=values(FORMAPAGO);");
             insert = sb.toString();
-            System.out.println(insert);
             PreparedStatement pst = con.prepareStatement(insert);
             pro.siguiendo(true);
             pro.barres(false);
@@ -107,8 +108,8 @@ public class CargaMasivaPolizas extends Hilo {
             pro.crono.stop();
             pst.close();
             ConexionBase.desconectar();
-            Hilo otros = new CargaOtrosAseg(pro, listpol);
-            otros.execute();
+//            Hilo otros = new CargaOtrosAseg(pro, listpolotro);
+//            otros.execute();
         } catch (SQLException ex) {
             Logger.getLogger(AccionesCobranza.class.getName()).log(Level.SEVERE, null, ex);
             pro.crono.stop();
