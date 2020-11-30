@@ -5,6 +5,7 @@
  */
 package Datos;
 
+import Conexion.AccionesAsegurados;
 import Conexion.CargaMasivaEndoso;
 import Formularios.Progreso;
 import java.io.File;
@@ -74,8 +75,10 @@ public class XMLEndososFederacion extends Hilo {
 
     @Override
     public void execute() {
+        ListaAsegurados listAseg = AccionesAsegurados.listarAsegurados();
         try {
             ArrayList <Endoso> listend = new ArrayList<>();
+            ArrayList <Endoso> listend1 = new ArrayList<>();
             for (int i = 0; i < listaRegistro.getLength(); i++) {
                 synchronized (super.m) {
                     while (!m.isTrue()) {
@@ -96,7 +99,7 @@ public class XMLEndososFederacion extends Hilo {
                     int certificado = 0;
                     if(!element.getAttribute("C").equals(""))certificado = Integer.parseInt(element.getAttribute("C"));
                     int endoso = 0;
-                    if(!element.getAttribute("D").equals(""))Integer.parseInt(element.getAttribute("D"));
+                    if(!element.getAttribute("D").equals("")) endoso = Integer.parseInt(element.getAttribute("D"));
                     Date fechamis = date.parse(element.getAttribute("E"));
                     Date desde = date.parse(element.getAttribute("F"));
                     Date hasta = null;
@@ -132,13 +135,19 @@ public class XMLEndososFederacion extends Hilo {
                     end.setSuma(suma);
                     end.setTipoendoso(tipoEndoso);
                     end.setUsuario(usuario);
-                    listend.add(end);
+                    end.setTipoAsegurado(element.getAttribute("O"));
+                    boolean ex = false;
+                    for (int j = 0; j < listAseg.getSize(); j++) {
+                        if (listAseg.getAsegurado(j).getNumasegurado()==end.getAsegurado())ex=true;
+                    }
+                    if(ex) listend.add(end);
+                    else listend1.add(end);
                 }
                 pro.cant(String.valueOf(i + 1) + " registros procesados de " + listaRegistro.getLength());
                 pro.progreso((int) Math.round(porcentaje));
             }
             pro.crono.stop();
-            Hilo carga = new CargaMasivaEndoso(pro, listend);
+            Hilo carga = new CargaMasivaEndoso(pro, listend,listend1);
             carga.execute();
         } catch (Exception e) {
             e.printStackTrace();

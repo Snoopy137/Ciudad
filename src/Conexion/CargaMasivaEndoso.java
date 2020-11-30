@@ -25,10 +25,12 @@ public class CargaMasivaEndoso extends Hilo {
 
     private Progreso pro;
     private ListadoEndosos listend;
+    private ListadoEndosos listend1;
 
-    public CargaMasivaEndoso(Progreso pro, ArrayList<Endoso> listend) {
+    public CargaMasivaEndoso(Progreso pro, ArrayList<Endoso> listend, ArrayList<Endoso> listend1) {
         this.pro = pro;
         this.listend = new ListadoEndosos(listend);
+        this.listend1 = new ListadoEndosos(listend1);
     }
 
     @Override
@@ -97,6 +99,8 @@ public class CargaMasivaEndoso extends Hilo {
             pro.crono.stop();
             pst.close();
             ConexionBase.desconectar();
+            CargaOtrosEndosos carga = new CargaOtrosEndosos(pro, listend1);
+            carga.execute();
         } 
         catch (SQLException ex) {
             ex.printStackTrace();

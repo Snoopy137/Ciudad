@@ -31,11 +31,12 @@ public class Endoso {
     private int codproducto;
     private int usuario;
     private int usuarioofi;
+    private String tipoAsegurado;
 
     public Endoso() {
     }
 
-    public Endoso(int idENDOSOS, int compania, int seccion, int poliza, int certificado, int endoso, Date fechaemis, Date desde, Date hasta, String tipoendoso, int motivo, String plan, int asegurado, int moneda, int suma, int prima, int codproducto, int usuario, int usuarioofi) {
+    public Endoso(int idENDOSOS, int compania, int seccion, int poliza, int certificado, int endoso, Date fechaemis, Date desde, Date hasta, String tipoendoso, int motivo, String plan, int asegurado, int moneda, int suma, int prima, int codproducto, int usuario, int usuarioofi, String tipoAsegurado) {
         this.idENDOSOS = idENDOSOS;
         this.compania = compania;
         this.seccion = seccion;
@@ -55,6 +56,7 @@ public class Endoso {
         this.codproducto = codproducto;
         this.usuario = usuario;
         this.usuarioofi = usuarioofi;
+        this.tipoAsegurado = tipoAsegurado;
     }
 
     public int getIdENDOSOS() {
@@ -208,6 +210,13 @@ public class Endoso {
     public void setUsuarioofi(int usuarioofi) {
         this.usuarioofi = usuarioofi;
     }
-    
-    
+
+    public String getTipoAsegurado() {
+        return tipoAsegurado;
+    }
+
+    public void setTipoAsegurado(String tipoAsegurado) {
+        this.tipoAsegurado = tipoAsegurado;
+    }
+        
 }
