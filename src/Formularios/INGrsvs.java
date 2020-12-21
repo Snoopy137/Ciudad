@@ -28,13 +28,13 @@ public class INGrsvs extends javax.swing.JPanel {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        TXTriesgo = new componentesnuestros.CustomTextField();
+        TXTriesgo = new TextField.CustomTextField();
         jLabel2 = new javax.swing.JLabel();
-        customTextField1 = new componentesnuestros.CustomTextField();
+        customTextField1 = new TextField.CustomTextField();
         jLabel3 = new javax.swing.JLabel();
         CHKnomina = new javax.swing.JCheckBox();
         jLabel4 = new javax.swing.JLabel();
-        customTextField2 = new componentesnuestros.CustomTextField();
+        customTextField2 = new TextField.CustomTextField();
 
         jLabel1.setText("Tipo:");
 
@@ -52,7 +52,7 @@ public class INGrsvs extends javax.swing.JPanel {
         jLabel4.setText("Cantidad de personas:");
 
         customTextField2.setLargo(5);
-        customTextField2.setTexto(componentesnuestros.CustomTextField.Texto.SOLONUMERO);
+        customTextField2.setTexto(TextField.CustomTextField.Texto.SOLONUMERO);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -104,9 +104,9 @@ public class INGrsvs extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox CHKnomina;
-    private componentesnuestros.CustomTextField TXTriesgo;
-    private componentesnuestros.CustomTextField customTextField1;
-    private componentesnuestros.CustomTextField customTextField2;
+    private TextField.CustomTextField TXTriesgo;
+    private TextField.CustomTextField customTextField1;
+    private TextField.CustomTextField customTextField2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

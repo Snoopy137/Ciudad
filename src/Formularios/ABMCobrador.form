@@ -147,9 +147,9 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="componentesnuestros.CustomTextField" name="txtnombre">
+    <Component class="TextField.CustomTextField" name="txtnombre">
       <Properties>
-        <Property name="texto" type="componentesnuestros.CustomTextField$Texto" editor="org.netbeans.modules.form.editors.EnumEditor">
+        <Property name="texto" type="TextField.CustomTextField$Texto" editor="org.netbeans.modules.form.editors.EnumEditor">
           <Value id="LETRAMAYUSCULA"/>
         </Property>
       </Properties>

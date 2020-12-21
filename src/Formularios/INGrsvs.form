@@ -77,7 +77,7 @@
         <Property name="text" type="java.lang.String" value="Tipo:"/>
       </Properties>
     </Component>
-    <Component class="componentesnuestros.CustomTextField" name="TXTriesgo">
+    <Component class="TextField.CustomTextField" name="TXTriesgo">
       <Properties>
         <Property name="largo" type="int" value="100"/>
       </Properties>
@@ -87,7 +87,7 @@
         <Property name="text" type="java.lang.String" value="Ubicaci&#xf3;n:"/>
       </Properties>
     </Component>
-    <Component class="componentesnuestros.CustomTextField" name="customTextField1">
+    <Component class="TextField.CustomTextField" name="customTextField1">
       <Properties>
         <Property name="text" type="java.lang.String" value="customTextField1"/>
         <Property name="largo" type="int" value="100"/>
@@ -108,10 +108,10 @@
         <Property name="text" type="java.lang.String" value="Cantidad de personas:"/>
       </Properties>
     </Component>
-    <Component class="componentesnuestros.CustomTextField" name="customTextField2">
+    <Component class="TextField.CustomTextField" name="customTextField2">
       <Properties>
         <Property name="largo" type="int" value="5"/>
-        <Property name="texto" type="componentesnuestros.CustomTextField$Texto" editor="org.netbeans.modules.form.editors.EnumEditor">
+        <Property name="texto" type="TextField.CustomTextField$Texto" editor="org.netbeans.modules.form.editors.EnumEditor">
           <Value id="SOLONUMERO"/>
         </Property>
       </Properties>

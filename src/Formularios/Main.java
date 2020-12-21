@@ -69,7 +69,7 @@ public class Main extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         richLabel1 = new Label.RichLabel();
         jPanel3 = new javax.swing.JPanel();
-        customTextField1 = new componentesnuestros.CustomTextField();
+        customTextField1 = new TextField.CustomTextField();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         menusuarios = new javax.swing.JMenuItem();
@@ -255,7 +255,7 @@ public class Main extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private componentesnuestros.CustomTextField customTextField1;
+    private TextField.CustomTextField customTextField1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;

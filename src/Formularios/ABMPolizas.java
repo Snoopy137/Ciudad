@@ -5,6 +5,13 @@
  */
 package Formularios;
 
+import Conexion.AccionesCompanias;
+import Conexion.AccionesSeccion;
+import Datos.Companias;
+import Datos.Seccion;
+import com.formdev.flatlaf.FlatDarkLaf;
+import java.util.List;
+
 /**
  *
  * @author edudec
@@ -14,8 +21,13 @@ public class ABMPolizas extends javax.swing.JFrame {
     /**
      * Creates new form ABMPolizas
      */
+    private List<Seccion> sec;
+    private List<Companias> comp;
+    
     public ABMPolizas() {
         initComponents();
+        llenarCMBseccion();
+        llenarCMBcompanias();
     }
 
     /**
@@ -35,8 +47,8 @@ public class ABMPolizas extends javax.swing.JFrame {
         CMBseccion = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        TXTpoliza = new componentesnuestros.CustomTextField();
-        TXTendoso = new componentesnuestros.CustomTextField();
+        TXTpoliza = new TextField.CustomTextField();
+        TXTendoso = new TextField.CustomTextField();
         jLabel5 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel7 = new javax.swing.JLabel();
@@ -45,18 +57,18 @@ public class ABMPolizas extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         TXThasta = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
-        customTextField1 = new componentesnuestros.CustomTextField();
+        customTextField1 = new TextField.CustomTextField();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         CMBmoneda = new javax.swing.JComboBox<>();
         jLabel13 = new javax.swing.JLabel();
-        TXTsumaaseg = new componentesnuestros.CustomTextField();
+        TXTsumaaseg = new TextField.CustomTextField();
         jLabel14 = new javax.swing.JLabel();
         CMBformapago = new javax.swing.JComboBox<>();
         jLabel15 = new javax.swing.JLabel();
-        TXTprima = new componentesnuestros.CustomTextField();
+        TXTprima = new TextField.CustomTextField();
         jLabel16 = new javax.swing.JLabel();
-        customTextField2 = new componentesnuestros.CustomTextField();
+        customTextField2 = new TextField.CustomTextField();
         BTNguardar = new javax.swing.JButton();
         jLabel17 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -65,22 +77,22 @@ public class ABMPolizas extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jCheckBox1.setText("En trámite");
+        jCheckBox1.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jCheckBox1ItemStateChanged(evt);
+            }
+        });
 
-        CMBcompania.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        CMBcompania.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar" }));
 
         jLabel1.setText("Compañía:");
 
         jLabel2.setText("Sección:");
 
-        CMBseccion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        CMBseccion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar" }));
         CMBseccion.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 CMBseccionItemStateChanged(evt);
-            }
-        });
-        CMBseccion.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                CMBseccionPropertyChange(evt);
             }
         });
 
@@ -89,10 +101,10 @@ public class ABMPolizas extends javax.swing.JFrame {
         jLabel4.setText("Endoso:");
 
         TXTpoliza.setLargo(11);
-        TXTpoliza.setTexto(componentesnuestros.CustomTextField.Texto.SOLONUMERO);
+        TXTpoliza.setTexto(TextField.CustomTextField.Texto.SOLONUMERO);
 
         TXTendoso.setLargo(11);
-        TXTendoso.setTexto(componentesnuestros.CustomTextField.Texto.SOLONUMERO);
+        TXTendoso.setTexto(TextField.CustomTextField.Texto.SOLONUMERO);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -111,14 +123,14 @@ public class ABMPolizas extends javax.swing.JFrame {
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(1, 1, 1)
                         .addComponent(TXTpoliza, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(24, 24, 24)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(TXTendoso, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(CMBcompania, 0, 487, Short.MAX_VALUE)
-                        .addComponent(CMBseccion, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap(69, Short.MAX_VALUE))
+                        .addComponent(TXTendoso, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(66, 66, 66))
+                    .addComponent(CMBcompania, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(CMBseccion, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(25, 25, 25))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -153,7 +165,7 @@ public class ABMPolizas extends javax.swing.JFrame {
         jLabel10.setText("Cuotas:");
 
         customTextField1.setLargo(2);
-        customTextField1.setTexto(componentesnuestros.CustomTextField.Texto.SOLONUMERO);
+        customTextField1.setTexto(TextField.CustomTextField.Texto.SOLONUMERO);
 
         jLabel11.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel11.setText("Riesgo:");
@@ -164,7 +176,7 @@ public class ABMPolizas extends javax.swing.JFrame {
 
         jLabel13.setText("Suma asegurada:");
 
-        TXTsumaaseg.setTexto(componentesnuestros.CustomTextField.Texto.SOLONUMERO);
+        TXTsumaaseg.setTexto(TextField.CustomTextField.Texto.SOLONUMERO);
 
         jLabel14.setText("Forma de pago:");
 
@@ -177,11 +189,11 @@ public class ABMPolizas extends javax.swing.JFrame {
 
         jLabel15.setText("Prima:");
 
-        TXTprima.setTexto(componentesnuestros.CustomTextField.Texto.SOLONUMERO);
+        TXTprima.setTexto(TextField.CustomTextField.Texto.SOLONUMERO);
 
         jLabel16.setText("Premio:");
 
-        customTextField2.setTexto(componentesnuestros.CustomTextField.Texto.SOLONUMERO);
+        customTextField2.setTexto(TextField.CustomTextField.Texto.SOLONUMERO);
 
         BTNguardar.setText("Guardar");
 
@@ -206,63 +218,58 @@ public class ABMPolizas extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(35, 35, 35)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(120, 120, 120)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(35, 35, 35)
+                        .addComponent(jLabel12)
+                        .addGap(18, 18, 18)
+                        .addComponent(CMBmoneda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel12)
+                                .addGap(140, 140, 140)
+                                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(CMBmoneda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(140, 140, 140)
-                                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(TXThasta, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jLabel10)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(customTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(BTNguardar)
+                                .addComponent(TXThasta, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel10)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(customTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(BTNguardar)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabel13)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addGroup(layout.createSequentialGroup()
-                                            .addComponent(jLabel13)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addGroup(layout.createSequentialGroup()
-                                                    .addComponent(jLabel16)
-                                                    .addGap(18, 18, 18)
-                                                    .addComponent(customTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                .addGroup(layout.createSequentialGroup()
-                                                    .addComponent(TXTsumaaseg, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                    .addGap(28, 28, 28)
-                                                    .addComponent(jLabel14)
-                                                    .addGap(18, 18, 18)
-                                                    .addComponent(CMBformapago, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
+                                            .addComponent(jLabel16)
+                                            .addGap(18, 18, 18)
+                                            .addComponent(customTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addComponent(TXTsumaaseg, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGap(28, 28, 28)
+                                            .addComponent(jLabel14)
+                                            .addGap(18, 18, 18)
+                                            .addComponent(CMBformapago, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel15)
+                        .addGap(18, 18, 18)
+                        .addComponent(TXTprima, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 61, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel15)
-                                .addGap(18, 18, 18)
-                                .addComponent(TXTprima, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(59, 59, 59)
+                                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(TXTdesde, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 61, Short.MAX_VALUE))
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(59, 59, 59)
-                                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(TXTdesde, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(0, 419, Short.MAX_VALUE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
-                        .addGap(40, 40, 40))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                .addGap(1, 1, 1))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(19, 19, 19)
                         .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -271,7 +278,11 @@ public class ABMPolizas extends javax.swing.JFrame {
                     .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 754, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(284, 284, 284)
-                        .addComponent(jLabel17)))
+                        .addComponent(jLabel17))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(120, 120, 120)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(41, 41, 41)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -284,7 +295,7 @@ public class ABMPolizas extends javax.swing.JFrame {
                     .addComponent(jLabel5)
                     .addComponent(jLabel6))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -328,23 +339,50 @@ public class ABMPolizas extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_CMBformapagoActionPerformed
 
-    private void CMBseccionPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_CMBseccionPropertyChange
-        System.out.println("hola");
-        INGautos auto = new INGautos();
-        auto.setSize(jPanel2.getWidth(), jPanel2.getHeight());
-        jPanel2.removeAll();
-        jPanel2.add(auto);
-        jPanel2.revalidate();
-    }//GEN-LAST:event_CMBseccionPropertyChange
-
     private void CMBseccionItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_CMBseccionItemStateChanged
-        INGautos auto = new INGautos();
-        auto.setSize(jPanel2.getWidth(), jPanel2.getHeight());
-        jPanel2.removeAll();
-        jPanel2.add(auto);
-        jPanel2.revalidate();
+        Seccion seccion = sec.get(CMBseccion.getSelectedIndex()-1);
+        
+        if (seccion.getIdSECCIONES() == 4 || seccion.getIdSECCIONES() == 44) {
+            INGautos auto = new INGautos();
+            auto.setSize(jPanel2.getWidth(), jPanel2.getHeight());
+            jPanel2.removeAll();
+            jPanel2.repaint();
+            jPanel2.add(auto);
+            jPanel2.revalidate();
+        }
+        else{
+            INGrsvs auto = new INGrsvs();
+            auto.setSize(jPanel2.getWidth(), jPanel2.getHeight());
+            jPanel2.repaint();
+            jPanel2.removeAll();
+            jPanel2.add(auto);
+            jPanel2.revalidate();
+        }
     }//GEN-LAST:event_CMBseccionItemStateChanged
 
+    private void jCheckBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBox1ItemStateChanged
+        TXTendoso.setEnabled(!jCheckBox1.isSelected());
+        TXTpoliza.setEnabled(!jCheckBox1.isSelected());
+        if(jCheckBox1.isSelected()){
+            TXTendoso.setText("");
+            TXTpoliza.setText("");
+        }
+    }//GEN-LAST:event_jCheckBox1ItemStateChanged
+
+    private void llenarCMBseccion(){
+        sec = AccionesSeccion.buscarSecciones();
+        for (Seccion seccion : sec) {
+            CMBseccion.addItem(seccion.getNombreReducido());
+        }
+    }
+    
+    private void llenarCMBcompanias(){
+        comp = AccionesCompanias.buscarcompanias(0, "");
+        for (Companias com : comp) {
+            CMBcompania.addItem(com.getNombrereducido());
+        }
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -354,9 +392,10 @@ public class ABMPolizas extends javax.swing.JFrame {
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
+        FlatDarkLaf.install();
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
@@ -387,13 +426,13 @@ public class ABMPolizas extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> CMBmoneda;
     private javax.swing.JComboBox<String> CMBseccion;
     private javax.swing.JTextField TXTdesde;
-    private componentesnuestros.CustomTextField TXTendoso;
+    private TextField.CustomTextField TXTendoso;
     private javax.swing.JTextField TXThasta;
-    private componentesnuestros.CustomTextField TXTpoliza;
-    private componentesnuestros.CustomTextField TXTprima;
-    private componentesnuestros.CustomTextField TXTsumaaseg;
-    private componentesnuestros.CustomTextField customTextField1;
-    private componentesnuestros.CustomTextField customTextField2;
+    private TextField.CustomTextField TXTpoliza;
+    private TextField.CustomTextField TXTprima;
+    private TextField.CustomTextField TXTsumaaseg;
+    private TextField.CustomTextField customTextField1;
+    private TextField.CustomTextField customTextField2;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;

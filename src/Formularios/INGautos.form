@@ -127,10 +127,10 @@
         <Property name="text" type="java.lang.String" value="Patente:"/>
       </Properties>
     </Component>
-    <Component class="componentesnuestros.CustomTextField" name="TXTpatente">
+    <Component class="TextField.CustomTextField" name="TXTpatente">
       <Properties>
         <Property name="largo" type="int" value="7"/>
-        <Property name="texto" type="componentesnuestros.CustomTextField$Texto" editor="org.netbeans.modules.form.editors.EnumEditor">
+        <Property name="texto" type="TextField.CustomTextField$Texto" editor="org.netbeans.modules.form.editors.EnumEditor">
           <Value id="LETRAMAYUSCULA"/>
         </Property>
       </Properties>
@@ -140,10 +140,10 @@
         <Property name="text" type="java.lang.String" value="Motor:"/>
       </Properties>
     </Component>
-    <Component class="componentesnuestros.CustomTextField" name="customTextField1">
+    <Component class="TextField.CustomTextField" name="customTextField1">
       <Properties>
         <Property name="largo" type="int" value="25"/>
-        <Property name="texto" type="componentesnuestros.CustomTextField$Texto" editor="org.netbeans.modules.form.editors.EnumEditor">
+        <Property name="texto" type="TextField.CustomTextField$Texto" editor="org.netbeans.modules.form.editors.EnumEditor">
           <Value id="LETRAMAYUSCULA"/>
         </Property>
       </Properties>
@@ -153,10 +153,10 @@
         <Property name="text" type="java.lang.String" value="Chasis:"/>
       </Properties>
     </Component>
-    <Component class="componentesnuestros.CustomTextField" name="customTextField2">
+    <Component class="TextField.CustomTextField" name="customTextField2">
       <Properties>
         <Property name="largo" type="int" value="25"/>
-        <Property name="texto" type="componentesnuestros.CustomTextField$Texto" editor="org.netbeans.modules.form.editors.EnumEditor">
+        <Property name="texto" type="TextField.CustomTextField$Texto" editor="org.netbeans.modules.form.editors.EnumEditor">
           <Value id="LETRAMAYUSCULA"/>
         </Property>
       </Properties>
@@ -166,10 +166,10 @@
         <Property name="text" type="java.lang.String" value="Accesorios: "/>
       </Properties>
     </Component>
-    <Component class="componentesnuestros.CustomTextField" name="TXTaccesorios">
+    <Component class="TextField.CustomTextField" name="TXTaccesorios">
       <Properties>
         <Property name="largo" type="int" value="45"/>
-        <Property name="texto" type="componentesnuestros.CustomTextField$Texto" editor="org.netbeans.modules.form.editors.EnumEditor">
+        <Property name="texto" type="TextField.CustomTextField$Texto" editor="org.netbeans.modules.form.editors.EnumEditor">
           <Value id="LETRAMAYUSCULA"/>
         </Property>
       </Properties>
@@ -229,10 +229,10 @@
         <Property name="text" type="java.lang.String" value="A&#xf1;o:"/>
       </Properties>
     </Component>
-    <Component class="componentesnuestros.CustomTextField" name="TXTanio">
+    <Component class="TextField.CustomTextField" name="TXTanio">
       <Properties>
         <Property name="largo" type="int" value="4"/>
-        <Property name="texto" type="componentesnuestros.CustomTextField$Texto" editor="org.netbeans.modules.form.editors.EnumEditor">
+        <Property name="texto" type="TextField.CustomTextField$Texto" editor="org.netbeans.modules.form.editors.EnumEditor">
           <Value id="SOLONUMERO"/>
         </Property>
       </Properties>

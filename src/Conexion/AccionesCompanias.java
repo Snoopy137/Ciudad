@@ -13,6 +13,8 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -51,9 +53,40 @@ public class AccionesCompanias {
         return resultado;
     }
     
+    public static List<Companias> buscarcompanias (int row, String nombre){
+        Connection con = ConexionBase.conectar();
+        String filtro = "WHERE NOMBRE like '%" + nombre +"%'";
+		if (row != 0){
+			filtro = filtro + " AND nrosocio = " + row;      
+		}
+                
+                List<Companias> comp = new ArrayList<Companias>();
+                try{
+                    Statement stmt = con.createStatement();
+	            ResultSet r = stmt.executeQuery("SELECT * FROM COMPANIA "+ filtro +"ORDER BY NOMBRE");
+		    ResultSetMetaData rm = r.getMetaData();
+                    
+                    while (r.next()){
+                            Companias c = new Companias();
+                            c.setIdcompanias(r.getInt("idCOMPANIA"));
+                            c.setNombrecompanias(r.getString("NOMBRE"));
+                            c.setNombrereducido(r.getString("NOMBREREDUCIDO"));
+                            comp.add(c);
+                        }
+                    r.close();
+                    stmt.close();
+                }
+                catch (Exception e){
+                    e.printStackTrace();
+//                    ConexionBase.desconectar();
+                }
+//                ConexionBase.desconectar();
+                    return comp;
+    }
+    
     public static ListaCompanias buscacompanias (int row, String nombre){
         Connection con = new ConexionBase().conectar();
-        String filtro = "WHERE NombreCompañia like '%" + nombre +"%'";
+        String filtro = "WHERE NOMBRE like '%" + nombre +"%'";
 		if (row != 0){
 			filtro = filtro + " AND nrosocio = " + row;      
 		}
@@ -61,16 +94,18 @@ public class AccionesCompanias {
                 ListaCompanias comp = new ListaCompanias();
                 try{
                     Statement stmt = con.createStatement();
-	            ResultSet r = stmt.executeQuery("SELECT * FROM companias "+ filtro +"ORDER BY NombreCompañia");
+	            ResultSet r = stmt.executeQuery("SELECT * FROM companias "+ filtro +"ORDER BY NOMBRE");
 		    ResultSetMetaData rm = r.getMetaData();
                     
                     while (r.next()){
                             Companias c = new Companias();
-                            c.setIdcompanias(r.getInt("ID"));
-                            c.setNombrecompanias(r.getString("NombreCompañia"));
-                            
+                            c.setIdcompanias(r.getInt("idCOMPANIA"));
+                            c.setNombrecompanias(r.getString("NOMBRE"));
+                            c.setNombrereducido(r.getString("NOMBREREDUCIDO"));
                             comp.agregaCompania(c);
                         }
+                    r.close();
+                    stmt.close();
                 }
                 catch (Exception e){
                     e.printStackTrace();

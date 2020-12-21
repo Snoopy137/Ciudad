@@ -41,7 +41,7 @@ public class ABMCobrador extends javax.swing.JFrame {
         BTNguardar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtobserv = new javax.swing.JTextArea();
-        txtnombre = new componentesnuestros.CustomTextField();
+        txtnombre = new TextField.CustomTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowFocusListener(new java.awt.event.WindowFocusListener() {
@@ -90,7 +90,7 @@ public class ABMCobrador extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(txtobserv);
 
-        txtnombre.setTexto(componentesnuestros.CustomTextField.Texto.LETRAMAYUSCULA);
+        txtnombre.setTexto(TextField.CustomTextField.Texto.LETRAMAYUSCULA);
         txtnombre.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtnombreFocusLost(evt);
@@ -246,7 +246,7 @@ public class ABMCobrador extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField txtcomision;
-    private componentesnuestros.CustomTextField txtnombre;
+    private TextField.CustomTextField txtnombre;
     private javax.swing.JTextArea txtobserv;
     // End of variables declaration//GEN-END:variables
 }

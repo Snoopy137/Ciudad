@@ -16,6 +16,8 @@ public class INGautos extends javax.swing.JPanel {
      */
     public INGautos() {
         initComponents();
+        BTNcargaotro.setVisible(false);
+        BTNfinalizacarga.setVisible(false);
     }
 
     /**
@@ -30,13 +32,13 @@ public class INGautos extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         CHKflota = new javax.swing.JCheckBox();
         jLabel2 = new javax.swing.JLabel();
-        TXTpatente = new componentesnuestros.CustomTextField();
+        TXTpatente = new TextField.CustomTextField();
         jLabel3 = new javax.swing.JLabel();
-        customTextField1 = new componentesnuestros.CustomTextField();
+        customTextField1 = new TextField.CustomTextField();
         jLabel4 = new javax.swing.JLabel();
-        customTextField2 = new componentesnuestros.CustomTextField();
+        customTextField2 = new TextField.CustomTextField();
         jLabel5 = new javax.swing.JLabel();
-        TXTaccesorios = new componentesnuestros.CustomTextField();
+        TXTaccesorios = new TextField.CustomTextField();
         BTNcargaotro = new javax.swing.JButton();
         BTNfinalizacarga = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
@@ -44,7 +46,7 @@ public class INGautos extends javax.swing.JPanel {
         jLabel7 = new javax.swing.JLabel();
         CMBmodelo = new javax.swing.JComboBox<>();
         jLabel8 = new javax.swing.JLabel();
-        TXTanio = new componentesnuestros.CustomTextField();
+        TXTanio = new TextField.CustomTextField();
 
         jLabel1.setText("Flota:");
 
@@ -63,22 +65,22 @@ public class INGautos extends javax.swing.JPanel {
         jLabel2.setText("Patente:");
 
         TXTpatente.setLargo(7);
-        TXTpatente.setTexto(componentesnuestros.CustomTextField.Texto.LETRAMAYUSCULA);
+        TXTpatente.setTexto(TextField.CustomTextField.Texto.LETRAMAYUSCULA);
 
         jLabel3.setText("Motor:");
 
         customTextField1.setLargo(25);
-        customTextField1.setTexto(componentesnuestros.CustomTextField.Texto.LETRAMAYUSCULA);
+        customTextField1.setTexto(TextField.CustomTextField.Texto.LETRAMAYUSCULA);
 
         jLabel4.setText("Chasis:");
 
         customTextField2.setLargo(25);
-        customTextField2.setTexto(componentesnuestros.CustomTextField.Texto.LETRAMAYUSCULA);
+        customTextField2.setTexto(TextField.CustomTextField.Texto.LETRAMAYUSCULA);
 
         jLabel5.setText("Accesorios: ");
 
         TXTaccesorios.setLargo(45);
-        TXTaccesorios.setTexto(componentesnuestros.CustomTextField.Texto.LETRAMAYUSCULA);
+        TXTaccesorios.setTexto(TextField.CustomTextField.Texto.LETRAMAYUSCULA);
 
         BTNcargaotro.setText("Carga otro");
 
@@ -95,7 +97,7 @@ public class INGautos extends javax.swing.JPanel {
         jLabel8.setText("Año:");
 
         TXTanio.setLargo(4);
-        TXTanio.setTexto(componentesnuestros.CustomTextField.Texto.SOLONUMERO);
+        TXTanio.setTexto(TextField.CustomTextField.Texto.SOLONUMERO);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -199,11 +201,11 @@ public class INGautos extends javax.swing.JPanel {
     private javax.swing.JCheckBox CHKflota;
     private javax.swing.JComboBox<String> CMBmarca;
     private javax.swing.JComboBox<String> CMBmodelo;
-    private componentesnuestros.CustomTextField TXTaccesorios;
-    private componentesnuestros.CustomTextField TXTanio;
-    private componentesnuestros.CustomTextField TXTpatente;
-    private componentesnuestros.CustomTextField customTextField1;
-    private componentesnuestros.CustomTextField customTextField2;
+    private TextField.CustomTextField TXTaccesorios;
+    private TextField.CustomTextField TXTanio;
+    private TextField.CustomTextField TXTpatente;
+    private TextField.CustomTextField customTextField1;
+    private TextField.CustomTextField customTextField2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
