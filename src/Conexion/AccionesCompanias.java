@@ -11,7 +11,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -19,27 +22,32 @@ import java.sql.Statement;
  */
 public class AccionesCompanias {
     
-    public static int Inserta(Companias comp){
+    public static int inserta(Companias comp){
         int resultado = 0;
-        Connection con = new ConexionBase().conectar();
-        int id = comp.getIdcompanias();
-        String nombre = comp.getNombrecompanias();
-        try{
-            PreparedStatement siex = con.prepareStatement("SELECT * FROM companias WHERE NombreCompañia = '"+nombre+"' ");
-            ResultSet rssiex = siex.executeQuery();
-            if (rssiex.next()){
-                javax.swing.JOptionPane.showMessageDialog(null,"La compañía ya existe","Dato duplicado",javax.swing.JOptionPane.INFORMATION_MESSAGE);
-            }
-            else{
-                PreparedStatement pst = con.prepareStatement("INSERT INTO companias VALUES("+0+",'"+nombre+"' ");
-                resultado = pst.executeUpdate();
-            }
+        Connection con = ConexionBase.conectar();
+        try {
+            
+            PreparedStatement pst;
+            pst = con.prepareStatement("INSERT INTO COMPANIA (idCOMPANIA,NOMBRE,NOMBREREDUCIDO,URL, PRODCONTACTO, PRODMAIL, PRODTELEF, LOGCONTACTO, LOGMAIL, LOGTELEF, SINCONTACTO, SINMAIL, SINTELEF, COBCONTACTO, COBMAIL, COBTELEF, PROD1, PROD1USU, PROD1CLAVE, PROD2, PROD2USU, PROD2CLAVE, PROD3, PROD3USU, PROD3CLAVE) VALUES (0, '"+comp.getNombrecompanias()+"','"+comp.getNombrereducido()+"','"+comp.getUrl()+"','"+comp.getProdcontacto()+"','"+comp.getProdmail()+"','"+comp.getProdtelef()+"','"+comp.getLogcontacto()+"','"+comp.getLogmail()+"','"+comp.getLogtelef()+"','"+comp.getSincontacto()+"','"+comp.getSinmail()+"','"+comp.getSintelef()+"','"+comp.getCobcontacto()+"','"+comp.getCobmail()+"','"+comp.getCobtelef()+"',"+comp.getProd1()+",'"+comp.getProd1usu()+"','"+comp.getProd1clave()+"',"+comp.getProd2()+",'"+comp.getProd2usu()+"','"+comp.getProd2clave()+"',"+comp.getProd3()+",'"+comp.getProd3usu()+"','"+comp.getProd3clave()+"')");
+                    
+                    
+        resultado = pst.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(AccionesCompanias.class.getName()).log(Level.SEVERE, null, ex);
         }
-        catch (Exception e){
-            e.printStackTrace();
-            ConexionBase.desconectar();
+        return resultado;
+    }
+    
+    public static boolean existe(String nombre){
+        boolean resultado = false;
+        try {
+            Connection con = ConexionBase.conectar();
+            PreparedStatement pst = con.prepareStatement("SELECT NOMBRE FROM COMPANIA WHERE NOMBRE LIKE '%"+nombre+"%' ");
+            ResultSet rs = pst.executeQuery();
+            if(rs.next())resultado = true;
+        } catch (SQLException ex) {
+            Logger.getLogger(AccionesCompanias.class.getName()).log(Level.SEVERE, null, ex);
         }
-        ConexionBase.desconectar();
         return resultado;
     }
     

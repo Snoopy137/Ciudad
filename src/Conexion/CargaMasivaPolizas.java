@@ -26,12 +26,10 @@ public class CargaMasivaPolizas extends Hilo {
 
     private Progreso pro;
     private ListaPolizas listpol;
-    private ListaPolizas listpolotro;
 
-    public CargaMasivaPolizas(Progreso pro, ArrayList<Polizas> listpol, ArrayList<Polizas> listpolotro) {
+    public CargaMasivaPolizas(Progreso pro, ArrayList<Polizas> listpol) {
         this.pro = pro;
         this.listpol = new ListaPolizas(listpol);
-        this.listpolotro = new ListaPolizas(listpolotro);
     }
     
     @Override
@@ -47,13 +45,13 @@ public class CargaMasivaPolizas extends Hilo {
             double porcentaje = 0.0;
             String insert = "INSERT INTO POLIZAS (idPOLIZAS,COMPANIA,SECCION,POLIZA,"
                     + "CERTIFICADO,RENUEVA,RENOVADAPOR,PRODUCTOR,FECHAMIS,"
-                    + "DESDE,HASTA,ESTADO,FECHAESTADO,ASEGURADO,MONEDA,COBRADOR,USUARIO,FORMAPAGO) VALUES\n";
+                    + "DESDE,HASTA,ESTADO,FECHAESTADO,ASEGURADO,MONEDA,COBRADOR,USUARIO,FORMAPAGO) VALUES";
             StringBuilder sb = new StringBuilder(insert);
+            pro.proceso("Procesando datos");
             pro.siguiendo(false);
             pro.barres(true);
             pro.progreso(0);
             for (int i = 0; i < listpol.getZise(); i++) {
-                pro.proceso("Procesando datos");
                 synchronized (super.m) {
                     while (!m.isTrue()) {
                         try {
@@ -67,24 +65,12 @@ public class CargaMasivaPolizas extends Hilo {
                 Polizas pol = listpol.getPoliza(i);
                 Object hasta = "NULL";
                 if(pol.getHasta()!= null)hasta=" '"+new java.sql.Date(pol.getHasta().getTime())+"'";
-                sb.append("(").append(0).append(",")
-                        .append(pol.getCompania()).append(",")
-                        .append(pol.getSeccion()).append(",")
-                        .append(pol.getPoliza()).append(",")
-                        .append(pol.getCertificado()).append(",")
-                        .append(pol.getRenueva()).append(",")
-                        .append(pol.getRenovadapor()).append(",")
-                        .append(pol.getProductor()).append(",'")
-                        .append(new java.sql.Date(pol.getFechamis().getTime())).append("','")
-                        .append(new java.sql.Date(pol.getDesde().getTime())).append("',")
-                        .append(hasta).append(",")
-                        .append(pol.getEstado()).append(",'"+new java.sql.Date(pol.getFechaestado().getTime())).append("',")
-                        .append(pol.getAsegurado())
-                        .append(",").append(pol.getMoneda()).append(",")
-                        .append(pol.getCobrador()).append(",")
-                        .append("999").append(",")
-                        .append(pol.getFormapago())
-                        .append(")\n");
+                sb.append("(").append(0).append(",").append(pol.getCompania()).append(",").append(pol.getSeccion()).append(",").
+                        append(pol.getPoliza()).append(",").append(pol.getCertificado()).append(",").append(pol.getRenueva()).append(",").
+                        append(pol.getRenovadapor()).append(",").append(pol.getProductor()).append(",'").append(new java.sql.Date(pol.getFechamis().getTime())).append("','").
+                        append(new java.sql.Date(pol.getDesde().getTime())).append("',").append(hasta).append(",").append(pol.getEstado()).append(",'"+new java.sql.Date(pol.getFechaestado().getTime())).append("',").append(pol.getAsegurado()).
+                        append(",").append(pol.getMoneda()).append(",").append(pol.getCobrador()).append(",").append("999").append(",").append(pol.getFormapago()).
+                        append(")");
                 if (i != listpol.getZise() - 1) {
                     sb.append(",");
                 }
@@ -108,8 +94,6 @@ public class CargaMasivaPolizas extends Hilo {
             pro.crono.stop();
             pst.close();
             ConexionBase.desconectar();
-//            Hilo otros = new CargaOtrosAseg(pro, listpolotro);
-//            otros.execute();
         } catch (SQLException ex) {
             Logger.getLogger(AccionesCobranza.class.getName()).log(Level.SEVERE, null, ex);
             pro.crono.stop();

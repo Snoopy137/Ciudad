@@ -44,6 +44,8 @@ public class Polizas extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
+        fondo1.setBackgroundpicture(new javax.swing.ImageIcon("C:\\Users\\edude\\OneDrive\\Documentos\\StandUp 2014\\397533_10203538515047926_1094767427_n.jpg")); // NOI18N
+
         TBLpolizas.setAutoCreateRowSorter(true);
         TBLpolizas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

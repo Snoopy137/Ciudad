@@ -77,7 +77,7 @@ public class AccionesAsegurados {
                     String insert = "INSERT INTO asegurados (Numaseg,Nombre,Domicilio,"
                             + "DomicilioCobro,Localidad,CodPostal,DNITipo,DNINro,"
                             + "Tele1,Tele2,Tele3,FecNac,CUIL,"
-                            + "Actividad,Mail,Estado,Cobrador,Observ,ALTA,BAJA,Usuario,Fecha, TIPO)VALUES\n ";
+                            + "Actividad,Mail,Estado,Cobrador,Observ,ALTA,BAJA,Usuario,Fecha)VALUES\n ";
                     double porcentaje1 = 1.0 / listaseg.getSize() * 100;
                     double porcentaje = 0.0;
                     Connection con = ConexionBase.conectar();
@@ -94,7 +94,7 @@ public class AccionesAsegurados {
                                 + " '" + A.getLocalidad() + "','" + A.getCodigopostal() + "','" + A.getDNItipo() + "'," + A.getDNInumero() + ","
                                 + " '" + A.getTele1() + "','" + A.getTele2() + "','" + A.getTele3() + "','" + A.getFechanac() + "'," + A.getCuil() + ","
                                 + " '" + A.getActividad() + "','" + A.getMail() + "','" + A.getEstado() + "'," + A.getCobrador() + ",'" + A.getObservaciones() + "',"
-                                + " '" + A.getAlta() + "'," + date + ", 999 ,'" + new java.sql.Date(new java.util.Date().getTime()) + "', '"+A.getTipoAsegurado()+"' ) ") ;
+                                + " '" + A.getAlta() + "'," + date + ", 999 ,'" + new java.sql.Date(new java.util.Date().getTime()) + "' ) ") ;
                         if (i!=listaseg.getSize()-1){
                             sb.append(", \n");
                         }
@@ -167,7 +167,6 @@ public class AccionesAsegurados {
     }
     
     public static ListaAsegurados buscarAsegurados(String nombre, int DNI){
-        System.out.println(nombre +" "+DNI);
         ListaAsegurados asegList = new ListaAsegurados();
         Connection con = ConexionBase.conectar();
         if(!nombre.equals(""))nombre=nombre+"%";
@@ -194,20 +193,7 @@ public class AccionesAsegurados {
         return asegList;
     }
     
-    public static ListaAsegurados listarAsegurados(){
-        ListaAsegurados lista = new ListaAsegurados();
-        try {
-            Connection con = ConexionBase.conectar();
-            PreparedStatement pst = con.prepareStatement("SELECT Numaseg FROM asegurados");
-            ResultSet rs = pst.executeQuery();
-            while(rs.next()){
-                Asegurados aseg = new Asegurados();
-                aseg.setNumasegurado(rs.getInt("Numaseg"));
-                lista.agregaAsegurado(aseg);
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(AccionesAsegurados.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return lista;
+    public static void main (String []ags){
+        System.out.println((Long.parseLong("14403400")));
     }
 }

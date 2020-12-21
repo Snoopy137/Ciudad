@@ -38,7 +38,7 @@ public class Asegurados {
     private Date modificado;
     private String tipoAsegurado;
 
-    public Asegurados(int idasegurado, int numasegurado, String nombreasegurado, String domicilioasegurado, String domiciliocobroasegurado, String localidad, String codigopostal, String DNItipo, int DNInumero, String tele1, String tele2, String tele3, Date fechanac, int cuil, String actividad, String mail, String estado, int cobrador, String observaciones, Date alta, Date baja, Usuarios usu, Date modificado, String tipoAsegurado) {
+    public Asegurados(int idasegurado, int numasegurado, String nombreasegurado, String domicilioasegurado, String domiciliocobroasegurado, String localidad, String codigopostal, String DNItipo, int DNInumero, String tele1, String tele2, String tele3, Date fechanac, int cuil, String actividad, String mail, String estado, int cobrador, String observaciones, Date alta, Date baja, Usuarios usu, Date modificado) {
         this.idasegurado = idasegurado;
         this.numasegurado = numasegurado;
         this.nombreasegurado = nombreasegurado;

@@ -34,6 +34,11 @@
   </Layout>
   <SubComponents>
     <Container class="Panel.Fondo" name="fondo1">
+      <Properties>
+        <Property name="backgroundpicture" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="2" name="C:\Users\edude\OneDrive\Documentos\StandUp 2014\397533_10203538515047926_1094767427_n.jpg"/>
+        </Property>
+      </Properties>
 
       <Layout>
         <DimensionLayout dim="0">

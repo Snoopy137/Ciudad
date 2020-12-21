@@ -12,6 +12,7 @@ import java.util.Date;
  * @author admin
  */
 public class Endoso {
+
     private int idENDOSOS;
     private int compania;
     private int seccion;
@@ -36,7 +37,7 @@ public class Endoso {
     public Endoso() {
     }
 
-    public Endoso(int idENDOSOS, int compania, int seccion, int poliza, int certificado, int endoso, Date fechaemis, Date desde, Date hasta, String tipoendoso, int motivo, String plan, int asegurado, int moneda, int suma, int prima, int codproducto, int usuario, int usuarioofi, String tipoAsegurado) {
+    public Endoso(int idENDOSOS, int compania, int seccion, int poliza, int certificado, int endoso, Date fechaemis, Date desde, Date hasta, String tipoendoso, int motivo, String plan, int asegurado, int moneda, int suma, int prima, int codproducto, int usuario, int usuarioofi) {
         this.idENDOSOS = idENDOSOS;
         this.compania = compania;
         this.seccion = seccion;
@@ -218,5 +219,4 @@ public class Endoso {
     public void setTipoAsegurado(String tipoAsegurado) {
         this.tipoAsegurado = tipoAsegurado;
     }
-        
 }
