@@ -85,7 +85,7 @@ public class AccionesCompanias {
     }
     
     public static ListaCompanias buscacompanias (int row, String nombre){
-        Connection con = new ConexionBase().conectar();
+        Connection con = ConexionBase.conectar();
         String filtro = "WHERE NOMBRE like '%" + nombre +"%'";
 		if (row != 0){
 			filtro = filtro + " AND nrosocio = " + row;      
@@ -94,7 +94,7 @@ public class AccionesCompanias {
                 ListaCompanias comp = new ListaCompanias();
                 try{
                     Statement stmt = con.createStatement();
-	            ResultSet r = stmt.executeQuery("SELECT * FROM companias "+ filtro +"ORDER BY NOMBRE");
+	            ResultSet r = stmt.executeQuery("SELECT * FROM COMPANIA "+ filtro +"ORDER BY NOMBRE");
 		    ResultSetMetaData rm = r.getMetaData();
                     
                     while (r.next()){

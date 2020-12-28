@@ -141,7 +141,6 @@ public class NuevoAsegurado extends javax.swing.JFrame {
         TXTdninumero = new javax.swing.JTextField();
         BTNguardar = new javax.swing.JButton();
         BTNcancelar = new javax.swing.JButton();
-        jDayChooser1 = new com.toedter.calendar.JDayChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
 
@@ -172,8 +171,9 @@ public class NuevoAsegurado extends javax.swing.JFrame {
             }
         });
 
-        DATnacimiento.setDateFormatString("d/M/YYYY");
+        DATnacimiento.setDateFormatString("dd/MM/yy");
         DATnacimiento.setDoubleBuffered(false);
+        DATnacimiento.setMinSelectableDate(new java.util.Date(-2208969678000L));
         DATnacimiento.setRequestFocusEnabled(false);
 
         jLabel2.setText("Apellido");
@@ -391,10 +391,7 @@ public class NuevoAsegurado extends javax.swing.JFrame {
                                     .addComponent(TXTtelefono2)
                                     .addComponent(TXTdomiciliocobro, javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(TXTcodigopostal, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(TXTdninumero, javax.swing.GroupLayout.Alignment.TRAILING)))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jDayChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(TXTdninumero, javax.swing.GroupLayout.Alignment.TRAILING))))))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -472,14 +469,12 @@ public class NuevoAsegurado extends javax.swing.JFrame {
                 .addGap(15, 15, 15)
                 .addComponent(jLabel17)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 153, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(BTNcancelar)
                     .addComponent(BTNguardar))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jDayChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(13, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -657,7 +652,6 @@ public class NuevoAsegurado extends javax.swing.JFrame {
     private javax.swing.JTextField TXTtelefono1;
     private javax.swing.JTextField TXTtelefono2;
     private javax.swing.JTextField TXTtelefono3;
-    private com.toedter.calendar.JDayChooser jDayChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

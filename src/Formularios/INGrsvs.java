@@ -5,6 +5,8 @@
  */
 package Formularios;
 
+import java.awt.color.CMMException;
+
 /**
  *
  * @author edudec
@@ -30,11 +32,11 @@ public class INGrsvs extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         TXTriesgo = new TextField.CustomTextField();
         jLabel2 = new javax.swing.JLabel();
-        customTextField1 = new TextField.CustomTextField();
+        TXTdireccion = new TextField.CustomTextField();
         jLabel3 = new javax.swing.JLabel();
         CHKnomina = new javax.swing.JCheckBox();
         jLabel4 = new javax.swing.JLabel();
-        customTextField2 = new TextField.CustomTextField();
+        TXTcandiadpersonas = new TextField.CustomTextField();
 
         jLabel1.setText("Tipo:");
 
@@ -42,17 +44,22 @@ public class INGrsvs extends javax.swing.JPanel {
 
         jLabel2.setText("Ubicación:");
 
-        customTextField1.setText("customTextField1");
-        customTextField1.setLargo(100);
+        TXTdireccion.setLargo(100);
 
         jLabel3.setText("Nómina:");
 
         CHKnomina.setText("jCheckBox1");
+        CHKnomina.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                CHKnominaItemStateChanged(evt);
+            }
+        });
 
         jLabel4.setText("Cantidad de personas:");
 
-        customTextField2.setLargo(5);
-        customTextField2.setTexto(TextField.CustomTextField.Texto.SOLONUMERO);
+        TXTcandiadpersonas.setEnabled(false);
+        TXTcandiadpersonas.setLargo(5);
+        TXTcandiadpersonas.setTexto(TextField.CustomTextField.Texto.SOLONUMERO);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -68,7 +75,7 @@ public class INGrsvs extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(TXTriesgo, javax.swing.GroupLayout.PREFERRED_SIZE, 482, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(customTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 484, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(TXTdireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 484, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -76,7 +83,7 @@ public class INGrsvs extends javax.swing.JPanel {
                         .addGap(31, 31, 31)
                         .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(customTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(TXTcandiadpersonas, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(84, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -89,24 +96,28 @@ public class INGrsvs extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
-                    .addComponent(customTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(TXTdireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel3)
                         .addComponent(CHKnomina)
                         .addComponent(jLabel4))
-                    .addComponent(customTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(TXTcandiadpersonas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(25, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void CHKnominaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_CHKnominaItemStateChanged
+        TXTcandiadpersonas.setEnabled(CHKnomina.isSelected());
+    }//GEN-LAST:event_CHKnominaItemStateChanged
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox CHKnomina;
+    private TextField.CustomTextField TXTcandiadpersonas;
+    private TextField.CustomTextField TXTdireccion;
     private TextField.CustomTextField TXTriesgo;
-    private TextField.CustomTextField customTextField1;
-    private TextField.CustomTextField customTextField2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

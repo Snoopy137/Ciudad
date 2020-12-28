@@ -27,7 +27,7 @@
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="TXTriesgo" min="-2" pref="482" max="-2" attributes="0"/>
-                          <Component id="customTextField1" min="-2" pref="484" max="-2" attributes="0"/>
+                          <Component id="TXTdireccion" min="-2" pref="484" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <Group type="102" attributes="0">
@@ -37,7 +37,7 @@
                       <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
                       <Component id="jLabel4" min="-2" pref="126" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="customTextField2" min="-2" pref="43" max="-2" attributes="0"/>
+                      <Component id="TXTcandiadpersonas" min="-2" pref="43" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace pref="84" max="32767" attributes="0"/>
@@ -55,7 +55,7 @@
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-                  <Component id="customTextField1" min="-2" max="-2" attributes="0"/>
+                  <Component id="TXTdireccion" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
@@ -64,7 +64,7 @@
                       <Component id="CHKnomina" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="customTextField2" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="TXTcandiadpersonas" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="25" max="32767" attributes="0"/>
           </Group>
@@ -87,9 +87,8 @@
         <Property name="text" type="java.lang.String" value="Ubicaci&#xf3;n:"/>
       </Properties>
     </Component>
-    <Component class="TextField.CustomTextField" name="customTextField1">
+    <Component class="TextField.CustomTextField" name="TXTdireccion">
       <Properties>
-        <Property name="text" type="java.lang.String" value="customTextField1"/>
         <Property name="largo" type="int" value="100"/>
       </Properties>
     </Component>
@@ -102,14 +101,18 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="jCheckBox1"/>
       </Properties>
+      <Events>
+        <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="CHKnominaItemStateChanged"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel4">
       <Properties>
         <Property name="text" type="java.lang.String" value="Cantidad de personas:"/>
       </Properties>
     </Component>
-    <Component class="TextField.CustomTextField" name="customTextField2">
+    <Component class="TextField.CustomTextField" name="TXTcandiadpersonas">
       <Properties>
+        <Property name="enabled" type="boolean" value="false"/>
         <Property name="largo" type="int" value="5"/>
         <Property name="texto" type="TextField.CustomTextField$Texto" editor="org.netbeans.modules.form.editors.EnumEditor">
           <Value id="SOLONUMERO"/>

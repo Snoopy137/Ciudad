@@ -37,11 +37,11 @@
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="jLabel3" min="-2" pref="44" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
-                      <Component id="customTextField1" min="-2" pref="127" max="-2" attributes="0"/>
+                      <Component id="TXTmotor" min="-2" pref="127" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="jLabel4" min="-2" pref="45" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="customTextField2" max="32767" attributes="0"/>
+                      <Component id="TXTchasis" max="32767" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
@@ -87,9 +87,9 @@
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="TXTpatente" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="customTextField1" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="TXTmotor" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="customTextField2" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="TXTchasis" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
@@ -140,7 +140,7 @@
         <Property name="text" type="java.lang.String" value="Motor:"/>
       </Properties>
     </Component>
-    <Component class="TextField.CustomTextField" name="customTextField1">
+    <Component class="TextField.CustomTextField" name="TXTmotor">
       <Properties>
         <Property name="largo" type="int" value="25"/>
         <Property name="texto" type="TextField.CustomTextField$Texto" editor="org.netbeans.modules.form.editors.EnumEditor">
@@ -153,7 +153,7 @@
         <Property name="text" type="java.lang.String" value="Chasis:"/>
       </Properties>
     </Component>
-    <Component class="TextField.CustomTextField" name="customTextField2">
+    <Component class="TextField.CustomTextField" name="TXTchasis">
       <Properties>
         <Property name="largo" type="int" value="25"/>
         <Property name="texto" type="TextField.CustomTextField$Texto" editor="org.netbeans.modules.form.editors.EnumEditor">
@@ -178,6 +178,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Carga otro"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BTNcargaotroActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="BTNfinalizacarga">
       <Properties>

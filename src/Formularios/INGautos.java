@@ -5,6 +5,9 @@
  */
 package Formularios;
 
+import Datos.Autos;
+import java.util.List;
+
 /**
  *
  * @author edudec
@@ -14,6 +17,7 @@ public class INGautos extends javax.swing.JPanel {
     /**
      * Creates new form INGautos
      */
+    private List<Autos> autos;
     public INGautos() {
         initComponents();
         BTNcargaotro.setVisible(false);
@@ -34,9 +38,9 @@ public class INGautos extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         TXTpatente = new TextField.CustomTextField();
         jLabel3 = new javax.swing.JLabel();
-        customTextField1 = new TextField.CustomTextField();
+        TXTmotor = new TextField.CustomTextField();
         jLabel4 = new javax.swing.JLabel();
-        customTextField2 = new TextField.CustomTextField();
+        TXTchasis = new TextField.CustomTextField();
         jLabel5 = new javax.swing.JLabel();
         TXTaccesorios = new TextField.CustomTextField();
         BTNcargaotro = new javax.swing.JButton();
@@ -69,13 +73,13 @@ public class INGautos extends javax.swing.JPanel {
 
         jLabel3.setText("Motor:");
 
-        customTextField1.setLargo(25);
-        customTextField1.setTexto(TextField.CustomTextField.Texto.LETRAMAYUSCULA);
+        TXTmotor.setLargo(25);
+        TXTmotor.setTexto(TextField.CustomTextField.Texto.LETRAMAYUSCULA);
 
         jLabel4.setText("Chasis:");
 
-        customTextField2.setLargo(25);
-        customTextField2.setTexto(TextField.CustomTextField.Texto.LETRAMAYUSCULA);
+        TXTchasis.setLargo(25);
+        TXTchasis.setTexto(TextField.CustomTextField.Texto.LETRAMAYUSCULA);
 
         jLabel5.setText("Accesorios: ");
 
@@ -83,6 +87,11 @@ public class INGautos extends javax.swing.JPanel {
         TXTaccesorios.setTexto(TextField.CustomTextField.Texto.LETRAMAYUSCULA);
 
         BTNcargaotro.setText("Carga otro");
+        BTNcargaotro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BTNcargaotroActionPerformed(evt);
+            }
+        });
 
         BTNfinalizacarga.setText("Finaliza carga");
 
@@ -122,11 +131,11 @@ public class INGautos extends javax.swing.JPanel {
                         .addGap(18, 18, 18)
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(12, 12, 12)
-                        .addComponent(customTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(TXTmotor, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(customTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(TXTchasis, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addGap(18, 18, 18)
@@ -164,9 +173,9 @@ public class INGautos extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(TXTpatente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(customTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(TXTmotor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4)
-                    .addComponent(customTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(TXTchasis, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -194,6 +203,28 @@ public class INGautos extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_CHKflotaItemStateChanged
 
+    private void BTNcargaotroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTNcargaotroActionPerformed
+        Autos auto = new Autos();
+        auto.setMarca(CMBmarca.getSelectedItem().toString());
+        auto.setModelo(CMBmodelo.getSelectedItem().toString());
+        auto.setAnio(Integer.parseInt(TXTanio.getText()));
+        auto.setPatente(TXTpatente.getText());
+        auto.setChasis(TXTchasis.getText());
+        auto.setAccesorios(TXTaccesorios.getText());
+        auto.setMotor(TXTmotor.getText());
+        autos.add(auto);
+//        limpiar.limpiarFormulario(this.getContentPane().getComponents());
+    }//GEN-LAST:event_BTNcargaotroActionPerformed
+
+    public List<Autos> getAutos() {
+        return autos;
+    }
+
+    public void setAutos(List<Autos> autos) {
+        this.autos = autos;
+    }
+
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BTNcargaotro;
@@ -203,9 +234,9 @@ public class INGautos extends javax.swing.JPanel {
     private javax.swing.JComboBox<String> CMBmodelo;
     private TextField.CustomTextField TXTaccesorios;
     private TextField.CustomTextField TXTanio;
+    private TextField.CustomTextField TXTchasis;
+    private TextField.CustomTextField TXTmotor;
     private TextField.CustomTextField TXTpatente;
-    private TextField.CustomTextField customTextField1;
-    private TextField.CustomTextField customTextField2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
